@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/component/nav_animator.dart';
-import 'package:forum_diskusi/home/home_screen.dart';
-import 'package:forum_diskusi/log/login_screen.dart';
+import 'package:forum_diskusi/view/component/nav_animator.dart';
+import 'package:forum_diskusi/view/log/login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -29,22 +29,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff1A1616),
+      backgroundColor: const Color(0xffffffff),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/image/logo.png',
+          SvgPicture.asset('assets/image/logo.svg',
               fit: BoxFit.fill, height: 130, width: 130),
           Text(
             'Forum Group Diskusi',
-            style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poppins(color: const Color(0xff88DFC9), fontSize: 15, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 40,
           ),
           const SpinKitThreeBounce(
-            color: Colors.white,
+            color: Color(0xff88DFC9),
             size: 40,
           )
         ],

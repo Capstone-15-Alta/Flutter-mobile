@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/component/splash_screen.dart';
+import 'package:forum_diskusi/view/home/home_nav.dart';
+import 'package:forum_diskusi/view/viewModel/login_viewModel.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,16 +10,21 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: [  
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+      ],
+      child :MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: const HomeNav(),
+    )
     );
+    
   }
 }

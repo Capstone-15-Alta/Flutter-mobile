@@ -2,7 +2,10 @@
 // import 'package:banku/screen/myNovel/my_novel.dart';
 // import 'package:banku/screen/home/post_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/home/home_screen.dart';
+import 'package:forum_diskusi/view/component/splash_screen.dart';
+// import 'package:forum_diskusi/component/splash_screen.dart';
+import 'package:forum_diskusi/view/home/home_screen.dart';
+// import 'package:forum_diskusi/view/home/mod10.dart';
 
 class HomeNav extends StatefulWidget {
   const HomeNav({Key? key}) : super(key: key);
@@ -13,7 +16,7 @@ class HomeNav extends StatefulWidget {
 
 class _HomeNavState extends State<HomeNav> {
   int _selectedIndex = 0;
-  final _layoutPage = [const HomeScreen(),
+  final _layoutPage = [const HomeScreen(), const SplashScreen()
   ];
   void _onTabItem(int index) {
     setState(
@@ -44,7 +47,7 @@ class _HomeNavState extends State<HomeNav> {
               Icons.folder,
               color: Colors.white,
             ),
-            label: "museum",
+            label: "ye",
           ),
           BottomNavigationBarItem(
             icon: Icon(
