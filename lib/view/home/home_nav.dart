@@ -1,11 +1,9 @@
-// import 'package:banku/screen/home/home_screen.dart';
-// import 'package:banku/screen/myNovel/my_novel.dart';
-// import 'package:banku/screen/home/post_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/view/component/splash_screen.dart';
-// import 'package:forum_diskusi/component/splash_screen.dart';
 import 'package:forum_diskusi/view/home/home_screen.dart';
-// import 'package:forum_diskusi/view/home/mod10.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:forum_diskusi/view/home/home_thread.dart';
+import 'package:forum_diskusi/view/notifikasi/notifikasi_screen.dart';
+import 'package:forum_diskusi/view/search/search_screen.dart';
 
 class HomeNav extends StatefulWidget {
   const HomeNav({Key? key}) : super(key: key);
@@ -16,7 +14,7 @@ class HomeNav extends StatefulWidget {
 
 class _HomeNavState extends State<HomeNav> {
   int _selectedIndex = 0;
-  final _layoutPage = [const HomeScreen(), const SplashScreen()
+  final _layoutPage = [const HomeScreen(), const SearchScreen(),const NotifScreen()
   ];
   void _onTabItem(int index) {
     setState(
@@ -31,33 +29,47 @@ class _HomeNavState extends State<HomeNav> {
     return Scaffold(
       body: _layoutPage.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xff00726D),
-        selectedItemColor: Colors.white,
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color(0xffABABAB),
         unselectedItemColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: Colors.white,
+              color: Color(0xffABABAB),
             ),
-            label: "home",
+            label: "Home",
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     FeatherIcons.feather,
+          //     color: Color(0xffABABAB),
+          //   ),
+          //   label: "Create",
+          // ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              color: Color(0xffABABAB),
+            ),
+            label: "Search",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.folder,
-              color: Colors.white,
+              Icons.notifications,
+              color: Color(0xffABABAB),
             ),
-            label: "ye",
+            label: "Notifikasi",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.pending,
-              color: Colors.white,
+              Icons.person,
+              color: Color(0xffABABAB),
             ),
-            label: "profile",
+            label: "Profile",
           ),
         ],
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
         currentIndex: _selectedIndex,
         onTap: _onTabItem,
       ),

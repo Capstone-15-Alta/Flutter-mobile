@@ -16,6 +16,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+
+          },
+          child: const Icon(Icons.add, color: Color(0xff26B893),),
+        ),
         body: Container(
           margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
           child: Column(
@@ -67,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       )
                     ),
+                    const SizedBox(width: 10,),
                     Container(
                       width: 120,
                       decoration: BoxDecoration(
@@ -78,9 +85,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [
-                          // Icon(
-                          //   Icons.arr, color: Color(0xff26B893),
-                          // ),
+                          Icon(
+                            Icons.arrow_back, color: Color(0xff26B893),
+                          ),
+                          Text(
+                          "Terbaru",
+                        ),
+                        ],
+                      )
+                    ),
+                    const SizedBox(width: 10,),
+                    Container(
+                      width: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.category, color: Color(0xff26B893),
+                          ),
                           Text(
                           "Terbaru",
                         ),
@@ -89,8 +117,84 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: 20,),
+              SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (context, index){
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const CircleAvatar(
+                          radius: 30.0,
+                          backgroundImage:
+                              NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                          backgroundColor: Colors.transparent,
+                        ),
+                        const SizedBox(width: 10,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
+                          children: [
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Nama", style: GoogleFonts.poppins(fontSize: 14),),
+                                    Text("Email", style: GoogleFonts.poppins(fontSize: 11),),
+
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                            Text("Message\nmessage", style: GoogleFonts.poppins(fontSize: 11),),
+                            const SizedBox(height: 5,),
+                            Text("Time", style: GoogleFonts.poppins(fontSize: 14),),
+                            Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.thumb_up_alt_outlined, size: 18,),
+                                      onPressed: (){},
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.thumb_down_alt_outlined, size: 18,),
+                                      onPressed: (){},
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.chat, size: 18,),
+                                      onPressed: (){},
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.remove_red_eye_outlined, size: 18,),
+                                      onPressed: (){},
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.arrow_back_outlined, size: 18,),
+                                      onPressed: (){},
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.share, size: 18,),
+                                      onPressed: (){},
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    );
+                  }
+                ),
               )
-              
               
             ],
           ),
