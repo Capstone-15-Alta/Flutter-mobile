@@ -88,24 +88,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   )
                 ],
               ),
-              // ListView.builder(
-              //   itemCount: 1,
-              //   itemBuilder: (context, index){
-              //     return GestureDetector(
-              // child: Row(
-              //   children: const [
-              //     CircleAvatar(
-              //       radius: 23.0,
-              //       backgroundImage:
-              //           NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-              //       backgroundColor: Colors.transparent,
-              //     ),
-              //     Text("nama")
-              //   ],
-              // ),
-              //     );
-              //   }
-              // )
             ],
           ),
         ),

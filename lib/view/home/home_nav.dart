@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:forum_diskusi/view/explore%20topik/explore_screen.dart';
 import 'package:forum_diskusi/view/home/home_screen.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:forum_diskusi/view/home/home_thread.dart';
 import 'package:forum_diskusi/view/notifikasi/notifikasi_screen.dart';
+import 'package:forum_diskusi/view/profil/profile_post.dart';
 import 'package:forum_diskusi/view/search/search_screen.dart';
 
 class HomeNav extends StatefulWidget {
@@ -13,8 +13,8 @@ class HomeNav extends StatefulWidget {
 }
 
 class _HomeNavState extends State<HomeNav> {
-  int _selectedIndex = 0;
-  final _layoutPage = [const HomeScreen(), const SearchScreen(),const NotifScreen()
+  int _selectedIndex = 1;
+  final _layoutPage = [const HomeScreen(), const ExploreScreen(),const SearchScreen(),const NotifScreen(), const ProfilePost()
   ];
   void _onTabItem(int index) {
     setState(
@@ -40,19 +40,19 @@ class _HomeNavState extends State<HomeNav> {
             ),
             label: "Home",
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(
-          //     FeatherIcons.feather,
-          //     color: Color(0xffABABAB),
-          //   ),
-          //   label: "Create",
-          // ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               color: Color(0xffABABAB),
             ),
             label: "Search",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.folder,
+              color: Color(0xffABABAB),
+            ),
+            label: "Explore",
           ),
           BottomNavigationBarItem(
             icon: Icon(

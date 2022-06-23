@@ -2,8 +2,10 @@ import 'package:forum_diskusi/model/login_model.dart';
 import 'package:dio/dio.dart';
 
 class LoginAPI {
-  loginAuth(LoginModel loginModel) async {
-    final token = await Dio().post(
+  final Dio dio = Dio();
+  Future loginAuth(LoginModel loginModel) async {
+    try{
+      final Response response = await dio.post(
       'https://reqres.in/api/login',
       data: loginModel.toJson(),
       options: Options(
@@ -13,6 +15,12 @@ class LoginAPI {
         },
       ),
     );
-    print(token.data['token']);
+    print(response.statusCode);
+    }on DioError catch(e){
+      // print(e.toString());
+      print(e.response!.statusCode);
+    }
+    
+    // print(token.data['token']);
   }
 }

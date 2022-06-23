@@ -3,14 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forum_diskusi/model/list_dropdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Home_Thread extends StatefulWidget {
-  const Home_Thread({ Key? key }) : super(key: key);
+class HomeThread extends StatefulWidget {
+  const HomeThread({ Key? key }) : super(key: key);
 
   @override
-  State<Home_Thread> createState() => _Home_ThreadState();
+  State<HomeThread> createState() => _HomeThreadState();
 }
 
-class _Home_ThreadState extends State<Home_Thread> {
+class _HomeThreadState extends State<HomeThread> {
   
   String? selectedValue;
   final kategoriEditingController = TextEditingController();

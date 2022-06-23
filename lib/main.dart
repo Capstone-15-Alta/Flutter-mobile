@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/view/home/home_nav.dart';
-import 'package:forum_diskusi/view/notifikasi/notifikasi_screen.dart';
-// import 'package:forum_diskusi/view/home/home_nav.dart';
-// import 'package:forum_diskusi/view/home/home_thread.dart';
-import 'package:forum_diskusi/view/search/search_screen.dart';
+import 'package:forum_diskusi/view/profil/profile_tread.dart';
 import 'package:forum_diskusi/view/viewModel/login_viewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeNav(),
+      home: const ProfileTread(),
     )
     );
     
