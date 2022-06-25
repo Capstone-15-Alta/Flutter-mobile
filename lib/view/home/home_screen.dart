@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 130,
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          primary: _hasBeenPressedButtonTerbaru ?  Colors.white : const Color(0xff26B893),
+                          primary: _hasBeenPressedButtonTrending ?  Colors.white : const Color(0xff26B893),
                           onPrimary: _hasBeenPressedButtonTrending ? Colors.white : const Color(0xff26B893),
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 1,
                   itemBuilder: (context, index){
                     return SizedBox(
-                      child: Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -172,77 +172,77 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Colors.transparent,
                         ),
                         const SizedBox(width: 10,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Nama", style: GoogleFonts.poppins(fontSize: 14),),
-                                    Text("Albert Flores@gmail.com", style: GoogleFonts.poppins(fontSize: 13, color: const Color(0xff26B893)),),
-                                  ],
-                                ),
-                                // const Spacer(),
-                                //ganti jadi gesture detector
-                                GestureDetector(
-                                  onTap: (){},
-                                  child: Container(
-                                    height: 30,
-                                    width: 75,
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xff26B893),
-                                        borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: const [Icon(Icons.add, color: Colors.white,), Text("Ikuti", style: TextStyle(color: Colors.white),)],
-                                    ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Nama", style: GoogleFonts.poppins(fontSize: 14),),
+                                      Text("Albert Flores@gmail.com", style: GoogleFonts.poppins(fontSize: 13, color: const Color(0xff26B893)),),
+                                    ],
+                                  ),
+                                  
+                                  GestureDetector(
+                                    onTap: (){},
+                                    child: Container(
+                                      height: 30,
+                                      width: 75,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff26B893),
+                                          borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: const [Icon(Icons.add, color: Colors.white,), Text("Ikuti", style: TextStyle(color: Colors.white),)],
+                                      ),
+                                    )
                                   )
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width*0.66,
-                              child: Flexible(
+                                ],
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width*0.66,
                                 child: Text("Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ", 
                                 style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.justify,
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 5,),
-                            Text("Time", style: GoogleFonts.poppins(fontSize: 14),),
-                            Row(
-                              children: [
-                                IconButton(
-                                      icon: const Icon(Icons.thumb_up_alt_outlined, size: 18, color: Color(0xff26B893),),
-                                      onPressed: (){},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.thumb_down_alt_outlined, size: 18, color: Color(0xff26B893),),
-                                      onPressed: (){},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.chat, size: 18, color: Color(0xff26B893)),
-                                      onPressed: (){},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.remove_red_eye_outlined, size: 18, color: Color(0xff26B893),),
-                                      onPressed: (){},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.arrow_back_outlined, size: 18, color: Color(0xff26B893),),
-                                      onPressed: (){},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.share, size: 18, color: Color(0xff26B893),),
-                                      onPressed: (){},
-                                    ),
-                              ],
-                            )
-                          ],
+                              const SizedBox(height: 5,),
+                              Text("Time", style: GoogleFonts.poppins(fontSize: 14),),
+                              Row(
+                                children: [
+                                  IconButton(
+                                        icon: const Icon(Icons.thumb_up_alt_outlined, size: 18, color: Color(0xff26B893),),
+                                        onPressed: (){},
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.thumb_down_alt_outlined, size: 18, color: Color(0xff26B893),),
+                                        onPressed: (){},
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.chat, size: 18, color: Color(0xff26B893)),
+                                        onPressed: (){},
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.remove_red_eye_outlined, size: 18, color: Color(0xff26B893),),
+                                        onPressed: (){},
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.arrow_back_outlined, size: 18, color: Color(0xff26B893),),
+                                        onPressed: (){},
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.share, size: 18, color: Color(0xff26B893),),
+                                        onPressed: (){},
+                                      ),
+                                ],
+                              )
+                            ],
+                          ),
                         )
                       ],
                     )

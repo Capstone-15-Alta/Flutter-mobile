@@ -103,11 +103,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width*0.66,
-                                child: Flexible(
-                                  child: Text("Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ", 
-                                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                                  textAlign: TextAlign.justify,
-                                  ),
+                                child: Text("Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ", 
+                                style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.justify,
                                 ),
                               ),
                               const SizedBox(height: 5,),
@@ -209,11 +207,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width*0.66,
-                                child: Flexible(
-                                  child: Text("Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ", 
-                                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                                  textAlign: TextAlign.justify,
-                                  ),
+                                child: Text("Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ", 
+                                style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.justify,
                                 ),
                               ),
                               const SizedBox(height: 5,),

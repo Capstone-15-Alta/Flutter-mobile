@@ -131,35 +131,33 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemCount: 1,
         itemBuilder: (context, index) {
-          return Expanded(
-                child: SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 1,
-                    itemBuilder: ((context, index) {
-                      return ListTile(
-                        leading: const CircleAvatar(
-                              radius: 20.0,
-                              backgroundImage: NetworkImage(
-                                  "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                              backgroundColor: Colors.transparent,
-                            ),
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Nama", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),),
-                            Text("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: const Color(0xff26B893)),),
-                            const SizedBox(height: 8,),
-                            Text("Time", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),)
-                          ],
-                        ),
-                        trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete, color: Colors.blue,)),
-                      );
-                    })
+          return SizedBox(
+            height: 200,
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: 1,
+              itemBuilder: ((context, index) {
+                return ListTile(
+                  leading: const CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage: NetworkImage(
+                            "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                        backgroundColor: Colors.transparent,
+                      ),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Nama", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),),
+                      Text("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: const Color(0xff26B893)),),
+                      const SizedBox(height: 8,),
+                      Text("Time", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),)
+                    ],
                   ),
-                ),
-              );
+                  trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete, color: Colors.blue,)),
+                );
+              })
+            ),
+          );
         });
   }
 }

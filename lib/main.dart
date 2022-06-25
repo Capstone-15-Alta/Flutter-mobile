@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/view/profil/profile_tread.dart';
-import 'package:forum_diskusi/view/viewModel/login_viewModel.dart';
+import 'package:forum_diskusi/view/component/splash_screen.dart';
+import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ProfileTread(),
+      home: const SplashScreen(),
     )
     );
     

@@ -6,21 +6,23 @@ class LoginAPI {
   Future loginAuth(LoginModel loginModel) async {
     try{
       final Response response = await dio.post(
-      'https://reqres.in/api/login',
+      'http://34.87.175.218/api/v1/auth/login',
       data: loginModel.toJson(),
-      options: Options(
-        headers: {
-          "Authorization":
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTUyOTgxMTAsImV4cCI6MTY1NTMwMTcxMH0.jWwdCP-NBLAuCUJ-CILdEHtnYStgjufwyszgWFZm2x8",
-        },
-      ),
+      // options: Options(
+      //   headers: {
+      //     "Authorization":
+      //         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTUyOTgxMTAsImV4cCI6MTY1NTMwMTcxMH0.jWwdCP-NBLAuCUJ-CILdEHtnYStgjufwyszgWFZm2x8",
+      //   },
+      // ),
     );
-    print(response.statusCode);
+    print(response);
+    return response;
     }on DioError catch(e){
       // print(e.toString());
       print(e.response!.statusCode);
+      throw Exception('Pastikan Email dan Password anda benar');
     }
     
-    // print(token.data['token']);
+    
   }
 }

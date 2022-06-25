@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/login_model.dart';
 import 'package:forum_diskusi/view/home/home_nav.dart';
 import 'package:forum_diskusi/view/log/register_screen.dart';
-import 'package:forum_diskusi/view/viewModel/login_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
 // import 'package:intl_phone_field/intl_phone_field.dart';
 // import 'package:flutter';
 import 'package:provider/provider.dart';
@@ -28,82 +28,48 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController nomorController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginViewModel>(context);
-    // final phoneNumField = IntlPhoneField(
-    //   showCountryFlag: false,
-    //   autofocus: false,
-    //   controller: nomorController,
-    //   keyboardType: TextInputType.number,
-    //   initialCountryCode: 'IN',
-    //   onChanged: (phone) {},
-    //   // validator: (value) {
-    //   //   if (value!.isEmpty) {
-    //   //     return ("please enter your phone number");
-    //   //   }
-    //   //   if (!RegExp(r'^.{12,}$').hasMatch(value)) {
-    //   //     return ("Please enter a valid email");
-    //   //   }
-    //   //   return null;
-    //   // },
-    //   // onSaved: (value) {
-    //   //   nomorController.text = value!;
-    //   // },
-    //   textInputAction: TextInputAction.next,
-    //   decoration: InputDecoration(
-    //       fillColor: const Color.fromARGB(255, 236, 240, 243),
-    //       filled: true,
-    //       prefixIcon: const Icon(Icons.email),
-    //       contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-    //       hintText: "Masukan Nomer",
-    //       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-    // );
 
-    final nomorField = TextFormField(
+    final emailField = TextFormField(
       autofocus: false,
+      controller: emailController,
       // validator: (value) {
-      //   RegExp regex = RegExp(r'^.{6,}$');
       //   if (value!.isEmpty) {
-      //     return ("Please enter your password");
+      //     return ("Masukan Email");
       //   }
-      //   if (!regex.hasMatch(value)) {
-      //     return ("Please enter valid password (Min. 6 Character");
+      //   if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].[a-z]").hasMatch(value)) {
+      //     return ("Please enter a valid email");
       //   }
       //   return null;
       // },
-      controller: nomorController,
-      // obscureText: !_showPassword,
       onSaved: (value) {
-        nomorController.text = value!;
+        emailController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         fillColor: const Color.fromARGB(255, 236, 240, 243),
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Masukan Kata Sandi",
+        hintText: "Masukan Email",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
     final passwordField = TextFormField(
       autofocus: false,
-      // validator: (value) {
-      //   RegExp regex = RegExp(r'^.{6,}$');
-      //   if (value!.isEmpty) {
-      //     return ("Please enter your password");
-      //   }
-      //   if (!regex.hasMatch(value)) {
-      //     return ("Please enter valid password (Min. 6 Character");
-      //   }
-      //   return null;
-      // },
       controller: passwordController,
       obscureText: !_showPassword,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Masukan Password");
+        }
+        return null;
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -112,11 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
         fillColor: const Color.fromARGB(255, 236, 240, 243),
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Masukan Kata Sandi",
+        hintText: "Masukan Password",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         suffixIcon: IconButton(
           icon: Icon(
-            // Based on passwordVisible state choose the icon
             _showPassword ? Icons.visibility : Icons.visibility_off,
             color: Colors.grey,
           ),
@@ -143,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const Duration(seconds: 2),
             )
                 .then((value) => loginProvider.postLogin(LoginModel(
-                    phoneNum: nomorController.text,
+                    username: emailController.text,
                     password: passwordController.text)))
                 .then((_) => Navigator.of(context).push(
                       PageRouteBuilder(pageBuilder:
@@ -236,25 +201,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Halo lagi, Anda telah dirindukan!",
                   style: GoogleFonts.poppins(
                       fontSize: 13,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: FontWeight.w400,
                       color: const Color(0xff00726D)),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
                 Text(
-                  "Nomor Handphone",
+                  "Email",
                   style: GoogleFonts.poppins(
-                      fontSize: 13, color: const Color(0xff00726D)),
+                      fontSize: 13, fontWeight: FontWeight.w600, color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                nomorField,
+                emailField,
+                const SizedBox(
+                  height: 10,
+                ),
                 Text(
                   "Password",
                   style: GoogleFonts.poppins(
-                      fontSize: 13, color: const Color(0xff00726D)),
+                      fontSize: 13, fontWeight: FontWeight.w600,color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,

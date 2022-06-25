@@ -24,6 +24,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   Widget build(BuildContext context) {
 
     final emailField = TextFormField(
+      key: _formKey,
       autofocus: false,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,

@@ -1,12 +1,14 @@
 // import 'package:flutter/material.dart';
-class LoginModel{
+class RegisterModel{
   String? username;
+  String? email;
   String? password;
 
-  LoginModel({this.username, this.password});
+  RegisterModel({this.username, this.email,this.password});
 
-  factory LoginModel.fromJson(Map<String, dynamic> json){
-    return LoginModel(
+  factory RegisterModel.fromJson(Map<String, dynamic> json){
+    return RegisterModel(
+      email: json['email'],
       username: json['username'],
       password: json['password']
 
@@ -14,6 +16,7 @@ class LoginModel{
   }
   Map<String, dynamic> toJson(){
     return { 
+      'email': email,
       'username': username,
       'password': password
    };

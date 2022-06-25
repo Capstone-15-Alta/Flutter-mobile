@@ -23,9 +23,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController nomorController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController namaEditingController = TextEditingController();
+
+  var doRegister = (){
+    print('ido REgister');
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -53,47 +57,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
     );
 
-    final emailField = IntlPhoneField(
-      showCountryFlag: false,
+    final emailField = TextFormField(
       autofocus: false,
-      controller: nomorController,
-      keyboardType: TextInputType.number,
-      initialCountryCode: 'IN',
-      onChanged: (phone) {},
-      // validator: (value) {
-      //   if (value!.isEmpty) {
-      //     return ("please enter your phone number");
-      //   }
-      //   if (!RegExp(r'^.{12,}$').hasMatch(value)) {
-      //     return ("Please enter a valid email");
-      //   }
-      //   return null;
-      // },
-      // onSaved: (value) {
-      //   nomorController.text = value!;
-      // },
+      controller: emailController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Masukan Email");
+        }
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].[a-z]").hasMatch(value)) {
+          return ("Please enter a valid email");
+        }
+        return null;
+      },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
           fillColor: const Color.fromARGB(255, 236, 240, 243),
           filled: true,
           prefixIcon: const Icon(Icons.email),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Masukan Nomer",
+          hintText: "Masukkan Email",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
     );
 
     final passwordField = TextFormField(
+      
       autofocus: false,
-      // validator: (value) {
-      //   RegExp regex = RegExp(r'^.{6,}$');
-      //   if (value!.isEmpty) {
-      //     return ("Please enter your password");
-      //   }
-      //   if (!regex.hasMatch(value)) {
-      //     return ("Please enter valid password (Min. 6 Character");
-      //   }
-      //   return null;
-      // },
+      validator: (value) {
+        RegExp regex = RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return ("Masukkan Password");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Password minimal 6 karakter");
+        }
+        return null;
+      },
       controller: passwordController,
       obscureText: !_showPassword,
       onSaved: (value) {
@@ -104,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         fillColor: const Color.fromARGB(255, 236, 240, 243),
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Masukan Kata Sandi",
+        hintText: "Masukan Password",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         suffixIcon: IconButton(
           icon: Icon(
@@ -121,14 +119,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
 
-    final loginButton = Material(
+    final registerButton = Material(
       elevation: 4,
       borderRadius: BorderRadius.circular(10),
-      color: const Color(0xff00726D),
+      color: const Color(0xffABABAB),
       child: MaterialButton(
         minWidth: double.infinity,
         onPressed: () {
-          Navigator.of(context).push(
+          if(_formKey.currentState!.validate()){
+            _formKey.currentState!.save();
+
+            Navigator.of(context).push(
             PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
               return const HomeScreen();
@@ -139,9 +140,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   opacity: animation.drive(tween), child: child);
             }),
           );
+          }else{
+            doRegister;
+          }
+          doRegister;
         },
         child: Text(
-          "Log in",
+          "Daftar",
           style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),
         ),
       ),
@@ -168,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           child: Text(
             "Masuk",
-            style: GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
           ),
         ),
       ],
@@ -185,75 +190,78 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: <Widget>[ 
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "Buat Akun",
+                  "Selamat datang silahkan\ndaftar",
                   style: GoogleFonts.poppins(
-                      fontSize: 27,
+                      fontSize: 24,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black),
+                      color: const Color(0xffABABAB)),
                 ),
                 Text(
                   "Terhubung dengan Teman Anda Sekarang!",
                   style: GoogleFonts.poppins(
                       fontSize: 15,
-                      fontWeight: FontWeight.w200,
-                      color: const Color(0xff00726D)),
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xffABABAB)),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
                 Text(
                   "Nama",
-                  style: GoogleFonts.poppins(fontSize: 13, color: const Color(0xff00726D)),
+                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500,color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 namaField,
                 const SizedBox(
-                  height: 25,
+                  height: 10,
                 ),
                 Text(
                   "Nomor Handphone",
-                  style: GoogleFonts.poppins(fontSize: 13, color: const Color(0xff00726D)),
+                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500,color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 emailField,
+                const SizedBox(
+                  height: 10,
+                ),
                 Text(
                   "Password",
-                  style: GoogleFonts.poppins(fontSize: 13, color: const Color(0xff00726D)),
+                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500,color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 passwordField,
-                Theme(
-                  data: ThemeData(unselectedWidgetColor: const Color(0xff00726D)),
-                  child: CheckboxListTile(
-                    checkColor: Colors.white,
-                    activeColor: const Color(0xff00726D),
-                    selectedTileColor: const Color(0xff00726D),
-                    title: Text("Saya menyetujui syarat dan ketentuan", style: GoogleFonts.poppins(fontSize: 12,color: const Color(0xff00726D)),),
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue!;
-                      });
-                    },
-                    controlAffinity:
-                        ListTileControlAffinity.leading,
-                  ),
-                ),
+                // Theme(
+                //   data: ThemeData(unselectedWidgetColor: const Color(0xff00726D)),
+                //   child: CheckboxListTile(
+                //     checkColor: Colors.white,
+                //     activeColor: const Color(0xff00726D),
+                //     selectedTileColor: const Color(0xff00726D),
+                //     title: Text("Saya menyetujui syarat dan ketentuan", style: GoogleFonts.poppins(fontSize: 12,color: const Color(0xffABABAB)),),
+                //     value: checkedValue,
+                //     onChanged: (newValue) {
+                //       setState(() {
+                //         checkedValue = newValue!;
+                //       });
+                //     },
+                //     controlAffinity:
+                //         ListTileControlAffinity.leading,
+                //   ),
+                // ),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
-                loginButton,
+                registerButton,
                 haveAccount
               ],
             ),
