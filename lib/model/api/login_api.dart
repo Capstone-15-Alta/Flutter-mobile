@@ -2,11 +2,12 @@ import 'package:forum_diskusi/model/login_model.dart';
 import 'package:dio/dio.dart';
 
 class LoginAPI {
+  //gimana cara jika error atau response 500 tidak masuk ke home
   final Dio dio = Dio();
   Future loginAuth(LoginModel loginModel) async {
     try{
       final Response response = await dio.post(
-      'http://34.87.175.218/api/v1/auth/login',
+      'http://34.87.190.0/api/v1/auth/login',
       data: loginModel.toJson(),
       // options: Options(
       //   headers: {
@@ -20,9 +21,7 @@ class LoginAPI {
     }on DioError catch(e){
       // print(e.toString());
       print(e.response!.statusCode);
-      throw Exception('Pastikan Email dan Password anda benar');
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error")));
     }
-    
-    
   }
 }

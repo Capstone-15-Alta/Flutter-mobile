@@ -13,7 +13,7 @@ class HomeNav extends StatefulWidget {
 }
 
 class _HomeNavState extends State<HomeNav> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   final _layoutPage = [const HomeScreen(), const ExploreScreen(),const SearchScreen(),const NotifScreen(), const ProfilePost()
   ];
   void _onTabItem(int index) {
@@ -31,7 +31,7 @@ class _HomeNavState extends State<HomeNav> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         selectedItemColor: const Color(0xffABABAB),
-        unselectedItemColor: Colors.white,
+        unselectedItemColor: const Color(0xffABABAB),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
@@ -69,7 +69,7 @@ class _HomeNavState extends State<HomeNav> {
             label: "Profile",
           ),
         ],
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         onTap: _onTabItem,
       ),

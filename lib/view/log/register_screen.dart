@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:forum_diskusi/model/register_model.dart';
 
 import 'package:forum_diskusi/view/home/home_screen.dart';
 import 'package:forum_diskusi/view/log/register_afterscreen.dart';
+import 'package:forum_diskusi/viewmodel/register_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -25,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController namaEditingController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
   var doRegister = (){
     print('ido REgister');
@@ -33,8 +36,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final registerProvider = Provider.of<RegisterViewModel>(context);
     final namaField = TextFormField(
-      controller: namaEditingController,
+      controller: usernameController,
       validator: (value) {
         RegExp regex = RegExp(r'^.{4,}$');
         if (value!.isEmpty) {
@@ -46,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return null;
       },
       onSaved: (value) {
-        namaEditingController.text = value!;
+        usernameController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -125,25 +129,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
       color: const Color(0xffABABAB),
       child: MaterialButton(
         minWidth: double.infinity,
-        onPressed: () {
+        onPressed: () async {
           if(_formKey.currentState!.validate()){
             _formKey.currentState!.save();
 
-            Navigator.of(context).push(
+            await Future.delayed(
+              const Duration(seconds: 2),
+            ).then((value) => registerProvider.postRegister(RegisterModel(
+                    username: emailController.text,
+                    email: usernameController.text,
+                    password: passwordController.text
+                    ))).then((_) => Navigator.of(context).push(
             PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-              return const HomeScreen();
+              return const RegisAfterScreen();
             }, transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
               final tween = Tween(begin: 0.0, end: 2.0);
               return FadeTransition(
                   opacity: animation.drive(tween), child: child);
             }),
-          );
-          }else{
-            doRegister;
+          ));
+
+            
           }
-          doRegister;
         },
         child: Text(
           "Daftar",
@@ -241,23 +250,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 10,
                 ),
                 passwordField,
-                // Theme(
-                //   data: ThemeData(unselectedWidgetColor: const Color(0xff00726D)),
-                //   child: CheckboxListTile(
-                //     checkColor: Colors.white,
-                //     activeColor: const Color(0xff00726D),
-                //     selectedTileColor: const Color(0xff00726D),
-                //     title: Text("Saya menyetujui syarat dan ketentuan", style: GoogleFonts.poppins(fontSize: 12,color: const Color(0xffABABAB)),),
-                //     value: checkedValue,
-                //     onChanged: (newValue) {
-                //       setState(() {
-                //         checkedValue = newValue!;
-                //       });
-                //     },
-                //     controlAffinity:
-                //         ListTileControlAffinity.leading,
-                //   ),
-                // ),
                 const SizedBox(
                   height: 30,
                 ),

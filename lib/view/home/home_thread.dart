@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forum_diskusi/model/list_dropdown.dart';
+import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeThread extends StatefulWidget {
   const HomeThread({ Key? key }) : super(key: key);
@@ -20,22 +21,6 @@ class _HomeThreadState extends State<HomeThread> {
 
   @override
   Widget build(BuildContext context) {
-
-    final kategoriField = SizedBox(
-      width: 120,
-        child: DropdownButton(
-          isExpanded: true,
-          hint: const Text("Pilih Kategori"),
-          value: selectedValue,
-          onChanged: (String? value) {
-            setState(() {
-              selectedValue = value ?? "";
-              kategori = selectedValue!;
-            });
-          },
-          items: dropdownItems
-      )
-    );
 
     final judulField = SizedBox(
       height: 100,
@@ -63,7 +48,7 @@ class _HomeThreadState extends State<HomeThread> {
       child: MaterialButton(
         minWidth: 50,
         onPressed: () async {
-          
+          Navigator.pop(context);
         },
         child: Text(
           "Kembali",
@@ -79,7 +64,7 @@ class _HomeThreadState extends State<HomeThread> {
       child: MaterialButton(
         minWidth: 50,
         onPressed: () async {
-          
+
         },
         child: Text(
           "Posting",
@@ -139,7 +124,7 @@ class _HomeThreadState extends State<HomeThread> {
                           ],
                         ),
                         const Spacer(),
-                        kategoriField
+                        // kategoriField
                       ],
                     ),
                     const SizedBox(height: 10,),

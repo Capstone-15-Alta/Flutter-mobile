@@ -103,14 +103,22 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
-            
+            const isError = true;
+
             await Future.delayed(
               const Duration(seconds: 2),
-            )
-                .then((value) => loginProvider.postLogin(LoginModel(
-                    username: emailController.text,
-                    password: passwordController.text)))
-                .then((_) => Navigator.of(context).push(
+            );
+            await loginProvider.postLogin(
+              LoginModel(
+                  username: emailController.text,
+                  password: passwordController.text),
+            );
+            // if (isError){
+            //   Fluttertoast.showToast(msg: "Login Failed");
+            //   return;
+            // }
+            Fluttertoast.showToast(msg: "Login Succesful");
+            Navigator.of(context).push(
                       PageRouteBuilder(pageBuilder:
                           (context, animation, secondaryAnimation) {
                         return const HomeNav();
@@ -120,13 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return FadeTransition(
                             opacity: animation.drive(tween), child: child);
                       }),
-                    )
-                    // MaterialPageRoute(builder: (context)=> const HomeNav())
-                    // )
-                )
-                .then(
-                  (_) => Fluttertoast.showToast(msg: "Login succesful"),
-                );
+                    );
           }
         },
         child: Text(
@@ -137,9 +139,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final forgonPass = TextButton(
-      onPressed: (){}, 
-      child: Text("Lupa password ?", style: GoogleFonts.poppins(fontSize: 13, color: const Color(0xff26B893)),)
-    );
+        onPressed: () {},
+        child: Text(
+          "Lupa password ?",
+          style:
+              GoogleFonts.poppins(fontSize: 13, color: const Color(0xff26B893)),
+        ));
 
     final dontHaveAccount = Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -210,7 +215,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Email",
                   style: GoogleFonts.poppins(
-                      fontSize: 13, fontWeight: FontWeight.w600, color: const Color(0xff26B893)),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,
@@ -222,7 +229,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Password",
                   style: GoogleFonts.poppins(
-                      fontSize: 13, fontWeight: FontWeight.w600,color: const Color(0xff26B893)),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,

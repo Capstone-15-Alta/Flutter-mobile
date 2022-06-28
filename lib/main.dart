@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:forum_diskusi/view/component/splash_screen.dart';
+import 'package:forum_diskusi/view/home/home_nav.dart';
+import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/register_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,6 +20,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [  
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider(create: (_) => RegisterViewModel()),
+        ChangeNotifierProvider(create: (_) => ThreadViewModel()),
+        ChangeNotifierProvider(create: (_) => KategoriViewModel()),
       ],
       child :MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -23,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: const HomeNav(),
     )
     );
     
