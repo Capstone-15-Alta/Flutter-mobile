@@ -1,10 +1,11 @@
 import 'package:forum_diskusi/model/login_model.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginAPI {
-  //gimana cara jika error atau response 500 tidak masuk ke home
   final Dio dio = Dio();
   Future loginAuth(LoginModel loginModel) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     try{
       final Response response = await dio.post(
       'http://34.87.190.0/api/v1/auth/login',
@@ -17,11 +18,9 @@ class LoginAPI {
       // ),
     );
     print(response);
-    return response;
+    pref.setInt('id', response.data['data']['id']);
     }on DioError catch(e){
-      // print(e.toString());
       print(e.response!.statusCode);
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error")));
     }
   }
 }

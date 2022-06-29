@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forum_diskusi/view/explore%20topik/explore_screen.dart';
 import 'package:forum_diskusi/view/home/home_screen.dart';
 import 'package:forum_diskusi/view/notifikasi/notifikasi_screen.dart';
-import 'package:forum_diskusi/view/profil/profile_post.dart';
+import 'package:forum_diskusi/view/profil/edit_profile.dart';
 import 'package:forum_diskusi/view/search/search_screen.dart';
 
 class HomeNav extends StatefulWidget {
@@ -14,7 +14,7 @@ class HomeNav extends StatefulWidget {
 
 class _HomeNavState extends State<HomeNav> {
   int _selectedIndex = 0;
-  final _layoutPage = [const HomeScreen(), const ExploreScreen(),const SearchScreen(),const NotifScreen(), const ProfilePost()
+  final _layoutPage = [const HomeScreen(), const ExploreScreen(),const SearchScreen(),const NotifScreen(), const EditProfile()
   ];
   void _onTabItem(int index) {
     setState(

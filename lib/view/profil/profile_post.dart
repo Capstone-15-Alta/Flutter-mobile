@@ -10,6 +10,9 @@ class ProfilePost extends StatefulWidget {
 }
 
 class _ProfilePostState extends State<ProfilePost> {
+
+
+  
   final double backgroungImageHeight = 150;
   final double profileImageHeight = 80;
   final double shadeProfileImage = 100;

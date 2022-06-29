@@ -1,73 +1,84 @@
 import 'package:forum_diskusi/model/list_dropdown.dart';
+import 'package:forum_diskusi/model/thread_model.dart';
+import 'package:forum_diskusi/model/user_treads_model.dart';
 
-class ResponseAPI {
-  DateTime timeStamp;
-  String message;
-  List<UserModel> userModel;
+// class ResponseAPI {
+//   String? timeStamp;
+//   String? message;
+//   List<UserModel>? userModel;
 
-  ResponseAPI({required this.timeStamp, required this.message, required this.userModel});
+//   ResponseAPI({this.timeStamp, this.message, this.userModel});
 
-  ResponseAPI.fromJson(Map<String, dynamic> json)
-      : timeStamp = DateTime.parse(json['timestamp']),
-        message = json['message'],
-        userModel = (json['data'] as List).map((e) => UserModel.fromJson(e)).toList();
-}
+//   factory ResponseAPI.fromJson(Map<String, dynamic> json) => ResponseAPI(
+//     timeStamp: json['timeStamp'],
+//     message: json['message'],
+//     userModel: (json['data'] as List).map((e) => UserModel.fromJson(e)).toList()
+//     );
+// }
 
 class UserModel {
-  int id;
-  String username;
-  String phone;
-  String email;
-  String roles;
-  String firstName;
-  String lastName;
-  DateTime birthDate;
-  String education;
-  String gender;
-  String country;
-  String city;
-  String zipCode;
-  String image;
-  String imageCover;
-  List<Data> threads;
-  List<UserModel> threadFollowers;
-  List<Data> theradLikes;
-  List<String> comments;
-  List<String> commentLikes;
-  List<UserFollowers> userFollowers;
-  List<UserFollowers> userFollowing;
-  int totalUserFollowers;
-  int totalUserFollowing;
-  int totalThreads;
-  int totalPostComments;
+  int? id;
+  String? username;
+  String? phone;
+  String? email;
+  String? roles;
+  String? firstName;
+  String? lastName;
+  DateTime? birthDate;
+  String? education;
+  String? gender;
+  String? country;
+  String? city;
+  String? zipCode;
+  String? image;
+  String? imageCover;
+  List? threads;
+  List? threadFollowers;
+  List? theradLikes;
+  List? comments;
+  List? commentLikes;
+  List? userFollowers;
+  List? userFollowing;
+  int? totalUserFollowers;
+  int? totalUserFollowing;
+  int? totalThreads;
+  int? totalPostComments;
+  int? userFollowerId;
+  int? userFollowedId;
+  bool? isFollow;
+  String? followTime;
 
   UserModel({
-    required this.id,
-    required this.username,
-    required this.phone,
-    required this.email,
-    required this.roles,
-    required this.firstName,
-    required this.lastName,
-    required this.birthDate,
-    required this.education,
-    required this.gender,
-    required this.country,
-    required this.city,
-    required this.zipCode,
-    required this.image,
-    required this.imageCover,
-    required this.threads,
-    required this.threadFollowers,
-    required this.theradLikes,
-    required this.comments,
-    required this.commentLikes,
-    required this.userFollowers,
-    required this.userFollowing,
-    required this.totalUserFollowers,
-    required this.totalUserFollowing,
-    required this.totalThreads,
-    required this.totalPostComments,
+    this.id,
+    this.username,
+    this.phone,
+    this.email,
+    this.roles,
+    this.firstName,
+    this.lastName,
+    this.birthDate,
+    this.education,
+    this.gender,
+    this.country,
+    this.city,
+    this.zipCode,
+    this.image,
+    this.imageCover,
+    this.threads,
+    this.threadFollowers,
+    this.theradLikes,
+    this.comments,
+    this.commentLikes,
+    this.userFollowers,
+    this.userFollowing,
+    this.totalUserFollowers,
+    this.totalUserFollowing,
+    this.totalThreads,
+    this.totalPostComments,
+    this.userFollowerId,
+    this.userFollowedId,
+    this.isFollow,
+    this.followTime,
   });
 
   UserModel.fromJson(Map<String, dynamic> json)
@@ -86,35 +97,44 @@ class UserModel {
         zipCode = json['zip_code'],
         image = json['image'],
         imageCover = json['image_cover'],
-        threads = (json['threads'] as List).map((e) => Data.fromJson(e)).toList(),
-        threadFollowers = (json['thread_followers'] as List).map((e) => UserModel.fromJson(e)).toList(),
-        theradLikes = (json['thread_likes'] as List).map((e) => Data.fromJson(e)).toList(),
+        threads =
+            (json['threads'] as List).map((e) => UserTreadsModel.fromJson(e)).toList(),
+        threadFollowers = (json['thread_followers'] as List)
+            .map((e) => UserModel.fromJson(e))
+            .toList(),
+        theradLikes = (json['thread_likes'] as List)
+            .map((e) => UserTreadsModel.fromJson(e))
+            .toList(),
         comments = json['comments'],
         commentLikes = json['comment_likes'],
-        userFollowers = (json['user_followers'] as List).map((e) => UserFollowers.fromJson(e)).toList(),
-        userFollowing = (json['user_following'] as List).map((e) => UserFollowers.fromJson(e)).toList(),
+        userFollowers = json['user_followers'],
+        userFollowing = json['user_following'],
         totalUserFollowers = json['total_user_followers'],
         totalUserFollowing = json['total_user_following'],
         totalThreads = json['total_threads'],
-        totalPostComments = json['total_post_comments'];
-}
-
-class UserFollowers {
-  int userFollowerId;
-  int userFollowedId;
-  bool isFollow;
-  DateTime followTime;
-
-  UserFollowers({
-    required this.userFollowerId,
-    required this.userFollowedId,
-    required this.isFollow,
-    required this.followTime,
-  });
-
-  UserFollowers.fromJson(Map<String, dynamic> json)
-      : userFollowerId = json['user_follower_id'],
+        totalPostComments = json['total_post_comments'],
+        userFollowerId = json['user_follower_id'],
         userFollowedId = json['user_followed_id'],
         isFollow = json['is_follow'],
         followTime = json['follow_time'];
 }
+
+// class UserFollowers {
+//   int? userFollowerId;
+//   int? userFollowedId;
+//   bool? isFollow;
+//   String? followTime;
+
+//   UserFollowers({
+//     this.userFollowerId,
+//     this.userFollowedId,
+//     this.isFollow,
+//     this.followTime,
+//   });
+
+//   UserFollowers.fromJson(Map<String, dynamic> json)
+//       : userFollowerId = json['user_follower_id'],
+//         userFollowedId = json['user_followed_id'],
+//         isFollow = json['is_follow'],
+//         followTime = json['follow_time'];
+// }
