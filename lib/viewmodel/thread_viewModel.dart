@@ -6,9 +6,12 @@ class ThreadViewModel extends ChangeNotifier{
   
   List<Data> _listGetThread = [];
   List<Data> get listGetThread => _listGetThread;
+
+  List<Data> _listGetTrendingThread = [];
+  List<Data> get listGetTrendingThread => _listGetTrendingThread;
   
-  List<Data> _listGetThreadByCategory = [];
-  List<Data> get listGetThreadByCategory => _listGetThreadByCategory;
+  // List<Data> _listGetThreadByCategory = [];
+  // List<Data> get listGetThreadByCategory => _listGetThreadByCategory;
 
 
   // getThread(String category)async{

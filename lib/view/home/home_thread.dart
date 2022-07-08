@@ -75,78 +75,80 @@ class _HomeThreadState extends State<HomeThread> {
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-          child: Column(
-            children: [
-              Center(child: SvgPicture.asset("assets/image/logo.svg", height: 35, width:35 ,)),
-              const SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20,),
-                      Text("Thread", style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 23, color: const Color(0xff26B893))),
-                      Text("Ayo buat tread yang ingin kamu\nbagikan hari ini?", style: GoogleFonts.poppins(fontSize: 13,fontWeight: FontWeight.w500, color: const Color(0xff26B893)),),
-                      const SizedBox(height:20),
-                    ],
-                  ),
-                  const CircleAvatar(
-                  radius: 23.0,
-                  backgroundImage:
-                      NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                  backgroundColor: Colors.transparent,
-                ),
-                ],
-              ),
-              const SizedBox(height: 20,),
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+            child: Column(
+              children: [
+                Center(child: SvgPicture.asset("assets/image/logo.svg", height: 35, width:35 ,)),
+                const SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
-                          radius: 19.0,
-                          backgroundImage:
-                              NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                          backgroundColor: Colors.transparent,
-                        ),
-                        const SizedBox(width: 10,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Muhammad Yogi",style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black),),
-                            Text("Muhammad Yogi@gmail.com",style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13, color: const Color(0xff26B893)),),
-                          ],
-                        ),
-                        const Spacer(),
-                        // kategoriField
+                        const SizedBox(height: 20,),
+                        Text("Thread", style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 23, color: const Color(0xff26B893))),
+                        Text("Ayo buat tread yang ingin kamu\nbagikan hari ini?", style: GoogleFonts.poppins(fontSize: 13,fontWeight: FontWeight.w500, color: const Color(0xff26B893)),),
+                        const SizedBox(height:20),
                       ],
                     ),
-                    const SizedBox(height: 10,),
-                    const Divider(
-                      color: Colors.black,
-                      height: 2,
-                    ),
-                    judulField,
-                    judulField,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        kembaliButton,
-                        const SizedBox(width: 15,),
-                        postingButton,
-                      ],
-                    )
+                    const CircleAvatar(
+                    radius: 23.0,
+                    backgroundImage:
+                        NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                    backgroundColor: Colors.transparent,
+                  ),
                   ],
                 ),
-              )
-            ],
-          )
+                const SizedBox(height: 20,),
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          const CircleAvatar(
+                            radius: 19.0,
+                            backgroundImage:
+                                NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                            backgroundColor: Colors.transparent,
+                          ),
+                          const SizedBox(width: 10,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Muhammad Yogi",style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black),),
+                              Text("Muhammad Yogi@gmail.com",style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13, color: const Color(0xff26B893)),),
+                            ],
+                          ),
+                          const Spacer(),
+                          // kategoriField
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
+                      const Divider(
+                        color: Colors.black,
+                        height: 2,
+                      ),
+                      judulField,
+                      judulField,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          kembaliButton,
+                          const SizedBox(width: 15,),
+                          postingButton,
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )
+          ),
         )
       ),
     );

@@ -10,7 +10,7 @@ class UserAPI{
     UserModel? dataProfileUser;
     try{
       final Response response = await dio.get(
-      'http://34.87.190.0/api/v1/user/$id',
+      'http://35.247.191.49/api/v1/user/$id',
     );
     // dataProfileUser = ResponseAPI.fromJson(response.data).userModel;
     

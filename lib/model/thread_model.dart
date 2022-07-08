@@ -81,16 +81,12 @@ class ThreadModel {
 
   ThreadModel({this.timestamp, this.message, this.data});
 
-  ThreadModel.fromJson(Map<String, dynamic> json) {
-    timestamp = json['timestamp'];
-    message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
-      });
-    }
-  }
+  ThreadModel.fromJson(Map<String, dynamic> json) :
+    timestamp = json['timestamp'],
+    message = json['message'],
+      data = json['data']['content'] != null ?  (json['data']['content'] as List).map((v) {
+        return Data.fromJson(v); 
+      }).toList() : [];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

@@ -13,6 +13,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final searchField = TextFormField(
+      onFieldSubmitted: (value) async{
+        
+      },
       autofocus: false,
       validator: (value) {
         if (value!.isEmpty) {

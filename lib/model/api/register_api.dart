@@ -6,7 +6,7 @@ class RegisterAPI {
   Future registerAuth(RegisterModel registerModel) async {
     try{
       final Response response = await dio.post(
-      'http://34.87.190.0/api/v1/auth/register',
+      'http://35.247.191.49/api/v1/auth/register',
       data: registerModel.toJson(),
     );
     print(response);

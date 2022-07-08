@@ -113,12 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   username: emailController.text,
                   password: passwordController.text),
             );
-            // if (isError){
-            //   Fluttertoast.showToast(msg: "Login Failed");
-            //   return;
-            // }
+
             Fluttertoast.showToast(msg: "Login Succesful");
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
                       PageRouteBuilder(pageBuilder:
                           (context, animation, secondaryAnimation) {
                         return const HomeNav();

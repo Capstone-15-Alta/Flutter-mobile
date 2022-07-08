@@ -8,7 +8,22 @@ class ThreadAPI{
     List<Data>? dataThread;
     try{
       final Response response = await dio.get(
-      'http://34.87.190.0/api/v1/thread',
+      'http://34.126.137.153/api/v1/thread',
+    );
+    dataThread = ThreadModel.fromJson(response.data).data;
+    print(dataThread);
+    }on DioError catch(e){
+      print(e.response!.statusCode);
+    }
+    return dataThread!;
+  }
+
+  Future<List<Data>> getTrendingThread() async{
+    final Dio dio = Dio();
+    List<Data>? dataThread;
+    try{
+      final Response response = await dio.get(
+      'http://35.247.191.49/api/v1/thread/trending/',
     );
     dataThread = ThreadModel.fromJson(response.data).data;
     
@@ -23,7 +38,7 @@ class ThreadAPI{
     List<Data>? dataThread;
     try{
       final Response response = await dio.post(
-      'http://34.87.190.0/api/v1/thread',
+      'http://35.247.191.49/api/v1/thread',
     );
     dataThread = ThreadModel.fromJson(response.data).data;
     
