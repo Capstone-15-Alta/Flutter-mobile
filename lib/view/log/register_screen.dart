@@ -30,9 +30,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
 
-  var doRegister = (){
-    print('ido REgister');
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -136,8 +133,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             await Future.delayed(
               const Duration(seconds: 2),
             ).then((value) => registerProvider.postRegister(RegisterModel(
-                    username: emailController.text,
-                    email: usernameController.text,
+                    username: usernameController.text,
+                    email: emailController.text,
                     password: passwordController.text
                     ))).then((_) => Navigator.of(context).push(
             PageRouteBuilder(
@@ -232,7 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 10,
                 ),
                 Text(
-                  "Nomor Handphone",
+                  "Email",
                   style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500,color: const Color(0xff26B893)),
                 ),
                 const SizedBox(

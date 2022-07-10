@@ -1,10 +1,10 @@
-class SearchModel{
+class RankingModel{
   final content;
 
-  SearchModel({this.content});
+  RankingModel({this.content});
 
-  factory SearchModel.fromJson(Map<String, dynamic> json){
-    return SearchModel(
+  factory RankingModel.fromJson(Map<String, dynamic> json){
+    return RankingModel(
       content: json['content'],
     );
   }

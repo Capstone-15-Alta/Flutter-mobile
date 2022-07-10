@@ -5,6 +5,8 @@ import 'package:forum_diskusi/view/notifikasi/notifikasi_screen.dart';
 import 'package:forum_diskusi/view/profil/thread_profile.dart';
 import 'package:forum_diskusi/view/search/search_screen.dart';
 
+import '../ranking/ranking_screen.dart';
+
 class HomeNav extends StatefulWidget {
   const HomeNav({Key? key}) : super(key: key);
 
@@ -14,7 +16,7 @@ class HomeNav extends StatefulWidget {
 
 class _HomeNavState extends State<HomeNav> {
   int _selectedIndex = 0;
-  final _layoutPage = [const HomeScreen(), const ExploreScreen(),const SearchScreen(),const NotifScreen(), const ProfileTread()
+  final _layoutPage = [const HomeScreen(), const SearchScreen(), const ExploreScreen(),const RankingScreen(), const ProfileTread()
   ];
   void _onTabItem(int index) {
     setState(
@@ -56,10 +58,10 @@ class _HomeNavState extends State<HomeNav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.notifications,
+              Icons.auto_awesome_rounded,
               color: Color(0xffABABAB),
             ),
-            label: "Notifikasi",
+            label: "Rangking",
           ),
           BottomNavigationBarItem(
             icon: Icon(

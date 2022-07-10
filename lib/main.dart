@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:forum_diskusi/view/comments/comments_screen.dart';
 import 'package:forum_diskusi/view/home/home_nav.dart';
+import 'package:forum_diskusi/view/home/home_thread.dart';
+import 'package:forum_diskusi/view/log/login_screen.dart';
+import 'package:forum_diskusi/view/ranking/ranking_screen.dart';
 import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/ranking_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/register_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/trendingThread_viewModel.dart';
@@ -24,6 +29,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThreadViewModel()),
         ChangeNotifierProvider(create: (_) => TrendingTreadViewModel()),
         ChangeNotifierProvider(create: (_) => UserViewModel()),
+        ChangeNotifierProvider(create: (_) => RankingUserViewModel()),
+        // ChangeNotifierProvider(create: (_) => SearchUserViewModel())
       ],
       child :MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeNav(),
+      home: const CommentsScreen(),
     )
     );
     

@@ -10,12 +10,9 @@ class UserAPI{
     UserModel? dataProfileUser;
     try{
       final Response response = await dio.get(
-      'http://35.247.191.49/api/v1/user/$id',
+      'http://8.219.84.81/api/v1/user/$id',
     );
-    // dataProfileUser = ResponseAPI.fromJson(response.data).userModel;
-    
     dataProfileUser = UserModel.fromJson(response.data['data']);
-      print(dataProfileUser.username);
     }on DioError catch(e){
       print(e.response!.statusCode);
     }

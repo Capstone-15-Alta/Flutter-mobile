@@ -28,34 +28,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginViewModel>(context);
 
-    final emailField = TextFormField(
+    final usernameField = TextFormField(
       autofocus: false,
-      controller: emailController,
-      // validator: (value) {
-      //   if (value!.isEmpty) {
-      //     return ("Masukan Email");
-      //   }
-      //   if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].[a-z]").hasMatch(value)) {
-      //     return ("Please enter a valid email");
-      //   }
-      //   return null;
-      // },
+      controller: usernameController,
       onSaved: (value) {
-        emailController.text = value!;
+        usernameController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         fillColor: const Color.fromARGB(255, 236, 240, 243),
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Masukan Email",
+        hintText: "Masukan username",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
@@ -101,21 +92,23 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
         minWidth: double.infinity,
         onPressed: () async {
-          if (_formKey.currentState!.validate()) {
+          if (_formKey.currentState!.validate()){
             _formKey.currentState!.save();
             const isError = true;
 
-            await Future.delayed(
+            try{
+              await Future.delayed(
               const Duration(seconds: 2),
-            );
-            await loginProvider.postLogin(
+            ).then(
+              (value) async => await loginProvider.postLogin(
               LoginModel(
-                  username: emailController.text,
+                  username: usernameController.text,
                   password: passwordController.text),
-            );
-
-            Fluttertoast.showToast(msg: "Login Succesful");
-            Navigator.of(context).pushReplacement(
+            )
+            ).then(
+              (value) => Fluttertoast.showToast(msg: "Login Succesful")
+            ).then(
+              (value) => Navigator.of(context).pushReplacement(
                       PageRouteBuilder(pageBuilder:
                           (context, animation, secondaryAnimation) {
                         return const HomeNav();
@@ -125,7 +118,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         return FadeTransition(
                             opacity: animation.drive(tween), child: child);
                       }),
-                    );
+                    )
+            );
+            }catch(e){
+              Fluttertoast.showToast(msg: "Login failed");
+            }
+            
+
+            
+            
           }
         },
         child: Text(
@@ -219,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                emailField,
+                usernameField,
                 const SizedBox(
                   height: 10,
                 ),

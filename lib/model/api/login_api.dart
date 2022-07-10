@@ -8,7 +8,7 @@ class LoginAPI {
     SharedPreferences pref = await SharedPreferences.getInstance();
     try{
       final Response response = await dio.post(
-      'http://35.247.191.49/api/v1/auth/login',
+      'http://8.219.84.81/api/v1/auth/login',
       data: loginModel.toJson(),
       // options: Options(
       //   headers: {
@@ -19,8 +19,8 @@ class LoginAPI {
     );
     print(response);
     pref.setInt('id', response.data['data']['id']);
-    }on DioError catch(e){
-      print(e.response!.statusCode);
+    }catch(e){
+      throw e.toString();
     }
   }
 }

@@ -1,5 +1,3 @@
-import 'package:forum_diskusi/model/list_dropdown.dart';
-import 'package:forum_diskusi/model/thread_model.dart';
 import 'package:forum_diskusi/model/user_treads_model.dart';
 
 // class ResponseAPI {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forum_diskusi/model/api/user_api.dart';
 import 'package:forum_diskusi/view/profil/profile_mengikuti.dart';
 import 'package:forum_diskusi/view/profil/profile_post.dart';
 import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
@@ -399,9 +398,6 @@ class _ProfileTreadState extends State<ProfileTread> {
 
   Widget allMyTread(UserViewModel threads) {
     //if
-    if (threads.listDataUser!.threads! == null) {
-      return const CircularProgressIndicator();
-    }
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.46,
       width: MediaQuery.of(context).size.width * 2,
