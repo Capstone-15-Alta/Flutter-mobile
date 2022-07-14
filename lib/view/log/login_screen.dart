@@ -94,7 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () async {
           if (_formKey.currentState!.validate()){
             _formKey.currentState!.save();
-            const isError = true;
 
             try{
               await Future.delayed(
@@ -123,10 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
             }catch(e){
               Fluttertoast.showToast(msg: "Login failed");
             }
-            
-
-            
-            
           }
         },
         child: Text(
@@ -211,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 Text(
-                  "Email",
+                  "Username",
                   style: GoogleFonts.poppins(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

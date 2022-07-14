@@ -1,19 +1,5 @@
 import 'package:forum_diskusi/model/user_treads_model.dart';
 
-// class ResponseAPI {
-//   String? timeStamp;
-//   String? message;
-//   List<UserModel>? userModel;
-
-//   ResponseAPI({this.timeStamp, this.message, this.userModel});
-
-//   factory ResponseAPI.fromJson(Map<String, dynamic> json) => ResponseAPI(
-//     timeStamp: json['timeStamp'],
-//     message: json['message'],
-//     userModel: (json['data'] as List).map((e) => UserModel.fromJson(e)).toList()
-//     );
-// }
-
 class UserModel {
   int? id;
   String? username;

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:forum_diskusi/model/list_dropdown.dart';
+import 'package:forum_diskusi/model/thread_postModel.dart';
+import 'package:forum_diskusi/view/home/home_nav.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeThread extends StatefulWidget {
   const HomeThread({ Key? key }) : super(key: key);
@@ -25,6 +31,7 @@ class _HomeThreadState extends State<HomeThread> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<UserViewModel>(context, listen: false).getDataUser();
+      Provider.of<KategoriViewModel>(context, listen: false).getKategori();
     });
     super.initState();
   }
@@ -32,6 +39,8 @@ class _HomeThreadState extends State<HomeThread> {
   @override
   Widget build(BuildContext context) {
     UserViewModel profileProvider = Provider.of<UserViewModel>(context);
+    final kategoriProvider = Provider.of<KategoriViewModel>(context);
+    final postProvider = Provider.of<ThreadViewModel>(context);
     
     final judulField = SizedBox(
       child: TextFormField(
@@ -93,6 +102,33 @@ class _HomeThreadState extends State<HomeThread> {
       child: MaterialButton(
         minWidth: 50,
         onPressed: () async {
+          try{
+            await Future.delayed(
+              Duration(seconds: 2)
+            ).then(
+              (value) async{
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                print(pref.getInt('id'));
+                postProvider.postThread(ThreadPostModel(category_id: kategoriProvider.kategoriFilter![0].id!.toInt(), title: juduldescriptionEditingController.text, description: descriptionEditingController.text));
+              }
+            ).then(
+              (value) => Fluttertoast.showToast(msg : "Posting Sukses")
+            ).then(
+              (value) => Navigator.of(context).push(PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                    return const HomeNav();
+                  }, transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                            final tween = Tween(begin: 0.0, end: 2.0);
+                            return FadeTransition(
+                              opacity: animation.drive(tween),
+                              child: child,
+                            );
+                      },),)
+            );
+          }catch(e){
+            Fluttertoast.showToast(msg: "Posting Gagal");
+          }
         },
         child: Text(
           "Posting",
@@ -101,6 +137,36 @@ class _HomeThreadState extends State<HomeThread> {
       ),
     );
 
+
+    // ignore: prefer_function_declarations_over_variables
+    Widget dropDownKategori(){
+      if(kategoriProvider.listKategori == null || kategoriProvider.listKategori!.data == null){
+        kategoriProvider.getKategori();
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      
+
+      return DropdownButtonHideUnderline(
+        child: DropdownButton(
+          // isExpanded: true,
+          isDense: true,
+          hint: const Text("Pilih Kategori"),
+          value: selectedValue,
+          onChanged: (String? value) {
+            setState(() {
+              selectedValue = value ?? "";
+              kategori = selectedValue!;
+              
+              kategoriProvider.filterKategoriId(kategori);
+            });
+          },
+          items: kategoriProvider.listKategori!.data!.map((e) => DropdownMenuItem<String>(value: e.categoryName,child: Text(e.categoryName!))).toList()
+        )
+      );
+    };
+    
     if (profileProvider.listDataUser == null) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -156,18 +222,38 @@ class _HomeThreadState extends State<HomeThread> {
                               backgroundColor: Colors.transparent,
                             ),
                             const SizedBox(width: 10,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  profileProvider.listDataUser!.username!
-                                  ,style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black),),
-                                Text(
-                                  profileProvider.listDataUser!.email!
-                                  ,style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xff26B893)),),
-                              ],
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          profileProvider.listDataUser!.username!
+                                          ,style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black),),
+                                        Text(
+                                          profileProvider.listDataUser!.email!
+                                          ,style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xff26B893)),),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      border: Border.all(
+                                          color: Colors.red, style: BorderStyle.solid, width: 0.80),
+                                    ),
+                                    child: Container(
+                                      margin: const EdgeInsets.all(8),
+                                      child: dropDownKategori()
+                                      )
+                                    )
+                                ],
+                              ),
                             ),
-                            const Spacer(),
                             // kategoriField
                           ],
                         ),
@@ -182,7 +268,7 @@ class _HomeThreadState extends State<HomeThread> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -191,7 +277,8 @@ class _HomeThreadState extends State<HomeThread> {
                           postingButton,
                           
                         ],
-                      )
+                      ),
+                      
               ],
             )
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:forum_diskusi/viewmodel/search_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -11,13 +13,23 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  TextEditingController searchController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
+  @override
+  void initState() {
+    Provider.of<UserViewModel>(context, listen: false).getAllDataUserInApp();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Provider.of<>(context)
-    final searchField = TextFormField(
-      onFieldSubmitted: (value) async{
-        
-      },
+    // final saranUserProvider = Provider.of<UserViewModel>(context);
+    final searchProvider = Provider.of<SearchUserViewModel>(context);
+    final searchField = Form(
+      key: _formKey,
+      child: TextFormField(
+      onFieldSubmitted: (value) async {},
       autofocus: false,
       validator: (value) {
         if (value!.isEmpty) {
@@ -25,10 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
         }
         return null;
       },
-      // controller: nomorController,
-      onSaved: (value) {
-        // nomorController.text = value!;
-      },
+      controller: searchController,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         fillColor: const Color.fromARGB(255, 236, 240, 243),
@@ -38,62 +47,226 @@ class _SearchScreenState extends State<SearchScreen> {
         hintText: "Cari di Forum Grup Diskusi",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
+    ) 
     );
 
     return Scaffold(
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                  child: SvgPicture.asset(
-                "assets/image/logo.svg",
-                height: 35,
-                width: 35,
-              )),
-              const SizedBox(
-                height: 30,
-              ),
-              searchField,
-              const SizedBox(
-                height: 20,
-              ),
-              Text("Saran",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 23,
-                      color: const Color(0xff26B893))),
-                      const SizedBox(height: 20,),
-              Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 23.0,
-                    backgroundImage: NetworkImage(
-                        "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                    backgroundColor: Colors.transparent,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text("nama"),
-                  const Spacer(),
-                  Container(
-                    height: 35,
-                    width: 80,
-                    decoration: BoxDecoration(
-                        color: const Color(0xff26B893),
-                        borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [Icon(Icons.add, color: Colors.white,), Text("Ikuti", style: TextStyle(color: Colors.white),)],
-                    ),
-                  )
-                ],
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                    child: SvgPicture.asset(
+                  "assets/image/logo.svg",
+                  height: 35,
+                  width: 35,
+                )),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: [
+                    Expanded(child: searchField),
+                    const SizedBox(width: 10,),
+                    SizedBox(
+                      height: 50,
+                      width: 80,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(0xff26B893), // Background color
+                          ),
+                          onPressed: () {
+                            if(!_formKey.currentState!.validate())return;
+                            searchProvider.getDataSearch(searchController.text);
+                          },
+                          child: Text(
+                            "Search",
+                            style: GoogleFonts.poppins(fontSize: 12),
+                          )),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 300,
+                  child: Builder(builder: (context) {
+                    
+                    if (searchProvider.listDataSearch == null) {
+                      return Column(
+                        children: [
+                          Text("Saran",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 23,
+                                  color: const Color(0xff26B893))),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              const CircleAvatar(
+                                radius: 23.0,
+                                backgroundImage: NetworkImage(
+                                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                backgroundColor: Colors.transparent,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "nama",
+                              ),
+                              const Spacer(),
+                              Container(
+                                height: 35,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff26B893),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Ikuti",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      );
+                    }
+                    return ListView.builder(
+                        itemCount: searchProvider.listDataSearch!.length,
+                        itemBuilder: ((context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CircleAvatar(
+                                radius: 30.0,
+                                backgroundImage: NetworkImage(
+                                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                backgroundColor: Colors.transparent,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              // "Nama"
+                                              searchProvider.listDataSearch![index].user!.username!,
+                                              style:
+                                                  GoogleFonts.poppins(fontSize: 14),
+                                            ),
+                                            Text(
+                                              // "Albert Flores@gmail.com",
+                                              searchProvider.listDataSearch![index].user!.email!,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 13,
+                                                  color: const Color(0xff26B893)),
+                                            ),
+                                          ],
+                                        ),
+                                        GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+
+                                              });
+                                            },
+                                            child: AnimatedContainer(
+                                              duration : const Duration(milliseconds:300),
+                                              height: 30,
+                                              width: 75,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xff26B893),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceEvenly,
+                                                children: const [
+                                                  Icon(
+                                                    Icons.add,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Text(
+                                                    "Ikuti",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ))
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.66,
+                                      child: Text(
+                                        // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+                                        searchProvider
+                                  .listDataSearch![index].description!,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500),
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      // "Time",
+                                      searchProvider
+                                  .listDataSearch![index].createdAt!,
+                                      style: GoogleFonts.poppins(fontSize: 14),
+                                    ),
+                                    
+                                  ],
+                                ),
+                              )
+                            ],
+                          );
+                          // Row(
+                          //   children: [
+                              // Text(searchProvider
+                              //     .listDataSearch![index].user!.username!
+                          //         .toString()),
+                          //     Text(searchProvider
+                          //         .listDataSearch![index].description
+                          //         .toString()),
+                          //   ],
+                          // );
+                        }));
+                  }),
+                ),
+              ],
+            ),
           ),
         ),
       ),

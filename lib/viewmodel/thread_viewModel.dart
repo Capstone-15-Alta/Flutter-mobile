@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:forum_diskusi/model/api/postThread_api.dart';
 import 'package:forum_diskusi/model/api/thread_api.dart';
 import 'package:forum_diskusi/model/thread_model.dart';
+import 'package:forum_diskusi/model/thread_postModel.dart';
 
 class ThreadViewModel extends ChangeNotifier{
   
@@ -27,4 +29,10 @@ class ThreadViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
+
+
+  postThread(ThreadPostModel threadPostModel)async{
+      await PostThreadAPI().postThread(threadPostModel);
+    notifyListeners();
+  }
 }

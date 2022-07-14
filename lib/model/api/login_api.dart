@@ -17,7 +17,9 @@ class LoginAPI {
       //   },
       // ),
     );
-    print(response);
+    if(response.statusCode == 200){
+      pref.setString('token', response.data['data']['token']);
+    }
     pref.setInt('id', response.data['data']['id']);
     }catch(e){
       throw e.toString();

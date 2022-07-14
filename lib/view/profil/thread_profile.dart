@@ -1,10 +1,13 @@
+import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:forum_diskusi/view/log/login_screen.dart';
 import 'package:forum_diskusi/view/profil/profile_mengikuti.dart';
 import 'package:forum_diskusi/view/profil/profile_post.dart';
 import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileTread extends StatefulWidget {
   const ProfileTread({Key? key}) : super(key: key);
@@ -59,6 +62,28 @@ class _ProfileTreadState extends State<ProfileTread> {
       );
     }
     return Scaffold(
+      floatingActionButton: DraggableFab(
+        child: FloatingActionButton(
+          backgroundColor: const Color(0xff26B893),
+          onPressed: () async{
+              SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.clear();
+                Navigator.of(context).pushReplacement(PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) {
+                        return const LoginScreen();
+                      }, transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                        final tween = Tween(begin: 0.0, end: 2.0);
+                        return FadeTransition(
+                          opacity: animation.drive(tween),
+                          child: child,
+                        );
+                      }));
+               
+          },
+          child:const Icon(Icons.logout, color: Colors.white,),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -207,7 +232,9 @@ class _ProfileTreadState extends State<ProfileTread> {
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       side: BorderSide(color: Color(0xff26B893)))),
-              onPressed: () {},
+              onPressed: () async{
+                
+              },
               child: Text(
                 "Edit Profile",
                 style: GoogleFonts.poppins(
@@ -217,6 +244,28 @@ class _ProfileTreadState extends State<ProfileTread> {
                 textAlign: TextAlign.center,
               )),
         ),
+        // Container(
+        //   height: 35,
+        //   child: ElevatedButton(
+        //       style: ElevatedButton.styleFrom(
+        //           primary: Colors.white,
+        //           shape: const RoundedRectangleBorder(
+        //               borderRadius: BorderRadius.all(Radius.circular(10)),
+        //               side: BorderSide(color: Color(0xff26B893)))),
+        //       onPressed: () async{
+                
+        //       },
+        //       child: 
+        //       // child: Text(
+        //       //   "Edit Profile",
+        //       //   style: GoogleFonts.poppins(
+        //       //       fontSize: 10,
+        //       //       fontWeight: FontWeight.bold,
+        //       //       color: Colors.black),
+        //       //   textAlign: TextAlign.center,
+        //       // )
+        //     ),
+        // ),
       ],
     );
   }
@@ -323,7 +372,7 @@ class _ProfileTreadState extends State<ProfileTread> {
                 ),
               )),
           TextButton(
-              onPressed: () {
+              onPressed: () async{
                 Navigator.of(context).pushReplacement(PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
                 return const ProfilePost();
@@ -335,6 +384,7 @@ class _ProfileTreadState extends State<ProfileTread> {
                     child: child,
                   );
                 }));
+                
               },
               child: Center(
                 child: Column(
@@ -426,7 +476,7 @@ class _ProfileTreadState extends State<ProfileTread> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -437,7 +487,9 @@ class _ProfileTreadState extends State<ProfileTread> {
                                 style: GoogleFonts.poppins(fontSize: 14),
                               ),
                               Text(
-                                "Albert Flores@gmail.com",
+                                // "Albert Flores@gmail.com",
+                                threads.listDataUser!.email!.toString()
+                                ,
                                 style: GoogleFonts.poppins(
                                     fontSize: 13, color: const Color(0xff26B893)),
                               ),
@@ -471,7 +523,9 @@ class _ProfileTreadState extends State<ProfileTread> {
                         ],
                       ),
                       Text(
-                        "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+                        // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+                        threads.listDataUser!.threads!.toString()
+                        ,
                         style: GoogleFonts.poppins(
                             fontSize: 13, fontWeight: FontWeight.w500),
                         textAlign: TextAlign.justify,

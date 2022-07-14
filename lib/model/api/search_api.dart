@@ -8,10 +8,18 @@ class SearchAPI{
   Future getThreadBySearch(String title) async{
     final Dio dio = Dio();
     try{
-      final Response response = await dio.get("http://8.219.84.81/api/v1/thread/search/$title"
+      final Response response = await dio.get("http://8.219.84.81/api/v1/thread/search?title=$title",
+      options: Options(
+        headers: {
+          "Content-Type":
+          "application/json"
+        },
+      ),
     );
     // dataThread = ThreadModel.fromJson(response.data).data;
-    SearchModel.fromJson(response.data);
+    
+    print(response.data['data']['content']);
+    return (response.data['data']['content'] as List).map((e) => Data.fromJson(e)).toList(); 
     }on DioError catch(e){
       print(e.response!.statusCode);
     }

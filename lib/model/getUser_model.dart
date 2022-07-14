@@ -1,11 +1,11 @@
-class ThreadModel {
+class GetUserModel {
   String? timestamp;
   String? message;
   List<Data>? data;
 
-  ThreadModel({this.timestamp, this.message, this.data});
+  GetUserModel({this.timestamp, this.message, this.data});
 
-  ThreadModel.fromJson(Map<String, dynamic> json) :
+  GetUserModel.fromJson(Map<String, dynamic> json) :
     timestamp = json['timestamp'],
     message = json['message'],
       data = json['data']['content'] != null ?  (json['data']['content'] as List).map((v) {

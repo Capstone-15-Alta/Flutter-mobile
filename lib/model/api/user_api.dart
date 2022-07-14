@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:forum_diskusi/model/getUser_model.dart';
 import 'package:forum_diskusi/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +19,22 @@ class UserAPI{
     }
     return dataProfileUser!;
   }
+
+  Future<List<Data>> getAllUserInApp() async{
+    final Dio dio = Dio();
+    List<Data>? dataThread;
+    try{
+      final Response response = await dio.get(
+      'http://8.219.84.81/api/v1/thread', 
+    );
+    dataThread = GetUserModel.fromJson(response.data).data;
+    
+    }on DioError catch(e){
+      print(e.response!.statusCode);
+    }
+    return dataThread!;
+  }
+
 }
 
 // Future<List<Data>> getAllThread() async{

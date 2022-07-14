@@ -1,8 +1,10 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forum_diskusi/model/api/ranking_api.dart';
 import 'package:forum_diskusi/model/api/thread_api.dart';
+import 'package:forum_diskusi/view/comments/comments_screen.dart';
 import 'package:forum_diskusi/view/home/home_thread.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
@@ -33,8 +35,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     _tabController = TabController(length: 3, vsync: this);
@@ -46,24 +46,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         length: 3,
         child: Scaffold(
           backgroundColor: Colors.white,
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: const Color(0xff26B893),
-            onPressed: () {
-              Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                return const HomeThread();
-              }, transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                final tween = Tween(begin: 0.0, end: 2.0);
-                return FadeTransition(
-                  opacity: animation.drive(tween),
-                  child: child,
-                );
-              }));
-            },
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
+          floatingActionButton: DraggableFab(
+            child: FloatingActionButton(
+              backgroundColor: const Color(0xff26B893),
+              onPressed: () {
+                Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                  return const HomeThread();
+                }, transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                  final tween = Tween(begin: 0.0, end: 2.0);
+                  return FadeTransition(
+                    opacity: animation.drive(tween),
+                    child: child,
+                  );
+                }));
+              },
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
             ),
           ),
           body: Container(
@@ -71,12 +73,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: Column( 
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ElevatedButton(
-                  onPressed: (){
-                    ThreadAPI().getAllThread();
-                  }
-                , child: Text("asdas")
-                ),
                 Center(
                     child: SvgPicture.asset(
                   "assets/image/logo.svg",
@@ -229,14 +225,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               style:
                                                   GoogleFonts.poppins(fontSize: 14),
                                             ),
-                                            // Text(
-                                            //   // "Albert Flores@gmail.com",
-                                            //   threadProvider
-                                            //       .listGetTrendingThread[index].email!,
-                                            //   style: GoogleFonts.poppins(
-                                            //       fontSize: 13,
-                                            //       color: const Color(0xff26B893)),
-                                            // ),
+                                            Text(
+                                              // "Albert Flores@gmail.com",
+                                              threadProvider
+                                                  .listGetThread[index].user!.email!,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 13,
+                                                  color: const Color(0xff26B893)),
+                                            ),
                                           ],
                                         ),
                                         GestureDetector(
@@ -366,7 +362,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               const CircleAvatar(
                                 radius: 30.0,
                                 backgroundImage: NetworkImage(
-                                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                    "https://pbs.twimg.com/profile_images/1490533817416925189/oDKK6UFj_400x400.jpg"),
                                 backgroundColor: Colors.transparent,
                               ),
                               const SizedBox(
@@ -470,7 +466,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         IconButton(
                                           icon: const Icon(Icons.chat,
                                               size: 18, color: Color(0xff26B893)),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.of(context).push(PageRouteBuilder(
+                                                pageBuilder: (context, animation, secondaryAnimation) {
+                                              return const CommentsScreen();
+                                            }, transitionsBuilder:
+                                                    (context, animation, secondaryAnimation, child) {
+                                              final tween = Tween(begin: 0.0, end: 2.0);
+                                              return FadeTransition(
+                                                opacity: animation.drive(tween),
+                                                child: child,
+                                              );
+                                            }));
+                                          },
                                         ),
                                         IconButton(
                                           icon: const Icon(
