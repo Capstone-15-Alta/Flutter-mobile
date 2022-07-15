@@ -12,14 +12,14 @@ class ThreadViewModel extends ChangeNotifier{
   List<Data> _listGetTrendingThread = [];
   List<Data> get listGetTrendingThread => _listGetTrendingThread;
   
-  // List<Data> _listGetThreadByCategory = [];
-  // List<Data> get listGetThreadByCategory => _listGetThreadByCategory;
+  List<Data> _listGetThreadByCategory = [];
+  List<Data> get listGetThreadByCategory => _listGetThreadByCategory;
 
 
   // getThread(String category)async{
   //     final allThreadByCategory = await ThreadAPI().getAllThread();
   //     _listGetThreadByCategory = allThreadByCategory;
-  //     _listGetThreadByCategory.where((element) => element.category['category_name'] == category,);
+  //     _listGetThreadByCategory.where((element) => element.category!['category_name'] == category,);
   //     notifyListeners();
   // }
 
@@ -28,8 +28,6 @@ class ThreadViewModel extends ChangeNotifier{
     _listGetThread = allThread;
     notifyListeners();
   }
-
-
 
   postThread(ThreadPostModel threadPostModel)async{
       await PostThreadAPI().postThread(threadPostModel);

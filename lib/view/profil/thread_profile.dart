@@ -522,6 +522,7 @@ class _ProfileTreadState extends State<ProfileTread> {
                               ))
                         ],
                       ),
+                      
                       Text(
                         // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
                         threads.listDataUser!.threads!.toString()
@@ -545,7 +546,9 @@ class _ProfileTreadState extends State<ProfileTread> {
                               size: 18,
                               color: Color(0xff26B893),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              print(threads.listDataUser!.threads!);
+                            },
                           ),
                           IconButton(
                             icon: const Icon(

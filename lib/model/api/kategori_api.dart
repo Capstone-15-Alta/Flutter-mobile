@@ -17,4 +17,19 @@ class KategoriAPI{
       print(e.response!.statusCode);
     }
   }
+
+  //   Future<KategoriModel?> getThreadByCategory() async {
+  //   try{
+  //     final Response response = await dio.get(
+  //       baseUrl
+  //   );
+  //   var dataKategori = KategoriModel.fromJson(response.data);
+  //   return dataKategori;
+  //   }on DioError catch(e){
+  //     // print(e.toString());
+  //     return null;
+  //     print(e.response!.statusCode);
+  //   }
+  // }
+  
 }

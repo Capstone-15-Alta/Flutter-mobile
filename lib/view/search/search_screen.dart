@@ -15,7 +15,18 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
+  final List<String> items = [
+    'Item1',
+    'Item2',
+    'Item3',
+    'Item4',
+    'Item5',
+    'Item6',
+    'Item7',
+    'Item8',
+  ];
+
   @override
   void initState() {
     Provider.of<UserViewModel>(context, listen: false).getAllDataUserInApp();
@@ -24,31 +35,30 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final saranUserProvider = Provider.of<UserViewModel>(context);
+    final saranUserProvider = Provider.of<UserViewModel>(context);
     final searchProvider = Provider.of<SearchUserViewModel>(context);
     final searchField = Form(
-      key: _formKey,
-      child: TextFormField(
-      onFieldSubmitted: (value) async {},
-      autofocus: false,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return ("Mohon diisi yang ingin di cari");
-        }
-        return null;
-      },
-      controller: searchController,
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        fillColor: const Color.fromARGB(255, 236, 240, 243),
-        prefixIcon: const Icon(Icons.search),
-        filled: true,
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Cari di Forum Grup Diskusi",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    ) 
-    );
+        key: _formKey,
+        child: TextFormField(
+          onFieldSubmitted: (value) async {},
+          autofocus: false,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return ("Mohon diisi yang ingin di cari");
+            }
+            return null;
+          },
+          controller: searchController,
+          textInputAction: TextInputAction.done,
+          decoration: InputDecoration(
+            fillColor: const Color.fromARGB(255, 236, 240, 243),
+            prefixIcon: const Icon(Icons.search),
+            filled: true,
+            contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            hintText: "Cari di Forum Grup Diskusi",
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        ));
 
     return Scaffold(
       body: SafeArea(
@@ -70,16 +80,19 @@ class _SearchScreenState extends State<SearchScreen> {
                 Row(
                   children: [
                     Expanded(child: searchField),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     SizedBox(
                       height: 50,
                       width: 80,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: const Color(0xff26B893), // Background color
+                            primary:
+                                const Color(0xff26B893), // Background color
                           ),
                           onPressed: () {
-                            if(!_formKey.currentState!.validate())return;
+                            if (!_formKey.currentState!.validate()) return;
                             searchProvider.getDataSearch(searchController.text);
                           },
                           child: Text(
@@ -93,9 +106,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 20,
                 ),
                 SizedBox(
-                  height: 300,
+                  height: MediaQuery.of(context).size.height*0.56,
                   child: Builder(builder: (context) {
-                    
                     if (searchProvider.listDataSearch == null) {
                       return Column(
                         children: [
@@ -107,45 +119,63 @@ class _SearchScreenState extends State<SearchScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Row(
-                            children: [
-                              const CircleAvatar(
-                                radius: 23.0,
-                                backgroundImage: NetworkImage(
-                                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                                backgroundColor: Colors.transparent,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text(
-                                "nama",
-                              ),
-                              const Spacer(),
-                              Container(
-                                height: 35,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff26B893),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: const [
-                                    Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      "Ikuti",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: saranUserProvider
+                                    .listGetAllUserInApp.length,
+                                itemBuilder: ((context, index) {
+                                  return Column(
+                                    children: [
+                                      SizedBox(height: 10,),
+                                      Row(
+                                        children: [
+                                          const CircleAvatar(
+                                            radius: 23.0,
+                                            backgroundImage: NetworkImage(
+                                                "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                            backgroundColor: Colors.transparent,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                              "nama",
+                                              // saranUserProvider
+                                              //     .listGetAllUserInApp[index]
+                                              //     .user!
+                                              //     .username!
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            height: 35,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xff26B893),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: const [
+                                                Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  "Ikuti",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                })),
+                          )
                         ],
                       );
                     }
@@ -179,27 +209,33 @@ class _SearchScreenState extends State<SearchScreen> {
                                           children: [
                                             Text(
                                               // "Nama"
-                                              searchProvider.listDataSearch![index].user!.username!,
-                                              style:
-                                                  GoogleFonts.poppins(fontSize: 14),
+                                              searchProvider
+                                                  .listDataSearch![index]
+                                                  .user!
+                                                  .username!,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 14),
                                             ),
                                             Text(
                                               // "Albert Flores@gmail.com",
-                                              searchProvider.listDataSearch![index].user!.email!,
+                                              searchProvider
+                                                  .listDataSearch![index]
+                                                  .user!
+                                                  .email!,
                                               style: GoogleFonts.poppins(
                                                   fontSize: 13,
-                                                  color: const Color(0xff26B893)),
+                                                  color:
+                                                      const Color(0xff26B893)),
                                             ),
                                           ],
                                         ),
                                         GestureDetector(
                                             onTap: () {
-                                              setState(() {
-
-                                              });
+                                              setState(() {});
                                             },
                                             child: AnimatedContainer(
-                                              duration : const Duration(milliseconds:300),
+                                              duration: const Duration(
+                                                  milliseconds: 300),
                                               height: 30,
                                               width: 75,
                                               decoration: BoxDecoration(
@@ -209,7 +245,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                               ),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: const [
                                                   Icon(
                                                     Icons.add,
@@ -226,11 +263,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                       ],
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width * 0.66,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.66,
                                       child: Text(
                                         // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
-                                        searchProvider
-                                  .listDataSearch![index].description!,
+                                        searchProvider.listDataSearch![index]
+                                            .description!,
                                         style: GoogleFonts.poppins(
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500),
@@ -243,10 +281,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                     Text(
                                       // "Time",
                                       searchProvider
-                                  .listDataSearch![index].createdAt!,
+                                          .listDataSearch![index].createdAt!,
                                       style: GoogleFonts.poppins(fontSize: 14),
                                     ),
-                                    
                                   ],
                                 ),
                               )
@@ -254,8 +291,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                           // Row(
                           //   children: [
-                              // Text(searchProvider
-                              //     .listDataSearch![index].user!.username!
+                          // Text(searchProvider
+                          //     .listDataSearch![index].user!.username!
                           //         .toString()),
                           //     Text(searchProvider
                           //         .listDataSearch![index].description

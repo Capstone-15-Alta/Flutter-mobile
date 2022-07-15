@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.forum_diskusi">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="forum_diskusi"
         android:name="${applicationName}"

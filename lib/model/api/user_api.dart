@@ -4,10 +4,10 @@ import 'package:forum_diskusi/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAPI{
+  final Dio dio = Dio();
   Future<UserModel> getDataProfileUser() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     final id = pref.getInt('id');
-    final Dio dio = Dio();
     UserModel? dataProfileUser;
     try{
       final Response response = await dio.get(
@@ -21,11 +21,10 @@ class UserAPI{
   }
 
   Future<List<Data>> getAllUserInApp() async{
-    final Dio dio = Dio();
     List<Data>? dataThread;
     try{
       final Response response = await dio.get(
-      'http://8.219.84.81/api/v1/thread', 
+      'http://8.219.84.81/api/v1/user', 
     );
     dataThread = GetUserModel.fromJson(response.data).data;
     
@@ -35,7 +34,21 @@ class UserAPI{
     return dataThread!;
   }
 
+//   Future<List<Data>> getAllUser()async {
+//     List<Data>? allUser;
+//   try{
+//     final Response response = await dio.get(
+//       'http://8.219.84.81/api/v1/user',
+//     );
+//   }on DioError catch(e){
+//     print(e.response!.statusCode);
+//   }
+//   return 
+// }
+
 }
+
+
 
 // Future<List<Data>> getAllThread() async{
 //     final Dio dio = Dio();
