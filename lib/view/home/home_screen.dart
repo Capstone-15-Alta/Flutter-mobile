@@ -9,6 +9,7 @@ import 'package:forum_diskusi/view/home/home_thread.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/trendingThread_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ThreadViewModel>(context, listen: false).getAllThread();
+      Provider.of<UserViewModel>(context, listen: false).getDataUser();
     });
     super.initState();
   }
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final threadProvider = Provider.of<ThreadViewModel>(context);
     final trendingThreadProvider = Provider.of<TrendingTreadViewModel>(context);
     final kategoriProvider = Provider.of<KategoriViewModel>(context);
-
+    final userProvider = Provider.of<UserViewModel>(context);
     Widget dropDownKategori() {
       if (kategoriProvider.listKategori == null ||
           kategoriProvider.listKategori!.data == null) {
@@ -158,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text("Hello, Yogi",
+                        Text("Hello, ${userProvider.listDataUser!.username!}",
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 23,

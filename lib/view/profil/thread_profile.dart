@@ -65,20 +65,65 @@ class _ProfileTreadState extends State<ProfileTread> {
       floatingActionButton: DraggableFab(
         child: FloatingActionButton(
           backgroundColor: const Color(0xff26B893),
-          onPressed: () async{
-              SharedPreferences pref = await SharedPreferences.getInstance();
-                pref.clear();
-                Navigator.of(context).pushReplacement(PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) {
-                        return const LoginScreen();
-                      }, transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                        final tween = Tween(begin: 0.0, end: 2.0);
-                        return FadeTransition(
-                          opacity: animation.drive(tween),
-                          child: child,
-                        );
-                      }));
+          onPressed: (){
+              showDialog(
+                context: context, 
+                builder: (context){
+                  return AlertDialog(
+                    content: Container(
+                      width: MediaQuery.of(context).size.width/1.2,
+                      height: MediaQuery.of(context).size.height/4,
+                      color: Colors.white,
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.warning_amber_outlined, color: Colors.red, size:40),
+
+                            Text("Apakah anda ingin logout?", style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: const Color(0xff26B893)),),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: const Color(0xff26B893)
+                                  ),
+                                  onPressed: ()async{
+                                    SharedPreferences pref = await SharedPreferences.getInstance();
+                                      pref.clear();
+                                      Navigator.of(context).pushReplacement(PageRouteBuilder(
+                                                pageBuilder: (context, animation, secondaryAnimation) {
+                                              return const LoginScreen();
+                                            }, transitionsBuilder:
+                                                    (context, animation, secondaryAnimation, child) {
+                                              final tween = Tween(begin: 0.0, end: 2.0);
+                                              return FadeTransition(
+                                                opacity: animation.drive(tween),
+                                                child: child,
+                                              );
+                                            }));
+                                  }, 
+                                  child: const Text("Lanjutkan")
+                                  ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red[700]
+                                  ),
+                                  onPressed: (){
+                                    Navigator.of(context, rootNavigator: true).pop();
+                                  },
+                                  child: const Text("Batal"),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              );
                
           },
           child:const Icon(Icons.logout, color: Colors.white,),
