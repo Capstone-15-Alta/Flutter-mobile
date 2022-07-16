@@ -74,10 +74,9 @@ class _NotifScreenState extends State<NotifScreen>
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 const NotifikasiButton(),
-                // punten mas, kenalin aku septri. kita sekelompok cepstone... mau nanya mas, di front end web pada udah selesaikah yang bagian ini?
               ],
             ),
           ),

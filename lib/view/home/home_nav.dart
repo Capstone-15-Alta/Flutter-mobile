@@ -16,14 +16,17 @@ class HomeNav extends StatefulWidget {
 
 class _HomeNavState extends State<HomeNav> {
   int _selectedIndex = 0;
-  final _layoutPage = [const HomeScreen(), const SearchScreen(), const ExploreScreen(),const RankingScreen(), const ProfileTread()
+  final _layoutPage = [
+    const HomeScreen(),
+    const RankingScreen(),
+    const SearchScreen(),
+    const NotifScreen(),
+    const ProfileTread()
   ];
   void _onTabItem(int index) {
-    setState(
-      () {
+    setState(() {
       _selectedIndex = index;
-    }
-    );
+    });
   }
 
   @override
@@ -44,6 +47,13 @@ class _HomeNavState extends State<HomeNav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
+              Icons.folder,
+              color: Color(0xffABABAB),
+            ),
+            label: "Rangking",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
               Icons.search,
               color: Color(0xffABABAB),
             ),
@@ -51,17 +61,10 @@ class _HomeNavState extends State<HomeNav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.folder,
+              Icons.notifications_active,
               color: Color(0xffABABAB),
             ),
-            label: "Explore",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.auto_awesome_rounded,
-              color: Color(0xffABABAB),
-            ),
-            label: "Rangking",
+            label: "Notifikasi",
           ),
           BottomNavigationBarItem(
             icon: Icon(

@@ -46,7 +46,7 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                   },
                   child: Text(
                     "Semua",
-                    style: GoogleFonts.poppins(fontSize: 15),
+                    style: GoogleFonts.poppins(fontSize: 13),
                   )),
             ),
             const SizedBox(
@@ -60,9 +60,9 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                       primary: _hasBeenPressedButton2
                           ? const Color(0xff26B893)
                           : Colors.white,
-                      onPrimary: _hasBeenPressedButton1
-                          ? const Color(0xff26B893)
-                          : Colors.white,
+                      onPrimary: _hasBeenPressedButton2
+                          ? Colors.white
+                          : const Color(0xff26B893),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           side: BorderSide(color: Color(0xff26B893)))),
@@ -79,7 +79,7 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                   },
                   child: Text(
                     "Belum\nDibaca",
-                    style: GoogleFonts.poppins(fontSize: 15),
+                    style: GoogleFonts.poppins(fontSize: 13),
                     textAlign: TextAlign.center,
                   )),
             ),
@@ -91,9 +91,9 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                       primary: _hasBeenPressedButton3
                           ? const Color(0xff26B893)
                           : Colors.white,
-                      onPrimary: _hasBeenPressedButton1
-                          ? const Color(0xff26B893)
-                          : Colors.white,
+                      onPrimary: _hasBeenPressedButton3
+                          ? Colors.white
+                          : const Color(0xff26B893),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           side: BorderSide(color: Color(0xff26B893)))),
@@ -110,14 +110,17 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                   },
                   child: Text(
                     "Baca\nSemuanya",
-                    style: GoogleFonts.poppins(fontSize: 15),
+                    style: GoogleFonts.poppins(fontSize: 13),
                     textAlign: TextAlign.center,
                   )),
             ),
           ],
         ),
+        const SizedBox(
+          height: 20,
+        ),
         SizedBox(
-          height: 600,
+          height: MediaQuery.of(context).size.height * 0.66,
           child: notifikasiTiapButton(),
         )
       ],
@@ -131,32 +134,48 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemCount: 1,
         itemBuilder: (context, index) {
-          return SizedBox(
-            height: 200,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 1,
-              itemBuilder: ((context, index) {
-                return ListTile(
-                  leading: const CircleAvatar(
-                        radius: 20.0,
-                        backgroundImage: NetworkImage(
-                            "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                        backgroundColor: Colors.transparent,
-                      ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Nama", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),),
-                      Text("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: const Color(0xff26B893)),),
-                      const SizedBox(height: 8,),
-                      Text("Time", style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),)
-                    ],
-                  ),
-                  trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete, color: Colors.blue,)),
-                );
-              })
+          return ListTile(
+            leading: const CircleAvatar(
+              radius: 20.0,
+              backgroundImage: NetworkImage(
+                  "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+              backgroundColor: Colors.transparent,
             ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "EmmaRiver01 membalas komentar anda",
+                  style: GoogleFonts.poppins(
+                      fontSize: 13, fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  "Menurut pendapat saya bahwa bukan cacing, tetapi kutu adalah penemuan paling kontroversial dalam sejarahMenurut pendapat saya bahwa bukan cacing, tetapi kutu adalah penemuan paling kontroversial dalam sejarah",
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xffABABAB),
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Minggu, 22 Juni 2022",
+                  style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xffABABAB)),
+                )
+              ],
+            ),
+            trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.blue,
+                )),
           );
         });
   }
