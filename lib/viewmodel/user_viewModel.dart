@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:forum_diskusi/model/api/user_api.dart';
-import 'package:forum_diskusi/model/getUser_model.dart';
 import 'package:forum_diskusi/model/user_model.dart';
 
 class UserViewModel extends ChangeNotifier{

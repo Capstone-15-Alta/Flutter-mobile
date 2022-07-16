@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/model/api/ranking_api.dart';
 import 'package:forum_diskusi/model/api/search_api.dart';
 import 'package:forum_diskusi/model/search_model.dart';
 

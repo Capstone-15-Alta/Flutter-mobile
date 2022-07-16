@@ -1,10 +1,7 @@
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forum_diskusi/model/api/ranking_api.dart';
-import 'package:forum_diskusi/model/api/thread_api.dart';
-import 'package:forum_diskusi/view/comments/comments_screen.dart';
+import 'package:forum_diskusi/utils/finite_state.dart';
 import 'package:forum_diskusi/view/home/home_thread.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
@@ -29,14 +26,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   String? selectedValue;
   String kategori = '';
 
-  // var items = [
-  //   'Item 1',
-  //   'Item 2',
-  //   'Item 3',
-  //   'Item 4',
-  //   'Item 5',
-  // ];
-
   bool isFollowing = false;
 
   @override
@@ -44,35 +33,33 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ThreadViewModel>(context, listen: false).getAllThread();
       Provider.of<UserViewModel>(context, listen: false).getDataUser();
+      dropDownKategori(context);
     });
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // final threadProvider = Provider.of<KategoriViewModel>(context);
-    final threadProvider = Provider.of<ThreadViewModel>(context);
-    final trendingThreadProvider = Provider.of<TrendingTreadViewModel>(context);
-    final kategoriProvider = Provider.of<KategoriViewModel>(context);
-    final userProvider = Provider.of<UserViewModel>(context);
-    Widget dropDownKategori() {
-      if (kategoriProvider.listKategori == null ||
-          kategoriProvider.listKategori!.data == null) {
-        kategoriProvider.getKategori();
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      return Container(
-        height: MediaQuery.of(context).size.height * 0.052,
-        width: MediaQuery.of(context).size.width * 0.37,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            border: Border.all(
-                color: const Color(0xff26B893),
-                style: BorderStyle.solid,
-                width: 0.8)),
-        child: Container(
+  Widget dropDownKategori(BuildContext context) {
+    final kategoriProvider =
+        Provider.of<KategoriViewModel>(context, listen: false);
+
+    if (kategoriProvider.listKategori == null ||
+        kategoriProvider.listKategori!.data == null) {
+      kategoriProvider.getKategori();
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.052,
+      width: MediaQuery.of(context).size.width * 0.37,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          border: Border.all(
+              color: const Color(0xff26B893),
+              style: BorderStyle.solid,
+              width: 0.8)),
+      child: Consumer<KategoriViewModel>(builder: (context, model, _) {
+        return Container(
           margin: const EdgeInsets.all(8),
           child: DropdownButtonHideUnderline(
             child: DropdownButton(
@@ -95,23 +82,32 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              value: selectedValue,
+              value: model.selectedKategori,
               onChanged: (String? value) {
-                setState(() {
-                  selectedValue = value ?? "";
-                  kategori = selectedValue!;
-                  print(selectedValue);
-                });
+                model.changeKategori(value!);
+                final threadProvider =
+                    Provider.of<ThreadViewModel>(context, listen: false);
+                threadProvider.getThreadByCategory(category: value);
               },
-              items: kategoriProvider.listKategori!.data!
-                  .map((e) => DropdownMenuItem<String>(
-                      value: e.categoryName, child: Text(e.categoryName!)))
+              items: model.listKategori!.data!
+                  .map(
+                    (e) => DropdownMenuItem<String>(
+                      value: e.categoryName,
+                      child: Text(e.categoryName!),
+                    ),
+                  )
                   .toList(),
             ),
           ),
-        ),
-      );
-    }
+        );
+      }),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final threadProvider = Provider.of<ThreadViewModel>(context, listen: false);
+    final userProvider = Provider.of<UserViewModel>(context);
 
     return SafeArea(
       child: DefaultTabController(
@@ -205,20 +201,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         height: MediaQuery.of(context).size.height * 0.052,
                         width: MediaQuery.of(context).size.width * 0.37,
                         child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: _hasBeenPressedButton1
-                                    ? const Color(0xff26B893)
-                                    : Colors.white,
-                                onPrimary: _hasBeenPressedButton1
-                                    ? Colors.white
-                                    : const Color(0xff26B893),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    side:
-                                        BorderSide(color: Color(0xff26B893)))),
-                            onPressed: () {
-                              setState(() {
+                          style: ElevatedButton.styleFrom(
+                              primary: _hasBeenPressedButton1
+                                  ? const Color(0xff26B893)
+                                  : Colors.white,
+                              onPrimary: _hasBeenPressedButton1
+                                  ? Colors.white
+                                  : const Color(0xff26B893),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  side: BorderSide(color: Color(0xff26B893)))),
+                          onPressed: () {
+                            setState(
+                              () {
                                 if (_hasBeenPressedButton1 == false ||
                                     _hasBeenPressedButton2 == true ||
                                     _hasBeenPressedButton3 == true) {
@@ -226,18 +222,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   _hasBeenPressedButton2 = false;
                                   _hasBeenPressedButton3 = false;
                                 }
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const Icon(Icons.access_time),
-                                Text(
-                                  "Semua",
-                                  style: GoogleFonts.poppins(fontSize: 13),
-                                ),
-                              ],
-                            )),
+                                threadProvider.getAllThread();
+                              },
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Icon(Icons.access_time),
+                              Text(
+                                "Semua",
+                                style: GoogleFonts.poppins(fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.03,
@@ -267,6 +266,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   _hasBeenPressedButton1 = false;
                                   _hasBeenPressedButton3 = false;
                                 }
+                                threadProvider.getAllTrendingThread();
                               });
                             },
                             child: Row(
@@ -284,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.03,
                       ),
-                      dropDownKategori()
+                      dropDownKategori(context),
                     ],
                   ),
                 ),
@@ -293,168 +293,180 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.62,
-                  child: ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
-                    itemCount: threadProvider.listGetThread.length,
-                    itemBuilder: (context, index) {
-                      // List<ThreadModel> thread = [];
-                      // if(data != isEmpty){
-                      //  return "data kosong"
-                      // }
-                      return SizedBox(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage(
-                                "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                            backgroundColor: Colors.transparent,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Column(
+                  child:
+                      Consumer<ThreadViewModel>(builder: (context, model, _) {
+                    switch (model.myState) {
+                      case MyState.initial:
+                        return const SizedBox();
+                      case MyState.loading:
+                        return const CircularProgressIndicator();
+                      case MyState.success:
+                        return ListView.separated(
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const Divider(),
+                          itemCount: model.listGetThread.length,
+                          itemBuilder: (context, index) {
+                            final thread = model.listGetThread[index];
+                            return SizedBox(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          // "Nama"
-                                          threadProvider.listGetThread[index]
-                                              .user!.username!,
-                                          style:
-                                              GoogleFonts.poppins(fontSize: 14),
-                                        ),
-                                        Text(
-                                          // "Albert Flores@gmail.com",
-                                          threadProvider.listGetThread[index]
-                                              .user!.email!,
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 13,
-                                              color: const Color(0xff26B893)),
-                                        ),
-                                      ],
-                                    ),
-                                    GestureDetector(
-                                        onTap: () {
-                                          setState(() {});
-                                        },
-                                        child: AnimatedContainer(
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          height: 30,
-                                          width: 75,
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xff26B893),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: const [
-                                              Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                              Text(
-                                                "Ikuti",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.66,
-                                  child: Text(
-                                    // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
-                                    threadProvider
-                                        .listGetThread[index].description!,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500),
-                                    textAlign: TextAlign.justify,
-                                  ),
+                                const CircleAvatar(
+                                  radius: 30.0,
+                                  backgroundImage: NetworkImage(
+                                      "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                  backgroundColor: Colors.transparent,
                                 ),
                                 const SizedBox(
-                                  height: 5,
+                                  width: 10,
                                 ),
-                                Text(
-                                  // "Time",
-                                  threadProvider
-                                      .listGetThread[index].createdAt!,
-                                  style: GoogleFonts.poppins(fontSize: 14),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.thumb_up_alt_outlined,
-                                        size: 18,
-                                        color: Color(0xff26B893),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                // "Nama"
+                                                thread.user?.username ?? "",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 14),
+                                              ),
+                                              Text(
+                                                // "Albert Flores@gmail.com",
+                                                thread.user?.email ?? "",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 13,
+                                                    color: const Color(
+                                                        0xff26B893)),
+                                              ),
+                                            ],
+                                          ),
+                                          GestureDetector(
+                                              onTap: () {},
+                                              child: AnimatedContainer(
+                                                duration: const Duration(
+                                                    milliseconds: 300),
+                                                height: 30,
+                                                width: 75,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xff26B893),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.add,
+                                                      color: Colors.white,
+                                                    ),
+                                                    Text(
+                                                      "Ikuti",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    )
+                                                  ],
+                                                ),
+                                              ))
+                                        ],
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.thumb_down_alt_outlined,
-                                        size: 18,
-                                        color: Color(0xff26B893),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.66,
+                                        child: Text(
+                                          // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+                                          // threadProvider
+                                          //     .listGetThread[index].description!
+                                          thread.description ?? "",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500),
+                                          textAlign: TextAlign.justify,
+                                        ),
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.chat,
-                                          size: 18, color: Color(0xff26B893)),
-                                      onPressed: () {},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.remove_red_eye_outlined,
-                                        size: 18,
-                                        color: Color(0xff26B893),
+                                      const SizedBox(
+                                        height: 5,
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.arrow_back_outlined,
-                                        size: 18,
-                                        color: Color(0xff26B893),
+                                      Text(
+                                        // "Time",
+                                        thread.createdAt ?? "",
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 14),
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.share,
-                                        size: 18,
-                                        color: Color(0xff26B893),
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ],
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.thumb_up_alt_outlined,
+                                              size: 18,
+                                              color: Color(0xff26B893),
+                                            ),
+                                            onPressed: () {},
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.thumb_down_alt_outlined,
+                                              size: 18,
+                                              color: Color(0xff26B893),
+                                            ),
+                                            onPressed: () {},
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(Icons.chat,
+                                                size: 18,
+                                                color: Color(0xff26B893)),
+                                            onPressed: () {},
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.remove_red_eye_outlined,
+                                              size: 18,
+                                              color: Color(0xff26B893),
+                                            ),
+                                            onPressed: () {},
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.arrow_back_outlined,
+                                              size: 18,
+                                              color: Color(0xff26B893),
+                                            ),
+                                            onPressed: () {},
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.share,
+                                              size: 18,
+                                              color: Color(0xff26B893),
+                                            ),
+                                            onPressed: () {},
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
-                            ),
-                          )
-                        ],
-                      ));
-                    },
-                  ),
+                            ));
+                          },
+                        );
+                      case MyState.failed:
+                        return const Text("oops, Something Went Wrong");
+                    }
+                  }),
                 ),
               ],
             ),

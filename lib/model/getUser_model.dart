@@ -12,7 +12,7 @@ class GetUserInAppModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['timestamp'] = timestamp;
     data['message'] = message;
     if (this.data != null) {
@@ -70,7 +70,7 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (content != null) {
       data['content'] = content!.map((v) => v.toJson()).toList();
     }
@@ -184,7 +184,7 @@ class Content {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['username'] = username;
     data['email'] = email;
@@ -260,7 +260,7 @@ class Threads {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
     data['description'] = description;
@@ -287,7 +287,7 @@ class View {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['views'] = views;
     return data;
   }
@@ -309,7 +309,7 @@ class ThreadLikes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;
     data['thread_id'] = threadId;
     data['is_like'] = isLike;
@@ -337,7 +337,7 @@ class UserFollowers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (userFollower != null) {
       data['user_follower'] = userFollower!.toJson();
     }
@@ -398,7 +398,7 @@ class UserFollower {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['username'] = username;
     data['password'] = password;
@@ -436,7 +436,7 @@ class UserFollowing {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['user_follower_id'] = userFollowerId;
     if (userFollowed != null) {
       data['user_followed'] = userFollowed!.toJson();
@@ -482,7 +482,7 @@ class Notifications {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
     data['title'] = title;
@@ -513,7 +513,7 @@ class SaveThread {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;
     if (thread != null) {
       data['thread'] = thread!.toJson();
@@ -594,7 +594,7 @@ class Thread {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
     data['description'] = description;
@@ -637,7 +637,7 @@ class Category {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['category_name'] = categoryName;
     return data;
@@ -670,7 +670,7 @@ class Comments {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
     data['thread_id'] = threadId;
@@ -697,7 +697,7 @@ class Save {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;
     data['thread_id'] = threadId;
     data['is_save'] = isSave;
@@ -724,7 +724,7 @@ class Reports {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
     data['thread_id'] = threadId;
@@ -760,7 +760,7 @@ class Pageable {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (sort != null) {
       data['sort'] = sort!.toJson();
     }
@@ -787,7 +787,7 @@ class Sort {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['unsorted'] = unsorted;
     data['sorted'] = sorted;
     data['empty'] = empty;

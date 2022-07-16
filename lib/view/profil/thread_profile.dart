@@ -82,6 +82,7 @@ class _ProfileTreadState extends State<ProfileTread> {
                             const Icon(Icons.warning_amber_outlined, color: Colors.red, size:40),
 
                             Text("Apakah anda ingin logout?", style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: const Color(0xff26B893)),),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.05,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -164,7 +165,10 @@ class _ProfileTreadState extends State<ProfileTread> {
               const SizedBox(
                 height: 10,
               ),
-              allMyTread(profileProvider)
+              Container(
+                margin: const EdgeInsets.all(16),
+                child: allMyTread(profileProvider)
+              )
             ],
           ),
         ),
@@ -289,28 +293,6 @@ class _ProfileTreadState extends State<ProfileTread> {
                 textAlign: TextAlign.center,
               )),
         ),
-        // Container(
-        //   height: 35,
-        //   child: ElevatedButton(
-        //       style: ElevatedButton.styleFrom(
-        //           primary: Colors.white,
-        //           shape: const RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.all(Radius.circular(10)),
-        //               side: BorderSide(color: Color(0xff26B893)))),
-        //       onPressed: () async{
-                
-        //       },
-        //       child: 
-        //       // child: Text(
-        //       //   "Edit Profile",
-        //       //   style: GoogleFonts.poppins(
-        //       //       fontSize: 10,
-        //       //       fontWeight: FontWeight.bold,
-        //       //       color: Colors.black),
-        //       //   textAlign: TextAlign.center,
-        //       // )
-        //     ),
-        // ),
       ],
     );
   }
@@ -570,7 +552,7 @@ class _ProfileTreadState extends State<ProfileTread> {
                       
                       Text(
                         // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
-                        threads.listDataUser!.threads!.toString()
+                        threads.listDataUser!.threads?[index].description ?? ""
                         ,
                         style: GoogleFonts.poppins(
                             fontSize: 13, fontWeight: FontWeight.w500),
@@ -579,10 +561,12 @@ class _ProfileTreadState extends State<ProfileTread> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        "Time",
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      ),
+                      // Text(
+                      //   // "Time",
+                      //   threads.listDataUser!.threads?[index] ?? ""
+                      //   ,
+                      //   style: GoogleFonts.poppins(fontSize: 14),
+                      // ),
                       Row(
                         children: [
                           IconButton(
@@ -592,7 +576,6 @@ class _ProfileTreadState extends State<ProfileTread> {
                               color: Color(0xff26B893),
                             ),
                             onPressed: () {
-                              print(threads.listDataUser!.threads!);
                             },
                           ),
                           IconButton(
