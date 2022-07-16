@@ -7,8 +7,8 @@ class UserViewModel extends ChangeNotifier{
   UserModel? _listDataUser;
   UserModel? get listDataUser => _listDataUser;
 
-  List<Data> _listGetAllUserInApp = [];
-  List<Data> get listGetAllUserInApp => _listGetAllUserInApp;
+  List<dynamic> _listGetAllUserInApp = [];
+  List<dynamic> get listGetAllUserInApp => _listGetAllUserInApp;
 
   getDataUser() async{
     final allUser = await UserAPI().getDataProfileUser();

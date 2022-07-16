@@ -17,7 +17,6 @@ class ThreadAPI{
     );
     dataThread = ThreadModel.fromJson(response.data).data;
     
-    // print(response.data);
     }on DioError catch(e){
       print(e.response!.statusCode);
     }
@@ -50,22 +49,4 @@ class ThreadAPI{
       print(e.response!.statusCode);
     }
   }
-
-  
-  
-  // Future postThread() async{
-  //   final Dio dio = Dio();
-  //   try{
-  //     final Response response = await dio.post(
-  //     'http://34.87.190.0/api/v1/thread',
-  //     data: jsonEncode({
-
-  //     })
-  //   );
-  //   var dataThread = response.data['data'] as List;
-  //   print(dataThread);
-  //   }on DioError catch(e){
-  //     print(e.response!.statusCode);
-  //   }
-  // }
 }

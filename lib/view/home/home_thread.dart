@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:forum_diskusi/model/list_dropdown.dart';
 import 'package:forum_diskusi/model/thread_postModel.dart';
 import 'package:forum_diskusi/view/home/home_nav.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
@@ -104,7 +103,7 @@ class _HomeThreadState extends State<HomeThread> {
         onPressed: () async {
           try{
             await Future.delayed(
-              Duration(seconds: 2)
+              const Duration(seconds: 2)
             ).then(
               (value) async{
                 SharedPreferences pref = await SharedPreferences.getInstance();

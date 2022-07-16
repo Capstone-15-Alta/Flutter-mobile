@@ -12,9 +12,3 @@ class TrendingTreadViewModel extends ChangeNotifier{
     notifyListeners();
   }
 }
-
-  // getAllTrendingThread() async{
-  //   final allTrendingThread = await ThreadAPI().getTrendingThread();
-  //   _listGetTrendingThread = allTrendingThread;
-  //   notifyListeners();
-  // }

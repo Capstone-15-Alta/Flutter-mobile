@@ -1,12 +1,8 @@
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forum_diskusi/model/api/ranking_api.dart';
-import 'package:forum_diskusi/model/api/thread_api.dart';
 import 'package:forum_diskusi/view/comments/comments_screen.dart';
 import 'package:forum_diskusi/view/home/home_thread.dart';
-import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/trendingThread_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';

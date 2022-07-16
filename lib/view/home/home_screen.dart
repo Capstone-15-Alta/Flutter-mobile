@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text("Hello, ${userProvider.listDataUser!.username!}",
+                        Text("Hello, ${userProvider.listDataUser?.username}",
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 23,

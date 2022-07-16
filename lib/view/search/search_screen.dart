@@ -106,7 +106,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 20,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height*0.56,
+                  height: MediaQuery.of(context).size.height*0.66,
                   child: Builder(builder: (context) {
                     if (searchProvider.listDataSearch == null) {
                       return Column(
@@ -121,12 +121,12 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           Expanded(
                             child: ListView.builder(
-                                itemCount: saranUserProvider
-                                    .listGetAllUserInApp.length,
+                                itemCount: saranUserProvider.listGetAllUserInApp.length
+                                ,
                                 itemBuilder: ((context, index) {
                                   return Column(
                                     children: [
-                                      SizedBox(height: 10,),
+                                      const SizedBox(height: 10,),
                                       Row(
                                         children: [
                                           const CircleAvatar(
@@ -139,11 +139,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                             width: 10,
                                           ),
                                           Text(
-                                              "nama",
-                                              // saranUserProvider
-                                              //     .listGetAllUserInApp[index]
-                                              //     .user!
-                                              //     .username!
+                                              // "nama",
+                                              saranUserProvider
+                                                .listGetAllUserInApp[index]['username']
                                           ),
                                           const Spacer(),
                                           Container(
