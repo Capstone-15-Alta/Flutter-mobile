@@ -18,16 +18,17 @@ class _SplashScreenState extends State<SplashScreen> {
   startTime() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     Future.delayed(const Duration(seconds: 4), () {
-      pref.getString('token')!= null?
-      Navigator.of(context).pushReplacement(
-        NavigatorAnimation(
-          child: const HomeNav( ),
-        ),
-      ) : Navigator.of(context).pushReplacement(
-        NavigatorAnimation(
-          child: const LoginScreen(),
-        ),
-      );
+      pref.getString('token') != null
+          ? Navigator.of(context).pushReplacement(
+              NavigatorAnimation(
+                child: const HomeNav(),
+              ),
+            )
+          : Navigator.of(context).pushReplacement(
+              NavigatorAnimation(
+                child: const LoginScreen(),
+              ),
+            );
     });
   }
 

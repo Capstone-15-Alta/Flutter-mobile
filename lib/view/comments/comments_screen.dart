@@ -1,22 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_svg/svg.dart';
+import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../../model/thread_model.dart';
 
 class CommentsScreen extends StatefulWidget {
-  const CommentsScreen({Key? key}) : super(key: key);
+  final int threadId;
+  final Data threadModel;
+  const CommentsScreen(
+      {Key? key, required this.threadId, required this.threadModel})
+      : super(key: key);
 
   @override
   State<CommentsScreen> createState() => _CommentsScreenState();
 }
 
 class _CommentsScreenState extends State<CommentsScreen> {
+  TextEditingController commentController = TextEditingController();
+  bool isInit = true;
 
-  TextEditingController commentController =  TextEditingController();
+  @override
+  void didChangeDependencies() {
+    isInit = false;
+    if (isInit == true) {
+      Provider.of<CommentsViewModel>(context, listen: false)
+          .getAllComments(widget.threadId);
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final commentProvider = Provider.of<CommentsViewModel>(context);
+    if (commentProvider.listgetComments.isEmpty) {
+      commentProvider.getAllComments(widget.threadId);
+    }
+
+    final commentField = TextFormField(
+      autofocus: false,
+      controller: commentController,
+      onSaved: (value) {
+        commentController.text = value!;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        fillColor: const Color(0xffF5F5F5),
+        filled: true,
+        enabledBorder: const OutlineInputBorder(
+          // width: 0.0 produces a thin "hairline" border
+          borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -70,13 +112,14 @@ class _CommentsScreenState extends State<CommentsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Nama",
+                                  // "Nama",
+                                  widget.threadModel.user!.username!,
                                   // threadProvider.listGetThread[index]
                                   // .user!.username!,
                                   style: GoogleFonts.poppins(fontSize: 14),
                                 ),
                                 Text(
-                                  "Albert Flores@gmail.com",
+                                  widget.threadModel.user!.email!,
                                   //   threadProvider
                                   //       .listGetTrendingThread[index].email!,
                                   style: GoogleFonts.poppins(
@@ -90,8 +133,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                   setState(() {});
                                 },
                                 child: AnimatedContainer(
-                                  duration:
-                                      const Duration(milliseconds: 300),
+                                  duration: const Duration(milliseconds: 300),
                                   height: 30,
                                   width: 75,
                                   decoration: BoxDecoration(
@@ -108,8 +150,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                       ),
                                       Text(
                                         "Ikuti",
-                                        style:
-                                            TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.white),
                                       )
                                     ],
                                   ),
@@ -119,11 +160,13 @@ class _CommentsScreenState extends State<CommentsScreen> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.66,
                           child: Text(
-                            "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+                            widget.threadModel.description!,
                             // threadProvider
                             //     .listGetThread[index].description!,
                             style: GoogleFonts.poppins(
-                                fontSize: 13, fontWeight: FontWeight.w500,),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
                             textAlign: TextAlign.justify,
                           ),
                         ),
@@ -131,7 +174,8 @@ class _CommentsScreenState extends State<CommentsScreen> {
                           height: 5,
                         ),
                         Text(
-                          "Time",
+                          // "Time",
+                          widget.threadModel.createdAt!,
                           // threadProvider.listGetThread[index].createdAt!,
                           style: GoogleFonts.poppins(fontSize: 14),
                         ),
@@ -139,7 +183,9 @@ class _CommentsScreenState extends State<CommentsScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  // CommentAPI().getComment(widget.threadId);
+                                },
                                 child: Text(
                                   "Reply",
                                   style: GoogleFonts.poppins(
@@ -171,160 +217,216 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 thickness: 0.6,
               ),
               Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return SingleChildScrollView(
-                      child: SizedBox(
-                          child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                child: Stack(
+                  children: [
+                    ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(),
+                      itemCount: commentProvider.listgetComments.length,
+                      itemBuilder: (context, index) {
+                        return SingleChildScrollView(
+                          child: SizedBox(
+                              child: Column(
                             children: [
-                              const CircleAvatar(
-                                radius: 30.0,
-                                backgroundImage: NetworkImage(
-                                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                                backgroundColor: Colors.transparent,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage: NetworkImage(
+                                        "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              "Nama",
-                                              // threadProvider.listGetThread[index]
-                                              // .user!.username!,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0xff594545)),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  commentProvider
+                                                      .listgetComments[index]
+                                                      .user!['username'],
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: const Color(
+                                                          0xff594545)),
+                                                ),
+                                                Text(
+                                                  commentProvider
+                                                      .listgetComments[index]
+                                                      .user!['email'],
+                                                  //   threadProvider
+                                                  //       .listGetTrendingThread[index].email!,
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 13,
+                                                      color: const Color(
+                                                          0xff594545)),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              "Albert Flores@gmail.com",
-                                              //   threadProvider
-                                              //       .listGetTrendingThread[index].email!,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 13,
-                                                  color:
-                                                      const Color(0xff594545)),
-                                            ),
+                                            GestureDetector(
+                                                onTap: () {
+                                                  setState(() {});
+                                                },
+                                                child: AnimatedContainer(
+                                                  duration: const Duration(
+                                                      milliseconds: 300),
+                                                  height: 30,
+                                                  width: 75,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        const Color(0xff26B893),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: const [
+                                                      Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                      ),
+                                                      Text(
+                                                        "Ikuti",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ))
                                           ],
                                         ),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {});
-                                            },
-                                            child: AnimatedContainer(
-                                              duration: const Duration(
-                                                  milliseconds: 300),
-                                              height: 30,
-                                              width: 75,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xff26B893),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: const [
-                                                  Icon(
-                                                    Icons.add,
-                                                    color: Colors.white,
-                                                  ),
-                                                  Text(
-                                                    "Ikuti",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.66,
-                                      child: Text(
-                                        "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
-                                        // threadProvider
-                                        //     .listGetThread[index].description!,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff9E9E9E)
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.66,
+                                          child: Text(
+                                            commentProvider
+                                                .listgetComments[index]
+                                                .comment!,
+                                            // threadProvider
+                                            //     .listGetThread[index].description!,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xff9E9E9E)),
+                                            textAlign: TextAlign.justify,
+                                          ),
                                         ),
-                                        textAlign: TextAlign.justify,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Time",
-                                      // threadProvider.listGetThread[index].createdAt!,
-                                      style: GoogleFonts.poppins(fontSize: 14),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        TextButton(
-                                            onPressed: () {},
-                                            child: Text(
-                                              "Reply",
-                                              style: GoogleFonts.poppins(
-                                                  color:
-                                                      const Color(0xff26B893)),
-                                            )),
-                                        TextButton(
-                                            onPressed: () {},
-                                            child: Text(
-                                              "Share",
-                                              style: GoogleFonts.poppins(
-                                                  color:
-                                                      const Color(0xff26B893)),
-                                            )),
-                                        TextButton(
-                                            onPressed: () {},
-                                            child: Text(
-                                              "Report",
-                                              style: GoogleFonts.poppins(
-                                                  color:
-                                                      const Color(0xff26B893)),
-                                            ))
-                
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          commentProvider.listgetComments[index]
+                                              .created_at!,
+                                          // threadProvider.listGetThread[index].createdAt!,
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 14),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            TextButton(
+                                                onPressed: () {},
+                                                child: Text(
+                                                  "Reply",
+                                                  style: GoogleFonts.poppins(
+                                                      color: const Color(
+                                                          0xff26B893)),
+                                                )),
+                                            TextButton(
+                                                onPressed: () {},
+                                                child: Text(
+                                                  "Share",
+                                                  style: GoogleFonts.poppins(
+                                                      color: const Color(
+                                                          0xff26B893)),
+                                                )),
+                                            TextButton(
+                                                onPressed: () {},
+                                                child: Text(
+                                                  "Report",
+                                                  style: GoogleFonts.poppins(
+                                                      color: const Color(
+                                                          0xff26B893)),
+                                                ))
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              )
+                                  )
+                                ],
+                              ),
                             ],
+                          )),
+                        );
+                      },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: commentField,
+                            ),
                           ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SizedBox(
+                              height: 50,
+                              width: 80,
+
+                              //                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              //   RoundedRectangleBorder(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //   ),
+                              // ),
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    primary: const Color(
+                                        0xff26B893), // Background color
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(
+                                    "Search",
+                                    style: GoogleFonts.poppins(fontSize: 12),
+                                  )),
+                            ),
+                          )
                         ],
-                      )),
-                    );
-                  },
+                      ),
+                    )
+                  ],
                 ),
               ),
-              
             ],
           ),
         ),
@@ -332,22 +434,3 @@ class _CommentsScreenState extends State<CommentsScreen> {
     );
   }
 }
-// Row(
-//                 children: [
-//                   TextFormField(
-//                     autofocus: false,
-//                     controller: commentController,
-//                     onSaved: (value) {
-//                       commentController.text = value!;
-//                     },
-//                     textInputAction: TextInputAction.done,
-//                     decoration: InputDecoration(
-//                       fillColor: const Color.fromARGB(255, 236, 240, 243),
-//                       filled: true,
-//                       contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-//                       hintText: "Masukan Comment",
-//                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-//                     ),
-//                   )
-//                 ],
-//               ),

@@ -1,1 +1,48 @@
-dalam onChange nya masukin ListView.buoilder
+Widget profileEditButton(UserViewModel name) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+            // "Muhammad Yogi",
+            " ",
+            style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: Colors.black)),
+        const SizedBox(
+          width: 20,
+        ),
+        SizedBox(
+          height: 35,
+          width: 90,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      side: BorderSide(color: Color(0xff26B893)))),
+              onPressed: () {
+                Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                  return const ProfileEdit();
+                }, transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                  final tween = Tween(begin: 0.0, end: 2.0);
+                  return FadeTransition(
+                    opacity: animation.drive(tween),
+                    child: child,
+                  );
+                }));
+              },
+              child: Text(
+                "Edit Profile",
+                style: GoogleFonts.poppins(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+                textAlign: TextAlign.center,
+              )),
+        ),
+      ],
+    );
+  }

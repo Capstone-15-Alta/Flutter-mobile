@@ -5,12 +5,14 @@ class ThreadModel {
 
   ThreadModel({this.timestamp, this.message, this.data});
 
-  ThreadModel.fromJson(Map<String, dynamic> json) :
-    timestamp = json['timestamp'],
-    message = json['message'],
-      data = json['data']['content'] != null ?  (json['data']['content'] as List).map((v) {
-        return Data.fromJson(v); 
-      }).toList() : [];
+  ThreadModel.fromJson(Map<String, dynamic> json)
+      : timestamp = json['timestamp'],
+        message = json['message'],
+        data = json['data']['content'] != null
+            ? (json['data']['content'] as List).map((v) {
+                return Data.fromJson(v);
+              }).toList()
+            : [];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -64,9 +66,8 @@ class Data {
     title = json['title'];
     description = json['description'];
     image = json['image'];
-    category = json['category'] != null
-        ? Category.fromJson(json['category'])
-        : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     createdBy = json['created_by'];
@@ -201,6 +202,7 @@ class Comments {
   int? userId;
   int? threadId;
   String? comment;
+  Map<String, dynamic>? user;
 
   Comments({this.id, this.userId, this.threadId, this.comment});
 
@@ -209,6 +211,7 @@ class Comments {
     userId = json['user_id'];
     threadId = json['thread_id'];
     comment = json['comment'];
+    user = json['user'];
   }
 
   Map<String, dynamic> toJson() {
@@ -217,6 +220,7 @@ class Comments {
     data['user_id'] = userId;
     data['thread_id'] = threadId;
     data['comment'] = comment;
+    data['user'] = user;
     return data;
   }
 }

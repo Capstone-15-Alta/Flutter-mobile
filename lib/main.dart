@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:forum_diskusi/view/comments/comments_screen.dart';
 import 'package:forum_diskusi/view/component/splash_screen.dart';
-import 'package:forum_diskusi/view/profil/edit_profile.dart';
+import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/ranking_viewModel.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => RankingUserViewModel()),
           ChangeNotifierProvider(create: (_) => SearchUserViewModel()),
           ChangeNotifierProvider(create: (_) => KategoriViewModel()),
+          ChangeNotifierProvider(create: (_) => CommentsViewModel()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

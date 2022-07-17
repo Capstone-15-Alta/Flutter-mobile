@@ -2,7 +2,9 @@ import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forum_diskusi/utils/finite_state.dart';
+import 'package:forum_diskusi/view/comments/comments_screen.dart';
 import 'package:forum_diskusi/view/home/home_thread.dart';
+import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/trendingThread_viewModel.dart';
@@ -108,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final threadProvider = Provider.of<ThreadViewModel>(context, listen: false);
     final userProvider = Provider.of<UserViewModel>(context);
-
+    final commentProvider = Provider.of<CommentsViewModel>(context);
     return SafeArea(
       child: DefaultTabController(
         length: 3,
@@ -174,25 +176,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
                       backgroundColor: Colors.transparent,
                     ),
-                    // IconButton(
-                    //     onPressed: () {
-                    //       Navigator.of(context).push(PageRouteBuilder(
-                    //           pageBuilder:
-                    //               (context, animation, secondaryAnimation) {
-                    //         return const NotifScreen();
-                    //       }, transitionsBuilder: (context, animation,
-                    //               secondaryAnimation, child) {
-                    //         final tween = Tween(begin: 0.0, end: 2.0);
-                    //         return FadeTransition(
-                    //           opacity: animation.drive(tween),
-                    //           child: child,
-                    //         );
-                    //       }));
-                    //     },
-                    //     icon: const Icon(
-                    //       Icons.notifications,
-                    //       color: Color(0xff26B893),
-                    //     ))
                   ],
                 ),
                 const SizedBox(
@@ -434,7 +417,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             icon: const Icon(Icons.chat,
                                                 size: 18,
                                                 color: Color(0xff26B893)),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              commentProvider.listgetComments
+                                                  .clear();
+                                              Navigator.of(context).push(
+                                                  PageRouteBuilder(pageBuilder:
+                                                      (context, animation,
+                                                          secondaryAnimation) {
+                                                return CommentsScreen(
+                                                  threadId: thread.id!,
+                                                  threadModel: thread,
+                                                );
+                                              }, transitionsBuilder: (context,
+                                                      animation,
+                                                      secondaryAnimation,
+                                                      child) {
+                                                final tween =
+                                                    Tween(begin: 0.0, end: 2.0);
+                                                return FadeTransition(
+                                                  opacity:
+                                                      animation.drive(tween),
+                                                  child: child,
+                                                );
+                                              }));
+                                            },
                                           ),
                                           IconButton(
                                             icon: const Icon(

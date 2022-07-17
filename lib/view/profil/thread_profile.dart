@@ -532,8 +532,6 @@ class _ProfileTreadState extends State<ProfileTread> {
                               ),
                             ],
                           ),
-                          // const Spacer(),
-                          //ganti jadi gesture detector
                           GestureDetector(
                               onTap: () {},
                               child: Container(
@@ -560,7 +558,6 @@ class _ProfileTreadState extends State<ProfileTread> {
                               ))
                         ],
                       ),
-
                       Text(
                         // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
                         threads.listDataUser!.threads?[index].description ?? "",
@@ -571,12 +568,6 @@ class _ProfileTreadState extends State<ProfileTread> {
                       const SizedBox(
                         height: 5,
                       ),
-                      // Text(
-                      //   // "Time",
-                      //   threads.listDataUser!.threads?[index] ?? ""
-                      //   ,
-                      //   style: GoogleFonts.poppins(fontSize: 14),
-                      // ),
                       Row(
                         children: [
                           IconButton(

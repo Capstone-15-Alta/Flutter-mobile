@@ -16,17 +16,6 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-
   @override
   void initState() {
     Provider.of<UserViewModel>(context, listen: false).getAllDataUserInApp();
@@ -106,7 +95,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 20,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height*0.66,
+                  height: MediaQuery.of(context).size.height * 0.66,
                   child: Builder(builder: (context) {
                     if (searchProvider.listDataSearch == null) {
                       return Column(
@@ -121,12 +110,14 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           Expanded(
                             child: ListView.builder(
-                                itemCount: saranUserProvider.listGetAllUserInApp.length
-                                ,
+                                itemCount: saranUserProvider
+                                    .listGetAllUserInApp.length,
                                 itemBuilder: ((context, index) {
                                   return Column(
                                     children: [
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
                                       Row(
                                         children: [
                                           const CircleAvatar(
@@ -141,8 +132,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                           Text(
                                               // "nama",
                                               saranUserProvider
-                                                .listGetAllUserInApp[index]['username']
-                                          ),
+                                                      .listGetAllUserInApp[
+                                                  index]['username']),
                                           const Spacer(),
                                           Container(
                                             height: 35,
