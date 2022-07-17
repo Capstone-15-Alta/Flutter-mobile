@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.0.15
   bubble_tab_indicator: "^0.1.5"
   draggable_fab: ^0.1.4
+  intl: ^0.17.0
   
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,8 @@ flutter:
   assets:
   - assets/image/
   - assets/image/welcomeImage.PNG
+  - assets/image/icon_medal.png
+  - assets/image/icon_like.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class KategoriModel {
   String? timestamp;
   String? message;
@@ -8,7 +10,9 @@ class KategoriModel {
   KategoriModel.fromJson(Map<String, dynamic> json) {
     timestamp = json['timestamp'];
     message = json['message'];
-    data = json['data'] != null ? (json['data'] as List).map((e) => Data.fromJson(e)).toList() : null;
+    data = json['data'] != null
+        ? (json['data'] as List).map((e) => Data.fromJson(e)).toList()
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -39,4 +43,13 @@ class Data {
     data['category_name'] = categoryName;
     return data;
   }
+}
+
+List<DropdownMenuItem<String>> get dropdownItems {
+  List<DropdownMenuItem<String>> menuItems = [
+    const DropdownMenuItem(child: Text("SD"), value: "SD"),
+    const DropdownMenuItem(child: Text("SMP"), value: "SMP"),
+    const DropdownMenuItem(child: Text("SMK/SMA"), value: "SMK/SMA"),
+  ];
+  return menuItems;
 }

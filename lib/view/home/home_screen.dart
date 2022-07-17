@@ -168,25 +168,31 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         const SizedBox(height: 20),
                       ],
                     ),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) {
-                            return const NotifScreen();
-                          }, transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                            final tween = Tween(begin: 0.0, end: 2.0);
-                            return FadeTransition(
-                              opacity: animation.drive(tween),
-                              child: child,
-                            );
-                          }));
-                        },
-                        icon: const Icon(
-                          Icons.notifications,
-                          color: Color(0xff26B893),
-                        ))
+                    const CircleAvatar(
+                      radius: 20.0,
+                      backgroundImage: NetworkImage(
+                          "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                      backgroundColor: Colors.transparent,
+                    ),
+                    // IconButton(
+                    //     onPressed: () {
+                    //       Navigator.of(context).push(PageRouteBuilder(
+                    //           pageBuilder:
+                    //               (context, animation, secondaryAnimation) {
+                    //         return const NotifScreen();
+                    //       }, transitionsBuilder: (context, animation,
+                    //               secondaryAnimation, child) {
+                    //         final tween = Tween(begin: 0.0, end: 2.0);
+                    //         return FadeTransition(
+                    //           opacity: animation.drive(tween),
+                    //           child: child,
+                    //         );
+                    //       }));
+                    //     },
+                    //     icon: const Icon(
+                    //       Icons.notifications,
+                    //       color: Color(0xff26B893),
+                    //     ))
                   ],
                 ),
                 const SizedBox(
