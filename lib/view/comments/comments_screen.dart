@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:forum_diskusi/model/postComment_Model.dart';
 import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/thread_model.dart';
 
@@ -57,6 +60,22 @@ class _CommentsScreenState extends State<CommentsScreen> {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
+    );
+
+    final submitButton = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        primary: const Color(0xff4E9BB9), // Background color
+      ),
+      onPressed: () async {
+        commentProvider.postCommentOnThread(
+          PostCommentModel(
+            comment: commentController.text,
+            thread_id: widget.threadId,
+          ),
+        );
+      },
+      child: const Icon(Icons.arrow_forward),
     );
 
     return SafeArea(
@@ -398,28 +417,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: SizedBox(
-                              height: 50,
-                              width: 80,
-
-                              //                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              //   RoundedRectangleBorder(
-                              //     borderRadius: BorderRadius.circular(10),
-                              //   ),
-                              // ),
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    primary: const Color(
-                                        0xff26B893), // Background color
-                                  ),
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Search",
-                                    style: GoogleFonts.poppins(fontSize: 12),
-                                  )),
-                            ),
+                                height: 50, width: 60, child: submitButton),
                           )
                         ],
                       ),

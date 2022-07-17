@@ -27,27 +27,28 @@ class _SearchScreenState extends State<SearchScreen> {
     final saranUserProvider = Provider.of<UserViewModel>(context);
     final searchProvider = Provider.of<SearchUserViewModel>(context);
     final searchField = Form(
-        key: _formKey,
-        child: TextFormField(
-          onFieldSubmitted: (value) async {},
-          autofocus: false,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return ("Mohon diisi yang ingin di cari");
-            }
-            return null;
-          },
-          controller: searchController,
-          textInputAction: TextInputAction.done,
-          decoration: InputDecoration(
-            fillColor: const Color.fromARGB(255, 236, 240, 243),
-            prefixIcon: const Icon(Icons.search),
-            filled: true,
-            contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-            hintText: "Cari di Forum Grup Diskusi",
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-        ));
+      key: _formKey,
+      child: TextFormField(
+        onFieldSubmitted: (value) async {},
+        autofocus: false,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Mohon diisi yang ingin di cari");
+          }
+          return null;
+        },
+        controller: searchController,
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          fillColor: const Color.fromARGB(255, 236, 240, 243),
+          prefixIcon: const Icon(Icons.search),
+          filled: true,
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Cari di Forum Grup Diskusi",
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
+    );
 
     return Scaffold(
       body: SafeArea(

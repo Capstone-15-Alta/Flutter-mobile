@@ -11,21 +11,20 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeThread extends StatefulWidget {
-  const HomeThread({ Key? key }) : super(key: key);
+  const HomeThread({Key? key}) : super(key: key);
 
   @override
   State<HomeThread> createState() => _HomeThreadState();
 }
 
 class _HomeThreadState extends State<HomeThread> {
-  
   String? selectedValue;
   final kategoriEditingController = TextEditingController();
   String kategori = '';
   final juduldescriptionEditingController = TextEditingController();
   String judul = '';
   final descriptionEditingController = TextEditingController();
-  String description='';
+  String description = '';
 
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -40,43 +39,40 @@ class _HomeThreadState extends State<HomeThread> {
     UserViewModel profileProvider = Provider.of<UserViewModel>(context);
     final kategoriProvider = Provider.of<KategoriViewModel>(context);
     final postProvider = Provider.of<ThreadViewModel>(context);
-    
+
     final judulField = SizedBox(
-      child: TextFormField(
+        child: TextFormField(
       controller: juduldescriptionEditingController,
       maxLines: null,
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
-          fillColor: Color.fromARGB(255, 236, 240, 243),
-          filled: true,
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Isi Judul Thread Disini",
-          ),
+        fillColor: Color.fromARGB(255, 236, 240, 243),
+        filled: true,
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Isi Judul Thread Disini",
+      ),
       onChanged: (String value) {
         judul = value;
       },
-    )
-    );
+    ));
 
     final descriptionField = SizedBox(
-      
-      child: TextField(
+        child: TextField(
       controller: descriptionEditingController,
       maxLines: 8,
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
-          fillColor: Color.fromARGB(255, 236, 240, 243),
-          filled: true,
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Isi Yang Ingin Anda Diskusikan?",
-          ),
+        fillColor: Color.fromARGB(255, 236, 240, 243),
+        filled: true,
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Isi Yang Ingin Anda Diskusikan?",
+      ),
       onChanged: (String value) {
         description = value;
       },
-    )
-    );
+    ));
 
     final kembaliButton = Material(
       elevation: 4,
@@ -89,7 +85,10 @@ class _HomeThreadState extends State<HomeThread> {
         },
         child: Text(
           "Kembali",
-          style: GoogleFonts.poppins(color: const Color(0xff26B893), fontSize: 14, ),
+          style: GoogleFonts.poppins(
+            color: const Color(0xff26B893),
+            fontSize: 14,
+          ),
         ),
       ),
     );
@@ -101,71 +100,80 @@ class _HomeThreadState extends State<HomeThread> {
       child: MaterialButton(
         minWidth: 50,
         onPressed: () async {
-          try{
-            await Future.delayed(
-              const Duration(seconds: 2)
-            ).then(
-              (value) async{
-                SharedPreferences pref = await SharedPreferences.getInstance();
-                print(pref.getInt('id'));
-                postProvider.postThread(ThreadPostModel(category_id: kategoriProvider.kategoriFilter![0].id!.toInt(), title: juduldescriptionEditingController.text, description: descriptionEditingController.text));
-              }
-            ).then(
-              (value) => Fluttertoast.showToast(msg : "Posting Sukses")
-            ).then(
-              (value) => Navigator.of(context).push(PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) {
-                    return const HomeNav();
-                  }, transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                            final tween = Tween(begin: 0.0, end: 2.0);
-                            return FadeTransition(
-                              opacity: animation.drive(tween),
-                              child: child,
-                            );
-                      },),)
-            );
-          }catch(e){
+          try {
+            await Future.delayed(const Duration(seconds: 2))
+                .then((value) async {
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  print(pref.getInt('id'));
+                  postProvider.postThread(ThreadPostModel(
+                      category_id:
+                          kategoriProvider.kategoriFilter![0].id!.toInt(),
+                      title: juduldescriptionEditingController.text,
+                      description: descriptionEditingController.text));
+                })
+                .then((value) => Fluttertoast.showToast(msg: "Posting Sukses"))
+                .then((value) => Navigator.of(context).push(
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return const HomeNav();
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          final tween = Tween(begin: 0.0, end: 2.0);
+                          return FadeTransition(
+                            opacity: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ),
+                    ));
+          } catch (e) {
             Fluttertoast.showToast(msg: "Posting Gagal");
           }
         },
         child: Text(
           "Posting",
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 14, ),
+          style: GoogleFonts.poppins(
+            color: Colors.white,
+            fontSize: 14,
+          ),
         ),
       ),
     );
 
-
     // ignore: prefer_function_declarations_over_variables
-    Widget dropDownKategori(){
-      if(kategoriProvider.listKategori == null || kategoriProvider.listKategori!.data == null){
+    Widget dropDownKategori() {
+      if (kategoriProvider.listKategori == null ||
+          kategoriProvider.listKategori!.data == null) {
         kategoriProvider.getKategori();
         return const Center(
           child: CircularProgressIndicator(),
         );
       }
-      
 
       return DropdownButtonHideUnderline(
-        child: DropdownButton(
-          // isExpanded: true,
-          isDense: true,
-          hint: const Text("Pilih Kategori"),
-          value: selectedValue,
-          onChanged: (String? value) {
-            setState(() {
-              selectedValue = value ?? "";
-              kategori = selectedValue!;
-              
-              kategoriProvider.filterKategoriId(kategori);
-            });
-          },
-          items: kategoriProvider.listKategori!.data!.map((e) => DropdownMenuItem<String>(value: e.categoryName,child: Text(e.categoryName!))).toList()
-        )
-      );
-    };
-    
+          child: DropdownButton(
+              // isExpanded: true,
+              isDense: true,
+              hint: const Text("Pilih Kategori"),
+              value: selectedValue,
+              onChanged: (String? value) {
+                setState(() {
+                  selectedValue = value ?? "";
+                  kategori = selectedValue!;
+
+                  kategoriProvider.filterKategoriId(kategori);
+                });
+              },
+              items: kategoriProvider.listKategori!.data!
+                  .map((e) => DropdownMenuItem<String>(
+                      value: e.categoryName, child: Text(e.categoryName!)))
+                  .toList()));
+    }
+
+    ;
+
     if (profileProvider.listDataUser == null) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -173,40 +181,59 @@ class _HomeThreadState extends State<HomeThread> {
     }
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
+          child: SingleChildScrollView(
+        child: Container(
             margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
             child: Column(
               children: [
-                SvgPicture.asset("assets/image/logo.svg", height: 35, width:35 ,),
-                const SizedBox(height: 20,),
+                SvgPicture.asset(
+                  "assets/image/logo.svg",
+                  height: 35,
+                  width: 35,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 15 ,),
-                        Text("Thread", style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 23, color: const Color(0xff26B893))),
-                        Text("Ayo buat tread yang ingin kamu\nbagikan hari ini?", style: GoogleFonts.poppins(fontSize: 13,fontWeight: FontWeight.w500, color: const Color(0xff26B893)),),
-                        const SizedBox(height:20),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text("Thread",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 23,
+                                color: const Color(0xff26B893))),
+                        Text(
+                          "Ayo buat tread yang ingin kamu\nbagikan hari ini?",
+                          style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff26B893)),
+                        ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                     const CircleAvatar(
-                    radius: 23.0,
-                    backgroundImage:
-                        NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                    backgroundColor: Colors.transparent,
-                  ),
+                      radius: 23.0,
+                      backgroundImage: NetworkImage(
+                          "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                      backgroundColor: Colors.transparent,
+                    ),
                   ],
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Container(
                   // height: MediaQuery.of(context).size.height*0.36,
-                  width: MediaQuery.of(context).size.width*0.90,
-                  decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)
-                          ),
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.black)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -216,40 +243,53 @@ class _HomeThreadState extends State<HomeThread> {
                           children: [
                             const CircleAvatar(
                               radius: 17.0,
-                              backgroundImage:
-                                  NetworkImage("https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                              backgroundImage: NetworkImage(
+                                  "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
                               backgroundColor: Colors.transparent,
                             ),
-                            const SizedBox(width: 10,),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Expanded(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          profileProvider.listDataUser!.username!
-                                          ,style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black),),
+                                          profileProvider
+                                              .listDataUser!.username!,
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                        ),
                                         Text(
-                                          profileProvider.listDataUser!.email!
-                                          ,style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 10, color: const Color(0xff26B893)),),
+                                          profileProvider.listDataUser!.email!,
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 10,
+                                              color: const Color(0xff26B893)),
+                                        ),
                                       ],
                                     ),
                                   ),
                                   Container(
-
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(
-                                          color: Colors.red, style: BorderStyle.solid, width: 0.80),
-                                    ),
-                                    child: Container(
-                                      margin: const EdgeInsets.all(8),
-                                      child: dropDownKategori()
-                                      )
-                                    )
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        border: Border.all(
+                                            color: Colors.red,
+                                            style: BorderStyle.solid,
+                                            width: 0.80),
+                                      ),
+                                      child: Container(
+                                          margin: const EdgeInsets.all(8),
+                                          child: dropDownKategori()))
                                 ],
                               ),
                             ),
@@ -257,7 +297,9 @@ class _HomeThreadState extends State<HomeThread> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Divider(
                         color: Colors.black,
                         height: 2,
@@ -267,22 +309,22 @@ class _HomeThreadState extends State<HomeThread> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          kembaliButton,
-                          const SizedBox(width: 15,),
-                          postingButton,
-                          
-                        ],
-                      ),
-                      
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    kembaliButton,
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    postingButton,
+                  ],
+                ),
               ],
-            )
-          ),
-        )
-      ),
+            )),
+      )),
     );
   }
 }
