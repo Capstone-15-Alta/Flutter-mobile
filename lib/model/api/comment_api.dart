@@ -37,4 +37,20 @@ class CommentAPI {
       rethrow;
     }
   }
+
+  Future putLikeOnThread(int id) async {
+    try {
+      await dio.put("http://8.219.84.81/api/v1/like/thread/$id");
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future followThread(int id) async {
+    try {
+      await dio.put('http://8.219.84.81/api/v1/follow/thread/$id');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

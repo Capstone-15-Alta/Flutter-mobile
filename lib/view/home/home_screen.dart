@@ -25,6 +25,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool _hasBeenPressedButton1 = false;
   bool _hasBeenPressedButton2 = false;
   bool _hasBeenPressedButton3 = false;
+
+  bool _hasBeenPressedLike = false;
+  bool _hasBeenPressedIkuti = false;
+
   String? selectedValue;
   String kategori = '';
 
@@ -340,7 +344,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             ],
                                           ),
                                           GestureDetector(
-                                              onTap: () {},
+                                              onTap: () {
+                                                setState(() {
+                                                  _hasBeenPressedIkuti =
+                                                      !_hasBeenPressedIkuti;
+                                                });
+                                              },
                                               child: AnimatedContainer(
                                                 duration: const Duration(
                                                     milliseconds: 300),
@@ -356,16 +365,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceEvenly,
-                                                  children: const [
+                                                  children: [
                                                     Icon(
-                                                      Icons.add,
+                                                      _hasBeenPressedIkuti
+                                                          ? Icons.add
+                                                          : Icons.check,
                                                       color: Colors.white,
                                                     ),
-                                                    Text(
-                                                      "Ikuti",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )
+                                                    _hasBeenPressedIkuti
+                                                        ? const Text(
+                                                            "Ikuti",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          )
+                                                        : const Text(
+                                                            "Mengikuti",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 9),
+                                                          )
                                                   ],
                                                 ),
                                               ))
@@ -398,20 +418,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       Row(
                                         children: [
                                           IconButton(
-                                            icon: const Icon(
-                                              Icons.thumb_up_alt_outlined,
+                                            icon: Icon(
+                                              _hasBeenPressedLike
+                                                  ? Icons.favorite_border
+                                                  : Icons.favorite,
                                               size: 18,
-                                              color: Color(0xff26B893),
+                                              color: _hasBeenPressedLike
+                                                  ? const Color(0xff26B893)
+                                                  : Colors.red,
                                             ),
-                                            onPressed: () {},
-                                          ),
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.thumb_down_alt_outlined,
-                                              size: 18,
-                                              color: Color(0xff26B893),
-                                            ),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              setState(() {
+                                                _hasBeenPressedLike =
+                                                    !_hasBeenPressedLike;
+                                              });
+                                            },
                                           ),
                                           IconButton(
                                             icon: const Icon(Icons.chat,

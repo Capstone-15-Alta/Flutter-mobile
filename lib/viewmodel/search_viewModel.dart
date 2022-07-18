@@ -7,8 +7,8 @@ class SearchUserViewModel extends ChangeNotifier {
   List<Data>? _listDataSearch;
   List<Data>? get listDataSearch => _listDataSearch;
 
-  List<dynamic> _listGetAllUserInApp = [];
-  List<dynamic> get listGetAllUserInApp => _listGetAllUserInApp;
+  // List<dynamic> _listGetAllUserInApp = [];
+  // List<dynamic> get listGetAllUserInApp => _listGetAllUserInApp;
 
   getDataSearch(title) async {
     final allSearch = await SearchAPI().getThreadBySearch(title);
@@ -18,9 +18,9 @@ class SearchUserViewModel extends ChangeNotifier {
     }
   }
 
-  getAllDataUserInApp() async {
-    final allUserInApp = await UserAPI().getAllUserInApp();
-    _listGetAllUserInApp = allUserInApp;
-    notifyListeners();
-  }
+  // getAllDataUserInApp() async {
+  //   final allUserInApp = await UserAPI().getAllUserInApp();
+  //   _listGetAllUserInApp = allUserInApp;
+  //   notifyListeners();
+  // }
 }

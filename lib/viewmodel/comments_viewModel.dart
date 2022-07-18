@@ -7,6 +7,9 @@ class CommentsViewModel extends ChangeNotifier {
   List<CommentModel> _listGetComments = [];
   List<CommentModel> get listgetComments => _listGetComments;
 
+  List<dynamic> _listPutComment = [];
+  List<dynamic> get listPutComment => _listPutComment;
+
   getAllComments(int id) async {
     _listGetComments = await CommentAPI().getComment(id);
     notifyListeners();
@@ -14,6 +17,16 @@ class CommentsViewModel extends ChangeNotifier {
 
   postCommentOnThread(PostCommentModel postCommentModel) async {
     await CommentAPI().postCommentOnThread(postCommentModel);
+    notifyListeners();
+  }
+
+  putLikeOnComment(int id) async {
+    await CommentAPI().putLikeOnThread(id);
+    notifyListeners();
+  }
+
+  followThread(int id) async {
+    await CommentAPI().followThread(id);
     notifyListeners();
   }
 }

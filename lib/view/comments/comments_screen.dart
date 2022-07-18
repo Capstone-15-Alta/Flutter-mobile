@@ -4,9 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:forum_diskusi/model/postComment_Model.dart';
 import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/thread_model.dart';
 
@@ -297,40 +295,40 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                                 ),
                                               ],
                                             ),
-                                            GestureDetector(
-                                                onTap: () {
-                                                  setState(() {});
-                                                },
-                                                child: AnimatedContainer(
-                                                  duration: const Duration(
-                                                      milliseconds: 300),
-                                                  height: 30,
-                                                  width: 75,
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        const Color(0xff26B893),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: const [
-                                                      Icon(
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                      ),
-                                                      Text(
-                                                        "Ikuti",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ))
+                                            // GestureDetector(
+                                            //     onTap: () {
+                                            //       setState(() {});
+                                            //     },
+                                            //     child: AnimatedContainer(
+                                            //       duration: const Duration(
+                                            //           milliseconds: 300),
+                                            //       height: 30,
+                                            //       width: 75,
+                                            //       decoration: BoxDecoration(
+                                            //         color:
+                                            //             const Color(0xff26B893),
+                                            //         borderRadius:
+                                            //             BorderRadius.circular(
+                                            //                 10),
+                                            //       ),
+                                            //       child: Row(
+                                            //         mainAxisAlignment:
+                                            //             MainAxisAlignment
+                                            //                 .spaceEvenly,
+                                            //         children: const [
+                                            //           Icon(
+                                            //             Icons.add,
+                                            //             color: Colors.white,
+                                            //           ),
+                                            //           Text(
+                                            //             "Ikuti",
+                                            //             style: TextStyle(
+                                            //                 color:
+                                            //                     Colors.white),
+                                            //           )
+                                            //         ],
+                                            //       ),
+                                            //     ))
                                           ],
                                         ),
                                         SizedBox(
