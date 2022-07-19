@@ -6,16 +6,10 @@ class PostThreadAPI {
   Future postThread(ThreadPostModel threadPostModel) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String token = pref.getString('token')!;
-    int id = pref.getInt('id')!;
     final Dio dio = Dio();
-    final data = {
-      "title" : threadPostModel.title,
-      "description" : threadPostModel.description,
-      "category_id" : threadPostModel.category_id
-    };
     try {
       final FormData formData = FormData.fromMap({
-        "json" : """{
+        "json": """{
         "title" : "${threadPostModel.title}",
         "description" : "${threadPostModel.description}",
         "category_id" : "${threadPostModel.category_id}"
@@ -32,8 +26,8 @@ class PostThreadAPI {
           },
         ),
       );
-    } on DioError catch (e) {
-      print(e.response!.data);
+    } on DioError {
+      rethrow;
     }
   }
 }

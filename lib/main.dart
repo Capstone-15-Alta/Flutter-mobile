@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/view/comments/comments_screen.dart';
 import 'package:forum_diskusi/view/component/splash_screen.dart';
-import 'package:forum_diskusi/view/profil/profile_mengikuti.dart';
 import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/login_viewModel.dart';

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:forum_diskusi/model/thread_model.dart';
 import 'package:forum_diskusi/view/comments/comments_screen.dart';
 import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
@@ -142,7 +140,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                   ),
                   Text(
                     widget.thread.threadLikes.toString(),
-                    style: TextStyle(color: Color(0xff455154)),
+                    style: const TextStyle(color: Color(0xff455154)),
                   ),
                   IconButton(
                     icon: const Icon(Icons.chat,

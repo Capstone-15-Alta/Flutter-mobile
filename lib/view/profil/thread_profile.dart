@@ -4,8 +4,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forum_diskusi/view/log/login_screen.dart';
 import 'package:forum_diskusi/view/profil/edit_profile.dart';
-import 'package:forum_diskusi/view/profil/profile_mengikuti.dart';
-import 'package:forum_diskusi/view/profil/profile_post.dart';
 import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -20,13 +18,6 @@ class ProfileTread extends StatefulWidget {
 
 class _ProfileTreadState extends State<ProfileTread>
     with TickerProviderStateMixin {
-  // bool isInit = true;
-
-  // @override
-  // void didChangeDependencies() {
-  //   Provider.of<UserViewModel>(context).listDataUser;
-  //   super.didChangeDependencies();
-  // }
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -275,15 +266,12 @@ class _ProfileTreadState extends State<ProfileTread>
             const SizedBox(
               height: 10,
             ),
-            Text(
-                // "Muhammad Yogi",
-                name.listDataUser!.username!,
+            Text(name.listDataUser!.username!,
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 13,
                     color: Colors.black)),
             Text(
-              // "Muhamadyogi413@gmail.com",
               name.listDataUser!.email!,
               style: GoogleFonts.poppins(
                   fontSize: 11, color: const Color(0xff26B893)),
@@ -308,7 +296,7 @@ class _ProfileTreadState extends State<ProfileTread>
           width: 20,
         ),
         Container(
-          margin: EdgeInsets.only(right: 10),
+          margin: const EdgeInsets.only(right: 10),
           height: 35,
           width: 90,
           child: ElevatedButton(
@@ -345,108 +333,106 @@ class _ProfileTreadState extends State<ProfileTread>
 
   Widget buttonPMPT(UserViewModel count) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 2,
+      height: MediaQuery.of(context).size.height * 0.56,
       width: double.maxFinite,
       child: DefaultTabController(
         length: 4,
         child: Column(
           children: [
-            Container(
-              child: TabBar(controller: _tabController, tabs: [
-                Tab(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Pengikut",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        count.listDataUser!.totalUserFollowers!.toString(),
-                        // "2",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
+            TabBar(controller: _tabController, tabs: [
+              Tab(
+                child: Column(
+                  children: [
+                    Text(
+                      "Pengikut",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      count.listDataUser!.totalUserFollowers!.toString(),
+                      // "2",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
                 ),
-                Tab(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Mengikuti",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        count.listDataUser!.totalUserFollowing!.toString(),
-                        // "1",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
+              ),
+              Tab(
+                child: Column(
+                  children: [
+                    Text(
+                      "Mengikuti",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      count.listDataUser!.totalUserFollowing!.toString(),
+                      // "1",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
                 ),
-                Tab(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Post",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        count.listDataUser!.totalPostComments!.toString(),
-                        // "3",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
+              ),
+              Tab(
+                child: Column(
+                  children: [
+                    Text(
+                      "Post",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      count.listDataUser!.totalPostComments!.toString(),
+                      // "3",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
                 ),
-                Tab(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Thread",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        count.listDataUser!.totalThreads.toString(),
-                        // "4",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
+              ),
+              Tab(
+                child: Column(
+                  children: [
+                    Text(
+                      "Thread",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      count.listDataUser!.totalThreads.toString(),
+                      // "4",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-              ]),
-            ),
+              ),
+            ]),
             Expanded(
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.66,
@@ -454,7 +440,7 @@ class _ProfileTreadState extends State<ProfileTread>
                 child: TabBarView(controller: _tabController, children: [
                   allMyFollowers(count),
                   allMyFollowed(count),
-                  allMyTread(count),
+                  allMyPost(count),
                   allMyTread(count),
                 ]),
               ),
@@ -625,9 +611,125 @@ class _ProfileTreadState extends State<ProfileTread>
     );
   }
 
-  Widget allMyFollowed(UserViewModel threads) {
+  Widget allMyPost(UserViewModel threads) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.46,
+      width: MediaQuery.of(context).size.width * 2,
+      child: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        itemCount: threads.listDataUser!.comments!.length,
+        itemBuilder: (context, index) {
+          if (threads.listDataUser!.comments == null) {
+            return Column(
+              children: [
+                Center(
+                  child: Text(
+                    "Belum ada Post, Buat Thread sekarang yuk",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xff26B893),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40.0, vertical: 13.0),
+                          shape: const StadiumBorder(),
+                          side: const BorderSide(color: Color(0xff26B893)),
+                          primary: Colors.white),
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.feather,
+                            color: Color(0xff26B893),
+                          ),
+                          Text("Buat Thread",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                color: const Color(0xff26B893),
+                              ))
+                        ],
+                      )),
+                ),
+              ],
+            );
+          }
+          return SizedBox(
+              child: Row(
+            children: [
+              Container(
+                  height: 40,
+                  child: const Image(
+                    image: AssetImage("assets/image/Union.png"),
+                  )),
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.49,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            "Membalas thread ",
+                            style: GoogleFonts.poppins(
+                                fontSize: 11, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "${threads.listDataUser!.comments?[index]['created_at'] ?? ""}",
+                        style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xffABABAB)),
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Color(0xffE11D4C),
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    child: Expanded(
+                      child: Text(
+                        "${threads.listDataUser!.comments?[index]['comment'] ?? ""}",
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff455154),
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ));
+        },
+      ),
+    );
+  }
+
+  Widget allMyFollowed(UserViewModel threads) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.66,
       width: MediaQuery.of(context).size.width * 2,
       child: ListView.separated(
         separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -846,8 +948,8 @@ class _ProfileTreadState extends State<ProfileTread>
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
-                                    border:
-                                        Border.all(color: Color(0xff26B893))),
+                                    border: Border.all(
+                                        color: const Color(0xff26B893))),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,

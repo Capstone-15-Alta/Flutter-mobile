@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forum_diskusi/view/comments/comments_screen.dart';
-import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/search_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../../model/thread_model.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -30,10 +26,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     final saranUserProvider = Provider.of<UserViewModel>(context);
     final searchProvider = Provider.of<SearchUserViewModel>(context);
-    final buttonProvider = Provider.of<CommentsViewModel>(context);
 
     bool _hasBeenPressedLike = true;
-    bool _hasBeenPressedIkuti = false;
 
     final searchField = Form(
       key: _formKey,

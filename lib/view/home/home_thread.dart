@@ -8,7 +8,6 @@ import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeThread extends StatefulWidget {
   const HomeThread({Key? key}) : super(key: key);
@@ -103,9 +102,6 @@ class _HomeThreadState extends State<HomeThread> {
           try {
             await Future.delayed(const Duration(seconds: 2))
                 .then((value) async {
-                  SharedPreferences pref =
-                      await SharedPreferences.getInstance();
-                  print(pref.getInt('id'));
                   postProvider.postThread(ThreadPostModel(
                       category_id:
                           kategoriProvider.kategoriFilter![0].id!.toInt(),
@@ -142,7 +138,6 @@ class _HomeThreadState extends State<HomeThread> {
       ),
     );
 
-    // ignore: prefer_function_declarations_over_variables
     Widget dropDownKategori() {
       if (kategoriProvider.listKategori == null ||
           kategoriProvider.listKategori!.data == null) {
@@ -171,8 +166,6 @@ class _HomeThreadState extends State<HomeThread> {
                       value: e.categoryName, child: Text(e.categoryName!)))
                   .toList()));
     }
-
-    ;
 
     if (profileProvider.listDataUser == null) {
       return const Center(
@@ -230,7 +223,6 @@ class _HomeThreadState extends State<HomeThread> {
                   height: 20,
                 ),
                 Container(
-                  // height: MediaQuery.of(context).size.height*0.36,
                   width: MediaQuery.of(context).size.width * 0.90,
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),

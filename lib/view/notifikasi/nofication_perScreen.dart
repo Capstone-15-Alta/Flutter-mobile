@@ -220,16 +220,14 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.75,
-                        child: Expanded(
-                          child: Text(
-                            "Menurut pendapat saya bahwa bukan cacing, tetapi kutu adalah penemuan paling kontroversial dalam sejarahMenurut pendapat saya bahwa bukan cacing, tetapi kutu adalah penemuan paling kontroversial dalam sejarah",
-                            style: GoogleFonts.poppins(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xff455154),
-                            ),
-                            textAlign: TextAlign.justify,
+                        child: Text(
+                          "Menurut pendapat saya bahwa bukan cacing, tetapi kutu adalah penemuan paling kontroversial dalam sejarahMenurut pendapat saya bahwa bukan cacing, tetapi kutu adalah penemuan paling kontroversial dalam sejarah",
+                          style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff455154),
                           ),
+                          textAlign: TextAlign.justify,
                         ),
                       ),
                       const SizedBox(
@@ -246,7 +244,7 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
                   const CircleAvatar(
@@ -284,16 +282,14 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.75,
-                        child: Expanded(
-                          child: Text(
-                            "Kutu adalah serangga yang hidup sebagai parasit pada inang yang berdarah panas, salah satunya manusia. Kutu biasanya menghabiskan hidup mereka di satu inang dan bertelur banyak",
-                            style: GoogleFonts.poppins(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xff455154),
-                            ),
-                            textAlign: TextAlign.justify,
+                        child: Text(
+                          "Kutu adalah serangga yang hidup sebagai parasit pada inang yang berdarah panas, salah satunya manusia. Kutu biasanya menghabiskan hidup mereka di satu inang dan bertelur banyak",
+                          style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff455154),
                           ),
+                          textAlign: TextAlign.justify,
                         ),
                       ),
                       const SizedBox(
@@ -310,7 +306,7 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
                   const CircleAvatar(
@@ -348,16 +344,14 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.75,
-                        child: Expanded(
-                          child: Text(
-                            "",
-                            style: GoogleFonts.poppins(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xff455154),
-                            ),
-                            textAlign: TextAlign.justify,
+                        child: Text(
+                          "",
+                          style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff455154),
                           ),
+                          textAlign: TextAlign.justify,
                         ),
                       ),
                       const SizedBox(
@@ -411,16 +405,14 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.75,
-                        child: Expanded(
-                          child: Text(
-                            "Kutu adalah serangga yang hidup sebagai parasit pada inang yang berdarah panas, salah satunya manusia. Kutu biasanya menghabiskan hidup mereka di satu inang dan bertelur banyak",
-                            style: GoogleFonts.poppins(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xff455154),
-                            ),
-                            textAlign: TextAlign.justify,
+                        child: Text(
+                          "Kutu adalah serangga yang hidup sebagai parasit pada inang yang berdarah panas, salah satunya manusia. Kutu biasanya menghabiskan hidup mereka di satu inang dan bertelur banyak",
+                          style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff455154),
                           ),
+                          textAlign: TextAlign.justify,
                         ),
                       ),
                       const SizedBox(
@@ -437,7 +429,7 @@ class _NotifikasiButtonState extends State<NotifikasiButton> {
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
             ],
           );
           // return ListTile(

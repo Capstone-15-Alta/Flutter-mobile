@@ -55,9 +55,8 @@ class Data {
         content!.add(Content.fromJson(v));
       });
     }
-    pageable = json['pageable'] != null
-        ? Pageable.fromJson(json['pageable'])
-        : null;
+    pageable =
+        json['pageable'] != null ? Pageable.fromJson(json['pageable']) : null;
     last = json['last'];
     totalElements = json['totalElements'];
     totalPages = json['totalPages'];
@@ -198,16 +197,13 @@ class Content {
       data['thread_likes'] = threadLikes!.map((v) => v.toJson()).toList();
     }
     if (userFollowers != null) {
-      data['user_followers'] =
-          userFollowers!.map((v) => v.toJson()).toList();
+      data['user_followers'] = userFollowers!.map((v) => v.toJson()).toList();
     }
     if (userFollowing != null) {
-      data['user_following'] =
-          userFollowing!.map((v) => v.toJson()).toList();
+      data['user_following'] = userFollowing!.map((v) => v.toJson()).toList();
     }
     if (notifications != null) {
-      data['notifications'] =
-          notifications!.map((v) => v.toJson()).toList();
+      data['notifications'] = notifications!.map((v) => v.toJson()).toList();
     }
     if (saveThread != null) {
       data['save_thread'] = saveThread!.map((v) => v.toJson()).toList();
@@ -453,7 +449,6 @@ class Notifications {
   String? title;
   String? message;
   int? threadId;
-  Null? commentId;
   int? followerId;
   String? createdAt;
   bool? isRead;
@@ -464,7 +459,6 @@ class Notifications {
       this.title,
       this.message,
       this.threadId,
-      this.commentId,
       this.followerId,
       this.createdAt,
       this.isRead});
@@ -475,7 +469,6 @@ class Notifications {
     title = json['title'];
     message = json['message'];
     threadId = json['thread_id'];
-    commentId = json['comment_id'];
     followerId = json['follower_id'];
     createdAt = json['created_at'];
     isRead = json['is_read'];
@@ -488,7 +481,6 @@ class Notifications {
     data['title'] = title;
     data['message'] = message;
     data['thread_id'] = threadId;
-    data['comment_id'] = commentId;
     data['follower_id'] = followerId;
     data['created_at'] = createdAt;
     data['is_read'] = isRead;
@@ -506,8 +498,7 @@ class SaveThread {
 
   SaveThread.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
-    thread =
-        json['thread'] != null ? Thread.fromJson(json['thread']) : null;
+    thread = json['thread'] != null ? Thread.fromJson(json['thread']) : null;
     isSave = json['is_save'];
     saveTime = json['save_time'];
   }

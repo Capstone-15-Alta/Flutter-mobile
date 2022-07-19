@@ -13,7 +13,7 @@ class ThreadAPI {
       );
       final List<Data>? dataThread = ThreadModel.fromJson(response.data).data;
       return dataThread!;
-    } on DioError catch (e) {
+    } on DioError {
       rethrow;
     }
   }
@@ -25,7 +25,7 @@ class ThreadAPI {
       );
       final List<Data>? dataThread = ThreadModel.fromJson(response.data).data;
       return dataThread!;
-    } on DioError catch (e) {
+    } on DioError {
       rethrow;
     }
   }
@@ -37,7 +37,7 @@ class ThreadAPI {
       final List<Data>? dataThreadByCategory =
           ThreadModel.fromJson(response.data).data;
       return dataThreadByCategory!;
-    } on DioError catch (e) {
+    } on DioError {
       rethrow;
     }
   }

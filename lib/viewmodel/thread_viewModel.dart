@@ -66,14 +66,3 @@ class ThreadViewModel extends ChangeNotifier {
     notifyListeners();
   }
 }
-  // getAllThread()async{
-  //   final allThread = await ThreadAPI().getAllThread();
-  //   _listGetThread = allThread;
-  //   notifyListeners();
-  // }
-
-  // getAllThreadByCategory(String kategori) async{
-  //   final allThreadByCategory = await ThreadAPI().getThreadByCategory(kategori);
-  //   _listGetTrendingThread = allThreadByCategory;
-  //   notifyListeners();
-  // }

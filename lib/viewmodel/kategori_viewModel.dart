@@ -18,7 +18,6 @@ class KategoriViewModel with ChangeNotifier {
   getKategori() async {
     final allKategori = await KategoriAPI().getKategori();
     _listKategori = allKategori;
-    print(allKategori!.data!.first.categoryName!.toString());
     notifyListeners();
   }
 
