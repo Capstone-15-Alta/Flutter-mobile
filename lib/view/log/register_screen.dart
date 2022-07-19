@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/register_model.dart';
 import 'package:forum_diskusi/view/log/register_afterscreen.dart';
-import 'package:forum_diskusi/viewmodel/register_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/register_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

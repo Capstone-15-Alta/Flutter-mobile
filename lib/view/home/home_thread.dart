@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/thread_postModel.dart';
 import 'package:forum_diskusi/view/home/home_nav.dart';
-import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/kategori_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/thread_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/user_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/login_model.dart';
 import 'package:forum_diskusi/view/home/home_nav.dart';
-import 'package:forum_diskusi/view/log/forgot_passwordScreen.dart';
+import 'package:forum_diskusi/view/log/forgot_passwordscreen.dart';
 import 'package:forum_diskusi/view/log/register_screen.dart';
-import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/login_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 

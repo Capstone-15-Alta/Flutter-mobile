@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forum_diskusi/viewmodel/ranking_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/ranking_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import "package:flutter_feather_icons/flutter_feather_icons.dart";

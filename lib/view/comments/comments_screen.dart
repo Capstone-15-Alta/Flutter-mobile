@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/postComment_Model.dart';
-import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/comments_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

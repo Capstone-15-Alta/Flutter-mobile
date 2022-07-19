@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forum_diskusi/view/notifikasi/nofication_perScreen.dart';
+import 'package:forum_diskusi/view/notifikasi/nofication_perscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NotifScreen extends StatefulWidget {
@@ -12,12 +12,10 @@ class NotifScreen extends StatefulWidget {
 
 class _NotifScreenState extends State<NotifScreen>
     with TickerProviderStateMixin {
-  TabController? _tabController;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _tabController = TabController(length: 3, vsync: this);
     });
     super.initState();
   }

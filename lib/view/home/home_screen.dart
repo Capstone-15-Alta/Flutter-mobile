@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forum_diskusi/utils/finite_state.dart';
 import 'package:forum_diskusi/view/component/button_onThread.dart';
 import 'package:forum_diskusi/view/home/home_thread.dart';
-import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/kategori_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/thread_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/user_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

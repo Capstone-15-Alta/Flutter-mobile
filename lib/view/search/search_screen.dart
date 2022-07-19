@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forum_diskusi/viewmodel/search_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/search_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/user_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

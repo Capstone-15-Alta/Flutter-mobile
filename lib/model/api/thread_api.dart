@@ -41,4 +41,19 @@ class ThreadAPI {
       rethrow;
     }
   }
+
+  Future delete()async{
+    try {
+      final Response response = await dio.get(
+        'http://8.219.84.81/api/v1/thread',
+        options: Options(
+          headers: {"Content-Type": "application/json"},
+        ),
+      );
+      final List<Data>? dataThread = ThreadModel.fromJson(response.data).data;
+      return dataThread!;
+    } on DioError {
+      rethrow;
+    }
+  }
 }

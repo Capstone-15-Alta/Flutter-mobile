@@ -4,7 +4,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forum_diskusi/view/log/login_screen.dart';
 import 'package:forum_diskusi/view/profil/edit_profile.dart';
-import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/user_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -664,9 +664,9 @@ class _ProfileTreadState extends State<ProfileTread>
           return SizedBox(
               child: Row(
             children: [
-              Container(
+              const SizedBox(
                   height: 40,
-                  child: const Image(
+                  child: Image(
                     image: AssetImage("assets/image/Union.png"),
                   )),
               const SizedBox(
@@ -884,11 +884,9 @@ class _ProfileTreadState extends State<ProfileTread>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            // threads.listDataUser!.userFollowing.toString(),
                             threads.listDataUser!
                                 .userFollowers![0]['user_follower']['username']
                                 .toString(),
-                            // "Nama",
                             style: GoogleFonts.poppins(fontSize: 14),
                           ),
                           GestureDetector(

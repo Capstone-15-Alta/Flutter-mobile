@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:forum_diskusi/view/component/splash_screen.dart';
-import 'package:forum_diskusi/view/log/forgot_passwordScreen.dart';
-import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/ranking_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/register_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/search_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/thread_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/trendingThread_viewModel.dart';
-import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/comments_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/kategori_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/login_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/ranking_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/register_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/search_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/thread_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/trendingthread_viewmodel.dart';
+import 'package:forum_diskusi/viewmodel/user_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void main() {

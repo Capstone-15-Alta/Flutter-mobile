@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forum_diskusi/view/component/success_changePass.dart';
-import 'package:forum_diskusi/view/log/forgot_passwordSuccess.dart';
+import 'package:forum_diskusi/view/log/forgot_passwordsuccess.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPassAfter extends StatefulWidget {

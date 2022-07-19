@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forum_diskusi/model/thread_model.dart';
 import 'package:forum_diskusi/view/comments/comments_screen.dart';
-import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
+import 'package:forum_diskusi/viewmodel/comments_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
