@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:forum_diskusi/view/component/success_changePass.dart';
+import 'package:forum_diskusi/view/log/forgot_passwordSuccess.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPassAfter extends StatefulWidget {
-  const ForgotPassAfter({ Key? key }) : super(key: key);
+  const ForgotPassAfter({Key? key}) : super(key: key);
 
   @override
   State<ForgotPassAfter> createState() => _ForgotPassAfterState();
-
-  
 }
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController kodeKonfirmasi = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
 
-    
+final TextEditingController emailController = TextEditingController();
+final TextEditingController kodeKonfirmasi = TextEditingController();
+final _formKey = GlobalKey<FormState>();
 
 class _ForgotPassAfterState extends State<ForgotPassAfter> {
-
-  
-
   @override
   Widget build(BuildContext context) {
     final TextEditingController passwordfirst = TextEditingController();
@@ -53,8 +48,7 @@ class _ForgotPassAfterState extends State<ForgotPassAfter> {
     final passwordConfirmField = TextFormField(
       autofocus: false,
       validator: (value) {
-        if (passwordfirst.text !=
-            passwordConfirmation.text) {
+        if (passwordfirst.text != passwordConfirmation.text) {
           return "kata sandi tidak persis";
         }
         return null;
@@ -80,6 +74,17 @@ class _ForgotPassAfterState extends State<ForgotPassAfter> {
       child: MaterialButton(
         minWidth: double.infinity,
         onPressed: () {
+          Navigator.of(context).push(PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) {
+            return const ForgotPassSuccess();
+          }, transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+            final tween = Tween(begin: 0.0, end: 2.0);
+            return FadeTransition(
+              opacity: animation.drive(tween),
+              child: child,
+            );
+          }));
         },
         child: Text(
           "konfirmasi",
@@ -91,25 +96,28 @@ class _ForgotPassAfterState extends State<ForgotPassAfter> {
     final haveAccount = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Sudah punya akun ?",
-            style: GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),),
+        Text(
+          "Sudah punya akun ?",
+          style:
+              GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),
+        ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(
-            PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-              return const SuccessChangePassScreen();
-            }, transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-              final tween = Tween(begin: 0.0, end: 2.0);
-              return FadeTransition(
-                  opacity: animation.drive(tween), child: child);
-            }),
-          );
+              PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                return const SuccessChangePassScreen();
+              }, transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                final tween = Tween(begin: 0.0, end: 2.0);
+                return FadeTransition(
+                    opacity: animation.drive(tween), child: child);
+              }),
+            );
           },
           child: Text(
-            "Ubah",
-            style: GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),
+            "Masuk",
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 13),
           ),
         ),
       ],
@@ -118,63 +126,65 @@ class _ForgotPassAfterState extends State<ForgotPassAfter> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-        margin: const EdgeInsets.only(left: 40, right: 40),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "Atur ulang kata sandi\nanda",
+          margin: const EdgeInsets.only(left: 40, right: 40),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Atur ulang kata sandi\nanda",
+                    style: GoogleFonts.poppins(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff26B893)),
+                  ),
+                ),
+                Text(
+                  "Halo, atur ulang kata sandi anda",
                   style: GoogleFonts.poppins(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w200,
                       color: const Color(0xff26B893)),
                 ),
-              ),
-              Text(
-                "Halo, atur ulang kata sandi anda",
-                style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w200,
-                    color: const Color(0xff26B893)),
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              Text(
-                "Kata Sandi Baru",
-                style: GoogleFonts.poppins(
-                    fontSize: 13, color: const Color(0xff26B893)),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              passwordField,
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Kata Sandi Baru Lagi",
-                style: GoogleFonts.poppins(
-                    fontSize: 13, color: const Color(0xff26B893)),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              passwordConfirmField,
-              const SizedBox(height: 20,),
-              masukButton,
-              haveAccount
-            ],
+                const SizedBox(
+                  height: 35,
+                ),
+                Text(
+                  "Kata Sandi Baru",
+                  style: GoogleFonts.poppins(
+                      fontSize: 13, color: const Color(0xff26B893)),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                passwordField,
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Kata Sandi Baru Lagi",
+                  style: GoogleFonts.poppins(
+                      fontSize: 13, color: const Color(0xff26B893)),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                passwordConfirmField,
+                const SizedBox(
+                  height: 20,
+                ),
+                masukButton,
+                haveAccount
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );

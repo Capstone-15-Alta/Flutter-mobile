@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/login_model.dart';
 import 'package:forum_diskusi/view/home/home_nav.dart';
+import 'package:forum_diskusi/view/log/forgot_passwordScreen.dart';
 import 'package:forum_diskusi/view/log/register_screen.dart';
 import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
-// import 'package:intl_phone_field/intl_phone_field.dart';
-// import 'package:flutter';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:intl_phone_field/intl_phone_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -92,34 +90,32 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
         minWidth: double.infinity,
         onPressed: () async {
-          if (_formKey.currentState!.validate()){
+          if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
 
-            try{
+            try {
               await Future.delayed(
-              const Duration(seconds: 2),
-            ).then(
-              (value) async => await loginProvider.postLogin(
-              LoginModel(
-                  username: usernameController.text,
-                  password: passwordController.text),
-            )
-            ).then(
-              (value) => Fluttertoast.showToast(msg: "Login Succesful")
-            ).then(
-              (value) => Navigator.of(context).pushReplacement(
-                      PageRouteBuilder(pageBuilder:
-                          (context, animation, secondaryAnimation) {
-                        return const HomeNav();
-                      }, transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        final tween = Tween(begin: 0.0, end: 2.0);
-                        return FadeTransition(
-                            opacity: animation.drive(tween), child: child);
-                      }),
-                    )
-            );
-            }catch(e){
+                const Duration(seconds: 2),
+              )
+                  .then((value) async => await loginProvider.postLogin(
+                        LoginModel(
+                            username: usernameController.text,
+                            password: passwordController.text),
+                      ))
+                  .then(
+                      (value) => Fluttertoast.showToast(msg: "Login Succesful"))
+                  .then((value) => Navigator.of(context).pushReplacement(
+                        PageRouteBuilder(pageBuilder:
+                            (context, animation, secondaryAnimation) {
+                          return const HomeNav();
+                        }, transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          final tween = Tween(begin: 0.0, end: 2.0);
+                          return FadeTransition(
+                              opacity: animation.drive(tween), child: child);
+                        }),
+                      ));
+            } catch (e) {
               Fluttertoast.showToast(msg: "Login failed");
             }
           }
@@ -132,7 +128,19 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final forgonPass = TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) {
+            return const ForgotPassScreen();
+          }, transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+            final tween = Tween(begin: 0.0, end: 2.0);
+            return FadeTransition(
+              opacity: animation.drive(tween),
+              child: child,
+            );
+          }));
+        },
         child: Text(
           "Lupa password ?",
           style:

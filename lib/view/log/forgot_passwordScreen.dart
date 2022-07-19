@@ -3,28 +3,19 @@ import 'package:forum_diskusi/view/log/forgot_passwordAfter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPassScreen extends StatefulWidget {
-  const ForgotPassScreen({ Key? key }) : super(key: key);
+  const ForgotPassScreen({Key? key}) : super(key: key);
 
   @override
   State<ForgotPassScreen> createState() => _ForgotPassScreenState();
-
-  
 }
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController kodeKonfirmasi = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
 
-    
+final TextEditingController emailController = TextEditingController();
+final TextEditingController kodeKonfirmasi = TextEditingController();
 
 class _ForgotPassScreenState extends State<ForgotPassScreen> {
-
-  
-
   @override
   Widget build(BuildContext context) {
-
     final emailField = TextFormField(
-      key: _formKey,
       autofocus: false,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
@@ -82,6 +73,17 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       child: MaterialButton(
         minWidth: double.infinity,
         onPressed: () {
+          Navigator.of(context).push(PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) {
+            return const ForgotPassAfter();
+          }, transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+            final tween = Tween(begin: 0.0, end: 2.0);
+            return FadeTransition(
+              opacity: animation.drive(tween),
+              child: child,
+            );
+          }));
         },
         child: Text(
           "konfirmasi",
@@ -93,25 +95,29 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
     final haveAccount = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Sudah punya akun ?",
-            style: GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),),
+        Text(
+          "Sudah punya akun ?",
+          style:
+              GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),
+        ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(
-            PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-              return const ForgotPassAfter();
-            }, transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-              final tween = Tween(begin: 0.0, end: 2.0);
-              return FadeTransition(
-                  opacity: animation.drive(tween), child: child);
-            }),
-          );
+              PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                return const ForgotPassAfter();
+              }, transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                final tween = Tween(begin: 0.0, end: 2.0);
+                return FadeTransition(
+                    opacity: animation.drive(tween), child: child);
+              }),
+            );
           },
           child: Text(
             "Masuk",
-            style: GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),
+            style: GoogleFonts.poppins(
+                color: const Color(0xff00726D), fontSize: 13),
           ),
         ),
       ],
@@ -120,63 +126,64 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-        margin: const EdgeInsets.only(left: 40, right: 40),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "Atur ulang kata sandi\nanda",
+          margin: const EdgeInsets.only(left: 40, right: 40),
+          child: Form(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Atur ulang kata sandi\nanda",
+                    style: GoogleFonts.poppins(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff26B893)),
+                  ),
+                ),
+                Text(
+                  "Halo, atur ulang kata sandi anda",
                   style: GoogleFonts.poppins(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w200,
                       color: const Color(0xff26B893)),
                 ),
-              ),
-              Text(
-                "Halo, atur ulang kata sandi anda",
-                style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w200,
-                    color: const Color(0xff26B893)),
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              Text(
-                "Email",
-                style: GoogleFonts.poppins(
-                    fontSize: 13, color: const Color(0xff26B893)),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              emailField,
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "kode Konfirmasi",
-                style: GoogleFonts.poppins(
-                    fontSize: 13, color: const Color(0xff26B893)),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              kodeKonfirmasiField,
-              const SizedBox(height: 20,),
-              masukButton,
-              haveAccount
-            ],
+                const SizedBox(
+                  height: 35,
+                ),
+                Text(
+                  "Email",
+                  style: GoogleFonts.poppins(
+                      fontSize: 13, color: const Color(0xff26B893)),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                emailField,
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "kode Konfirmasi",
+                  style: GoogleFonts.poppins(
+                      fontSize: 13, color: const Color(0xff26B893)),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                kodeKonfirmasiField,
+                const SizedBox(
+                  height: 20,
+                ),
+                masukButton,
+                haveAccount
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );

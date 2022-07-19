@@ -794,90 +794,121 @@ class _ProfileTreadState extends State<ProfileTread>
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                threads.listDataUser!.username!.toString(),
-                                // "Nama",
-                                style: GoogleFonts.poppins(fontSize: 14),
-                              ),
-                              Text(
-                                // "Albert Flores@gmail.com",
-                                threads.listDataUser!.email!.toString(),
-                                style: GoogleFonts.poppins(
-                                    fontSize: 13,
-                                    color: const Color(0xff26B893)),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
                       Text(
-                        // "Albert Flores@gmail.com",
-                        threads.listDataUser!.threads?[index].title ?? "",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13, color: const Color(0xff455154)),
+                        threads.listDataUser!.userFollowing?[index]
+                                ['user_followed']['username'] ??
+                            "",
+                        style: GoogleFonts.poppins(fontSize: 14),
                       ),
-                      Text(
-                        // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
-                        threads.listDataUser!.threads?[index].description ?? "",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13, fontWeight: FontWeight.w500),
-                        textAlign: TextAlign.justify,
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.favorite_border,
-                              size: 18,
-                              color: Color(0xff26B893),
+                      GestureDetector(
+                          onTap: () {},
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: 30,
+                            width: 75,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: const Color(0xff26B893))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: const [
+                                Icon(
+                                  Icons.add,
+                                  color: Color(0xff26B893),
+                                ),
+                                Text(
+                                  "Hapus",
+                                  style: TextStyle(color: Color(0xff26B893)),
+                                )
+                              ],
                             ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.chat,
-                                size: 18, color: Color(0xff26B893)),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                              size: 18,
-                              color: Color(0xff26B893),
-                            ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.arrow_back_outlined,
-                              size: 18,
-                              color: Color(0xff26B893),
-                            ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.share,
-                              size: 18,
-                              color: Color(0xff26B893),
-                            ),
-                            onPressed: () {},
-                          ),
-                        ],
-                      )
+                          ))
                     ],
                   ),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             Text(
+                  //               threads.listDataUser!.username!.toString(),
+                  //               // "Nama",
+                  //               style: GoogleFonts.poppins(fontSize: 14),
+                  //             ),
+                  //             Text(
+                  //               // "Albert Flores@gmail.com",
+                  //               threads.listDataUser!.email!.toString(),
+                  //               style: GoogleFonts.poppins(
+                  //                   fontSize: 13,
+                  //                   color: const Color(0xff26B893)),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     Text(
+                  //       // "Albert Flores@gmail.com",
+                  // threads.listDataUser!.userFollowing?[index]
+                  //         ['user_followed']['username'] ??
+                  //     "",
+                  //       style: GoogleFonts.poppins(
+                  //           fontSize: 13, color: const Color(0xff455154)),
+                  //     ),
+                  //     const SizedBox(
+                  //       height: 5,
+                  //     ),
+                  //     Row(
+                  //       children: [
+                  //         IconButton(
+                  //           icon: const Icon(
+                  //             Icons.favorite_border,
+                  //             size: 18,
+                  //             color: Color(0xff26B893),
+                  //           ),
+                  //           onPressed: () {},
+                  //         ),
+                  //         IconButton(
+                  //           icon: const Icon(Icons.chat,
+                  //               size: 18, color: Color(0xff26B893)),
+                  //           onPressed: () {},
+                  //         ),
+                  //         IconButton(
+                  //           icon: const Icon(
+                  //             Icons.remove_red_eye_outlined,
+                  //             size: 18,
+                  //             color: Color(0xff26B893),
+                  //           ),
+                  //           onPressed: () {},
+                  //         ),
+                  //         IconButton(
+                  //           icon: const Icon(
+                  //             Icons.arrow_back_outlined,
+                  //             size: 18,
+                  //             color: Color(0xff26B893),
+                  //           ),
+                  //           onPressed: () {},
+                  //         ),
+                  //         IconButton(
+                  //           icon: const Icon(
+                  //             Icons.share,
+                  //             size: 18,
+                  //             color: Color(0xff26B893),
+                  //           ),
+                  //           onPressed: () {},
+                  //         ),
+                  //       ],
+                  //     )
+                  //   ],
+                  // ),
                 ),
               )
             ],

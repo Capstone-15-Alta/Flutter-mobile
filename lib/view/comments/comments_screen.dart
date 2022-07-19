@@ -22,6 +22,7 @@ class CommentsScreen extends StatefulWidget {
 class _CommentsScreenState extends State<CommentsScreen> {
   TextEditingController commentController = TextEditingController();
   bool isInit = true;
+  bool descTextShow = false;
 
   @override
   void didChangeDependencies() {
@@ -121,7 +122,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -176,11 +177,31 @@ class _CommentsScreenState extends State<CommentsScreen> {
                           width: MediaQuery.of(context).size.width * 0.66,
                           child: Text(
                             widget.threadModel.description!,
+                            maxLines: descTextShow ? 100 : 2,
                             style: GoogleFonts.poppins(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
                             textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              descTextShow = !descTextShow;
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              descTextShow
+                                  ? const Text(
+                                      "Tampilkan Sedikit",
+                                      style: TextStyle(color: Colors.blue),
+                                    )
+                                  : const Text("Tampilkan Lebih",
+                                      style: TextStyle(color: Colors.blue))
+                            ],
                           ),
                         ),
                         const SizedBox(

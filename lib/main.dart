@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forum_diskusi/view/component/splash_screen.dart';
+import 'package:forum_diskusi/view/log/forgot_passwordScreen.dart';
 import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/kategori_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/login_viewModel.dart';
