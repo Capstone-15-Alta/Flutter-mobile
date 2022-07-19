@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/postComment_Model.dart';
 import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,6 +35,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
     super.didChangeDependencies();
   }
 
+  void clearText() {
+    commentController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     final commentProvider = Provider.of<CommentsViewModel>(context);
@@ -64,15 +69,21 @@ class _CommentsScreenState extends State<CommentsScreen> {
     final submitButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        primary: const Color(0xff4E9BB9), // Background color
+        primary: const Color(0xff4E9BB9),
       ),
       onPressed: () async {
-        commentProvider.postCommentOnThread(
-          PostCommentModel(
-            comment: commentController.text,
-            thread_id: widget.threadId,
-          ),
-        );
+        try {
+          await Fluttertoast.showToast(msg: "Berhasil Comment")
+              .then((value) => commentProvider.postCommentOnThread(
+                    PostCommentModel(
+                      comment: commentController.text,
+                      thread_id: widget.threadId,
+                    ),
+                  ))
+              .then((value) => clearText());
+        } catch (e) {
+          Fluttertoast.showToast(msg: "Gagal Comment");
+        }
       },
       child: const Icon(Icons.arrow_forward),
     );
@@ -174,7 +185,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
                               fontSize: 13, color: const Color(0xff455154)),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.66,
                           child: Text(
                             widget.threadModel.description!,
                             maxLines: descTextShow ? 100 : 2,
@@ -256,120 +266,123 @@ class _CommentsScreenState extends State<CommentsScreen> {
                       itemBuilder: (context, index) {
                         return SingleChildScrollView(
                           child: SizedBox(
-                              child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage: NetworkImage(
-                                        "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                                    backgroundColor: Colors.transparent,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  commentProvider
-                                                      .listgetComments[index]
-                                                      .user!['username'],
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: const Color(
-                                                          0xff594545)),
-                                                ),
-                                                Text(
-                                                  commentProvider
-                                                      .listgetComments[index]
-                                                      .user!['email'],
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 13,
-                                                      color: const Color(
-                                                          0xff594545)),
-                                                ),
-                                              ],
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: NetworkImage(
+                                          "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    commentProvider
+                                                        .listgetComments[index]
+                                                        .user!['username'],
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xff594545)),
+                                                  ),
+                                                  Text(
+                                                    commentProvider
+                                                        .listgetComments[index]
+                                                        .user!['email'],
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 13,
+                                                        color: const Color(
+                                                            0xff594545)),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.66,
+                                            child: Text(
+                                              commentProvider
+                                                  .listgetComments[index]
+                                                  .comment!,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500,
+                                                  color:
+                                                      const Color(0xff9E9E9E)),
+                                              textAlign: TextAlign.justify,
                                             ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.66,
-                                          child: Text(
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
                                             commentProvider
                                                 .listgetComments[index]
-                                                .comment!,
+                                                .created_at!,
                                             style: GoogleFonts.poppins(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                                color: const Color(0xff9E9E9E)),
-                                            textAlign: TextAlign.justify,
+                                                fontSize: 14),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          commentProvider.listgetComments[index]
-                                              .created_at!,
-                                          style:
-                                              GoogleFonts.poppins(fontSize: 14),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            TextButton(
-                                                onPressed: () {},
-                                                child: Text(
-                                                  "Reply",
-                                                  style: GoogleFonts.poppins(
-                                                      color: const Color(
-                                                          0xff26B893)),
-                                                )),
-                                            TextButton(
-                                                onPressed: () {},
-                                                child: Text(
-                                                  "Share",
-                                                  style: GoogleFonts.poppins(
-                                                      color: const Color(
-                                                          0xff26B893)),
-                                                )),
-                                            TextButton(
-                                                onPressed: () {},
-                                                child: Text(
-                                                  "Report",
-                                                  style: GoogleFonts.poppins(
-                                                      color: const Color(
-                                                          0xff26B893)),
-                                                ))
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          )),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              TextButton(
+                                                  onPressed: () {},
+                                                  child: Text(
+                                                    "Reply",
+                                                    style: GoogleFonts.poppins(
+                                                        color: const Color(
+                                                            0xff26B893)),
+                                                  )),
+                                              TextButton(
+                                                  onPressed: () {},
+                                                  child: Text(
+                                                    "Share",
+                                                    style: GoogleFonts.poppins(
+                                                        color: const Color(
+                                                            0xff26B893)),
+                                                  )),
+                                              TextButton(
+                                                  onPressed: () {},
+                                                  child: Text(
+                                                    "Report",
+                                                    style: GoogleFonts.poppins(
+                                                        color: const Color(
+                                                            0xff26B893)),
+                                                  ))
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         );
                       },
                     ),

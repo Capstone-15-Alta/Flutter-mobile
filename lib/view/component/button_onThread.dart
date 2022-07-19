@@ -47,12 +47,10 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        // "Nama"
                         widget.thread.user?.username ?? "",
                         style: GoogleFonts.poppins(fontSize: 14),
                       ),
                       Text(
-                        // "Albert Flores@gmail.com",
                         widget.thread.user?.email ?? "",
                         style: GoogleFonts.poppins(
                             fontSize: 13, color: const Color(0xff26B893)),
