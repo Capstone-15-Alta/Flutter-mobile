@@ -276,7 +276,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                     ),
                     // buildDatePicker()
                     Text(
-                      "Email",
+                      "Tanggal Lahir",
                       style: GoogleFonts.poppins(fontSize: 15),
                     ),
                     Container(

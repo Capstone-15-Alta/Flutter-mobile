@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:forum_diskusi/view/comments/comments_screen.dart';
+import 'package:forum_diskusi/viewmodel/comments_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/search_viewModel.dart';
 import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../model/thread_model.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -26,6 +30,11 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     final saranUserProvider = Provider.of<UserViewModel>(context);
     final searchProvider = Provider.of<SearchUserViewModel>(context);
+    final buttonProvider = Provider.of<CommentsViewModel>(context);
+
+    bool _hasBeenPressedLike = true;
+    bool _hasBeenPressedIkuti = false;
+
     final searchField = Form(
       key: _formKey,
       child: TextFormField(
@@ -100,6 +109,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Builder(builder: (context) {
                     if (searchProvider.listDataSearch == null) {
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Saran",
                               style: GoogleFonts.poppins(
@@ -172,110 +182,181 @@ class _SearchScreenState extends State<SearchScreen> {
                     return ListView.builder(
                         itemCount: searchProvider.listDataSearch!.length,
                         itemBuilder: ((context, index) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          return Column(
                             children: [
-                              const CircleAvatar(
-                                radius: 30.0,
-                                backgroundImage: NetworkImage(
-                                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                                backgroundColor: Colors.transparent,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage: NetworkImage(
+                                        "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              // "Nama"
-                                              searchProvider
-                                                  .listDataSearch![index]
-                                                  .user!
-                                                  .username!,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 14),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  // "Nama"
+                                                  searchProvider
+                                                      .listDataSearch![index]
+                                                      .user!
+                                                      .username!,
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  // "Albert Flores@gmail.com",
+                                                  searchProvider
+                                                      .listDataSearch![index]
+                                                      .user!
+                                                      .email!,
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 13,
+                                                      color: const Color(
+                                                          0xff26B893)),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              // "Albert Flores@gmail.com",
-                                              searchProvider
-                                                  .listDataSearch![index]
-                                                  .user!
-                                                  .email!,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 13,
-                                                  color:
-                                                      const Color(0xff26B893)),
-                                            ),
+                                            GestureDetector(
+                                                onTap: () {
+                                                  setState(() {});
+                                                },
+                                                child: AnimatedContainer(
+                                                  duration: const Duration(
+                                                      milliseconds: 300),
+                                                  height: 30,
+                                                  width: 75,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        const Color(0xff26B893),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: const [
+                                                      Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                      ),
+                                                      Text(
+                                                        "Ikuti",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ))
                                           ],
                                         ),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {});
-                                            },
-                                            child: AnimatedContainer(
-                                              duration: const Duration(
-                                                  milliseconds: 300),
-                                              height: 30,
-                                              width: 75,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xff26B893),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: const [
-                                                  Icon(
-                                                    Icons.add,
-                                                    color: Colors.white,
-                                                  ),
-                                                  Text(
-                                                    "Ikuti",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              ),
-                                            ))
+                                        Text(
+                                          searchProvider
+                                              .listDataSearch![index].title!,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 13,
+                                              color: const Color(0xff455154)),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.66,
+                                          child: Text(
+                                            // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+                                            searchProvider
+                                                .listDataSearch![index]
+                                                .description!,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500),
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          // "Time",
+                                          searchProvider.listDataSearch![index]
+                                              .createdAt!,
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 14),
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.66,
-                                      child: Text(
-                                        // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
-                                        searchProvider.listDataSearch![index]
-                                            .description!,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500),
-                                        textAlign: TextAlign.justify,
-                                      ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      // widget.thread.likes![0].isLike!
+                                      _hasBeenPressedLike
+                                          ? Icons.favorite_border
+                                          : Icons.favorite,
+                                      size: 18,
+                                      color: _hasBeenPressedLike
+                                          ? const Color(0xff26B893)
+                                          : Colors.red,
                                     ),
-                                    const SizedBox(
-                                      height: 5,
+                                    onPressed: () {
+                                      setState(() {
+                                        _hasBeenPressedLike =
+                                            !_hasBeenPressedLike;
+                                      });
+                                      // widget.thread.likes;
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.chat,
+                                        size: 18, color: Color(0xff26B893)),
+                                    onPressed: () {},
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.remove_red_eye_outlined,
+                                      size: 18,
+                                      color: Color(0xff26B893),
                                     ),
-                                    Text(
-                                      // "Time",
-                                      searchProvider
-                                          .listDataSearch![index].createdAt!,
-                                      style: GoogleFonts.poppins(fontSize: 14),
+                                    onPressed: () {},
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_back_outlined,
+                                      size: 18,
+                                      color: Color(0xff26B893),
                                     ),
-                                  ],
-                                ),
+                                    onPressed: () {},
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.share,
+                                      size: 18,
+                                      color: Color(0xff26B893),
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                ],
                               )
                             ],
                           );

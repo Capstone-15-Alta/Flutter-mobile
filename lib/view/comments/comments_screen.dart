@@ -52,7 +52,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
         filled: true,
         enabledBorder: const OutlineInputBorder(
           // width: 0.0 produces a thin "hairline" border
-          borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+          borderSide: BorderSide(color: Colors.black, width: 0.0),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -129,16 +129,11 @@ class _CommentsScreenState extends State<CommentsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  // "Nama",
                                   widget.threadModel.user!.username!,
-                                  // threadProvider.listGetThread[index]
-                                  // .user!.username!,
                                   style: GoogleFonts.poppins(fontSize: 14),
                                 ),
                                 Text(
                                   widget.threadModel.user!.email!,
-                                  //   threadProvider
-                                  //       .listGetTrendingThread[index].email!,
                                   style: GoogleFonts.poppins(
                                       fontSize: 13,
                                       color: const Color(0xff594545)),
@@ -146,9 +141,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                               ],
                             ),
                             GestureDetector(
-                                onTap: () {
-                                  setState(() {});
-                                },
+                                onTap: () {},
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 300),
                                   height: 30,
@@ -174,12 +167,15 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                 ))
                           ],
                         ),
+                        Text(
+                          widget.threadModel.title ?? "",
+                          style: GoogleFonts.poppins(
+                              fontSize: 13, color: const Color(0xff455154)),
+                        ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.66,
                           child: Text(
                             widget.threadModel.description!,
-                            // threadProvider
-                            //     .listGetThread[index].description!,
                             style: GoogleFonts.poppins(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
@@ -191,18 +187,14 @@ class _CommentsScreenState extends State<CommentsScreen> {
                           height: 5,
                         ),
                         Text(
-                          // "Time",
                           widget.threadModel.createdAt!,
-                          // threadProvider.listGetThread[index].createdAt!,
                           style: GoogleFonts.poppins(fontSize: 14),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             TextButton(
-                                onPressed: () {
-                                  // CommentAPI().getComment(widget.threadId);
-                                },
+                                onPressed: () {},
                                 child: Text(
                                   "Reply",
                                   style: GoogleFonts.poppins(
@@ -286,8 +278,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                                   commentProvider
                                                       .listgetComments[index]
                                                       .user!['email'],
-                                                  //   threadProvider
-                                                  //       .listGetTrendingThread[index].email!,
                                                   style: GoogleFonts.poppins(
                                                       fontSize: 13,
                                                       color: const Color(
@@ -295,40 +285,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                                 ),
                                               ],
                                             ),
-                                            // GestureDetector(
-                                            //     onTap: () {
-                                            //       setState(() {});
-                                            //     },
-                                            //     child: AnimatedContainer(
-                                            //       duration: const Duration(
-                                            //           milliseconds: 300),
-                                            //       height: 30,
-                                            //       width: 75,
-                                            //       decoration: BoxDecoration(
-                                            //         color:
-                                            //             const Color(0xff26B893),
-                                            //         borderRadius:
-                                            //             BorderRadius.circular(
-                                            //                 10),
-                                            //       ),
-                                            //       child: Row(
-                                            //         mainAxisAlignment:
-                                            //             MainAxisAlignment
-                                            //                 .spaceEvenly,
-                                            //         children: const [
-                                            //           Icon(
-                                            //             Icons.add,
-                                            //             color: Colors.white,
-                                            //           ),
-                                            //           Text(
-                                            //             "Ikuti",
-                                            //             style: TextStyle(
-                                            //                 color:
-                                            //                     Colors.white),
-                                            //           )
-                                            //         ],
-                                            //       ),
-                                            //     ))
                                           ],
                                         ),
                                         SizedBox(
@@ -340,8 +296,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                             commentProvider
                                                 .listgetComments[index]
                                                 .comment!,
-                                            // threadProvider
-                                            //     .listGetThread[index].description!,
                                             style: GoogleFonts.poppins(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
@@ -355,7 +309,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
                                         Text(
                                           commentProvider.listgetComments[index]
                                               .created_at!,
-                                          // threadProvider.listGetThread[index].createdAt!,
                                           style:
                                               GoogleFonts.poppins(fontSize: 14),
                                         ),

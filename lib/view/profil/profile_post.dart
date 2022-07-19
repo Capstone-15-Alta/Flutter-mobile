@@ -10,9 +10,6 @@ class ProfilePost extends StatefulWidget {
 }
 
 class _ProfilePostState extends State<ProfilePost> {
-
-
-  
   final double backgroungImageHeight = 150;
   final double profileImageHeight = 80;
   final double shadeProfileImage = 100;
@@ -78,10 +75,9 @@ class _ProfilePostState extends State<ProfilePost> {
               width: double.infinity,
               height: backgroungImageHeight,
               fit: BoxFit.cover,
-            )
-          ),
-          Container(
-          alignment: Alignment.topLeft, 
+            )),
+        Container(
+          alignment: Alignment.topLeft,
           width: 130,
           child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
@@ -90,11 +86,16 @@ class _ProfilePostState extends State<ProfilePost> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       side: BorderSide(color: Color(0xff26B893)))),
               onPressed: () {},
-              icon: const Icon(Icons.camera_alt_sharp, color:Color(0xff26B893) ,),
+              icon: const Icon(
+                Icons.camera_alt_sharp,
+                color: Color(0xff26B893),
+              ),
               label: Text(
                 "Ganti Cover",
                 style: GoogleFonts.poppins(
-                    fontSize: 10, fontWeight: FontWeight.bold, color: const Color(0xff26B893)),
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff26B893)),
               )),
         ),
       ],
@@ -300,7 +301,7 @@ class _ProfilePostState extends State<ProfilePost> {
   Widget notifikasiProfile() {
     // if (viewModel.isEmpty){
     //return Center(
-    //  child : Text("Belum ada post dari kamu,yuk mari mulai diskusi", style: GoogleFonts.poppins(fontSize: 25),) 
+    //  child : Text("Belum ada post dari kamu,yuk mari mulai diskusi", style: GoogleFonts.poppins(fontSize: 25),)
     //)
     //} //untuk mevalidasi kategori mana yang akan dipilih... ListView dalam if
     return SizedBox(

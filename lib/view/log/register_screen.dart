@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forum_diskusi/model/register_model.dart';
 import 'package:forum_diskusi/view/log/register_afterscreen.dart';
 import 'package:forum_diskusi/viewmodel/register_viewModel.dart';
@@ -26,7 +27,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     final passwordField = TextFormField(
-      
       autofocus: false,
       validator: (value) {
         RegExp regex = RegExp(r'^.{6,}$');
@@ -124,28 +123,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: MaterialButton(
         minWidth: double.infinity,
         onPressed: () async {
-          if(_formKey.currentState!.validate()){
+          if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
 
-            await Future.delayed(
-              const Duration(seconds: 2),
-            ).then((value) => registerProvider.postRegister(RegisterModel(
-                    username: usernameController.text,
-                    email: emailController.text,
-                    password: passwordController.text
-                    ))).then((_) => Navigator.of(context).push(
-            PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-              return const RegisAfterScreen();
-            }, transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-              final tween = Tween(begin: 0.0, end: 2.0);
-              return FadeTransition(
-                  opacity: animation.drive(tween), child: child);
-            }),
-          ));
-
-            
+            try {
+              await Future.delayed(
+                const Duration(seconds: 2),
+              )
+                  .then((value) async => await registerProvider.postRegister(
+                        RegisterModel(
+                            username: usernameController.text,
+                            email: emailController.text,
+                            password: passwordController.text),
+                      ))
+                  .then((value) =>
+                      Fluttertoast.showToast(msg: "Register Succesful"))
+                  .then((value) => Navigator.of(context).push(
+                        PageRouteBuilder(pageBuilder:
+                            (context, animation, secondaryAnimation) {
+                          return const RegisAfterScreen();
+                        }, transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          final tween = Tween(begin: 0.0, end: 2.0);
+                          return FadeTransition(
+                              opacity: animation.drive(tween), child: child);
+                        }),
+                      ));
+            } catch (e) {
+              Fluttertoast.showToast(msg: "Register failed");
+            }
           }
         },
         child: Text(
@@ -158,21 +164,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final haveAccount = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Sudah punya akun ?",
-            style: GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),),
+        Text(
+          "Sudah punya akun ?",
+          style:
+              GoogleFonts.poppins(color: const Color(0xff00726D), fontSize: 13),
+        ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(
-            PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-              return const RegisAfterScreen();
-            }, transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-              final tween = Tween(begin: 0.0, end: 2.0);
-              return FadeTransition(
-                  opacity: animation.drive(tween), child: child);
-            }),
-          );
+              PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                return const RegisAfterScreen();
+              }, transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                final tween = Tween(begin: 0.0, end: 2.0);
+                return FadeTransition(
+                    opacity: animation.drive(tween), child: child);
+              }),
+            );
           },
           child: Text(
             "Masuk",
@@ -193,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[ 
+              children: <Widget>[
                 const SizedBox(
                   height: 20,
                 ),
@@ -216,7 +225,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Text(
                   "Nama",
-                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500,color: const Color(0xff26B893)),
+                  style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,
@@ -227,7 +239,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Text(
                   "Email",
-                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500,color: const Color(0xff26B893)),
+                  style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,
@@ -238,7 +253,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Text(
                   "Password",
-                  style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500,color: const Color(0xff26B893)),
+                  style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xff26B893)),
                 ),
                 const SizedBox(
                   height: 10,

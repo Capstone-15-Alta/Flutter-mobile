@@ -1,359 +1,724 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:draggable_fab/draggable_fab.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:forum_diskusi/view/log/login_screen.dart';
+// import 'package:forum_diskusi/view/profil/edit_profile.dart';
+// import 'package:forum_diskusi/view/profil/profile_mengikuti.dart';
+// import 'package:forum_diskusi/view/profil/profile_post.dart';
+// import 'package:forum_diskusi/viewmodel/user_viewModel.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:provider/provider.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileMengikuti extends StatefulWidget {
-  const ProfileMengikuti({Key? key}) : super(key: key);
+// class ProfileTread extends StatefulWidget {
+//   const ProfileTread({Key? key}) : super(key: key);
 
-  @override
-  State<ProfileMengikuti> createState() => _ProfileMengikutiState();
-}
+//   @override
+//   State<ProfileTread> createState() => _ProfileTreadState();
+// }
 
-class _ProfileMengikutiState extends State<ProfileMengikuti> {
-  final double backgroungImageHeight = 150;
-  final double profileImageHeight = 80;
-  final double shadeProfileImage = 100;
-  final double positionedLeftImage = 10;
+// class _ProfileTreadState extends State<ProfileTread>
+//     with TickerProviderStateMixin {
+//   // bool isInit = true;
 
-  @override
-  Widget build(BuildContext context) {
-    final top = backgroungImageHeight - shadeProfileImage / 2;
-    final topForName = backgroungImageHeight - positionedLeftImage;
-    final leftForName = shadeProfileImage + positionedLeftImage * 2;
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  margin: const EdgeInsets.all(16),
-                  child: Center(
-                      child: SvgPicture.asset(
-                    "assets/image/logo.svg",
-                    height: 35,
-                    width: 35,
-                  ))),
-              Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.centerLeft,
-                children: [
-                  backGroundImage(),
-                  Positioned(
-                    child: profileImage(),
-                    top: top,
-                  ),
-                  Positioned(
-                      top: topForName, left: leftForName, child: profileName()),
-                ],
-              ),
-              SizedBox(
-                height: profileImageHeight - 30,
-              ),
-              buttonPMPT(),
-              const Divider(),
-              const SizedBox(
-                height: 10,
-              ),
-              orangMengikuti()
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+//   // @override
+//   // void didChangeDependencies() {
+//   //   Provider.of<UserViewModel>(context).listDataUser;
+//   //   super.didChangeDependencies();
+//   // }
+//   @override
+//   void initState() {
+//     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//       Provider.of<UserViewModel>(context, listen: false).getDataUser();
+//       _tabController = TabController(length: 4, vsync: this);
+//     });
+//     super.initState();
+//   }
 
-  Widget backGroundImage() {
-    return Stack(
-      children: [
-        SizedBox(
-            width: double.infinity,
-            height: backgroungImageHeight,
-            child: Image(
-              image: const NetworkImage(
-                "https://wallpaperaccess.com/full/17353.jpg",
-              ),
-              width: double.infinity,
-              height: backgroungImageHeight,
-              fit: BoxFit.cover,
-            )),
-        Container(
-          alignment: Alignment.topLeft,
-          width: 130,
-          child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      side: BorderSide(color: Color(0xff26B893)))),
-              onPressed: () {},
-              icon: const Icon(
-                Icons.camera_alt_sharp,
-                color: Color(0xff26B893),
-              ),
-              label: Text(
-                "Ganti Cover",
-                style: GoogleFonts.poppins(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xff26B893)),
-              )),
-        ),
-      ],
-    );
-  }
+//   final double backgroungImageHeight = 150;
+//   final double profileImageHeight = 80;
+//   final double shadeProfileImage = 100;
+//   final double positionedLeftImage = 10;
 
-  Widget profileImage() {
-    return Container(
-      margin: const EdgeInsets.only(left: 10),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Center(
-            child: Container(
-              height: shadeProfileImage,
-              width: shadeProfileImage,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.black),
-            ),
-          ),
-          Center(
-            child: Container(
-              height: profileImageHeight,
-              width: profileImageHeight,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.white),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+//   TabController? _tabController;
 
-  Widget profileName() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Text("Muhammad Yogi",
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: Colors.black)),
-            Text(
-              "Muhamadyogi413@gmail.com",
-              style: GoogleFonts.poppins(
-                  fontSize: 11, color: const Color(0xff26B893)),
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-        // masih manual :""
-        const SizedBox(
-          width: 20,
-        ),
-        SizedBox(
-          height: 35,
-          width: 90,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      side: BorderSide(color: Color(0xff26B893)))),
-              onPressed: () {},
-              child: Text(
-                "Edit Profile",
-                style: GoogleFonts.poppins(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-                textAlign: TextAlign.center,
-              )),
-        ),
-      ],
-    );
-  }
+//   TextEditingController namaAwalController = TextEditingController();
+//   TextEditingController namaAkhirController = TextEditingController();
 
-  Widget buttonPMPT() {
-    return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-              onPressed: () {},
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Pengikut",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "5",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-              )),
-          TextButton(
-              onPressed: () {},
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Mengikuti",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "5",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-              )),
-          TextButton(
-              onPressed: () {},
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Post",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "5",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-              )),
-          TextButton(
-              onPressed: () {},
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Thread",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "5",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-              ))
-        ],
-      ),
-    );
-  }
+//   TextEditingController nomorHandphoneController = TextEditingController();
+//   TextEditingController emailController = TextEditingController();
 
-  Widget orangMengikuti() {
-    return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16),
-      height: 200,
-      child: ListView.builder(
-          itemCount: 2,
-          itemBuilder: ((context, index) {
-            return Row(
-              children: [
-                const CircleAvatar(
-                  radius: 23.0,
-                  backgroundImage: NetworkImage(
-                      "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
-                  backgroundColor: Colors.transparent,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "nama",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      "Albert Flores@gmail.com",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13, color: const Color(0xffABABAB)),
-                    )
-                  ],
-                ),
-                const Spacer(),
-                Container(
-                  height: 35,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xff26B893))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text(
-                        "Hapus",
-                        style: TextStyle(color: Color(0xff26B893)),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            );
-          })),
-    );
-  }
-}
+//   TextEditingController tanggalLahirController = TextEditingController();
+//   TextEditingController tingkatPendidikanlController = TextEditingController();
+
+//   TextEditingController negaraController = TextEditingController();
+//   TextEditingController kotaController = TextEditingController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     UserViewModel profileProvider = Provider.of<UserViewModel>(context);
+//     final top = backgroungImageHeight - shadeProfileImage / 2;
+//     final topForName = backgroungImageHeight - positionedLeftImage;
+//     final leftForName = shadeProfileImage + positionedLeftImage * 2;
+
+//     if (profileProvider.listDataUser == null) {
+//       return const Center(
+//         child: CircularProgressIndicator(),
+//       );
+//     }
+//     return Scaffold(
+//       floatingActionButton: DraggableFab(
+//         child: FloatingActionButton(
+//           backgroundColor: const Color(0xff26B893),
+//           onPressed: () {
+//             showDialog(
+//                 context: context,
+//                 builder: (context) {
+//                   return AlertDialog(
+//                     content: Container(
+//                       width: MediaQuery.of(context).size.width / 1.2,
+//                       height: MediaQuery.of(context).size.height / 4,
+//                       color: Colors.white,
+//                       child: Container(
+//                         margin: const EdgeInsets.all(10),
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.center,
+//                           children: [
+//                             const Icon(Icons.warning_amber_outlined,
+//                                 color: Colors.red, size: 40),
+//                             Text(
+//                               "Apakah anda ingin logout?",
+//                               style: GoogleFonts.poppins(
+//                                   fontSize: 14,
+//                                   fontWeight: FontWeight.bold,
+//                                   color: const Color(0xff26B893)),
+//                             ),
+//                             SizedBox(
+//                               height: MediaQuery.of(context).size.height * 0.05,
+//                             ),
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                               children: [
+//                                 ElevatedButton(
+//                                     style: ElevatedButton.styleFrom(
+//                                         primary: const Color(0xff26B893)),
+//                                     onPressed: () async {
+//                                       SharedPreferences pref =
+//                                           await SharedPreferences.getInstance();
+//                                       pref.clear();
+//                                       Navigator.of(context).pushReplacement(
+//                                           PageRouteBuilder(pageBuilder:
+//                                               (context, animation,
+//                                                   secondaryAnimation) {
+//                                         return const LoginScreen();
+//                                       }, transitionsBuilder: (context,
+//                                               animation,
+//                                               secondaryAnimation,
+//                                               child) {
+//                                         final tween =
+//                                             Tween(begin: 0.0, end: 2.0);
+//                                         return FadeTransition(
+//                                           opacity: animation.drive(tween),
+//                                           child: child,
+//                                         );
+//                                       }));
+//                                     },
+//                                     child: const Text("Lanjutkan")),
+//                                 ElevatedButton(
+//                                   style: ElevatedButton.styleFrom(
+//                                       primary: Colors.red[700]),
+//                                   onPressed: () {
+//                                     Navigator.of(context, rootNavigator: true)
+//                                         .pop();
+//                                   },
+//                                   child: const Text("Batal"),
+//                                 )
+//                               ],
+//                             )
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   );
+//                 });
+//           },
+//           child: const Icon(
+//             Icons.logout,
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//       body: SafeArea(
+//         child: SingleChildScrollView(
+//           child: Column(
+//             children: [
+//               Container(
+//                   margin: const EdgeInsets.all(16),
+//                   child: Center(
+//                       child: SvgPicture.asset(
+//                     "assets/image/logo.svg",
+//                     height: 35,
+//                     width: 35,
+//                   ))),
+//               Stack(
+//                 clipBehavior: Clip.none,
+//                 alignment: Alignment.centerLeft,
+//                 children: [
+//                   backGroundImage(),
+//                   Positioned(
+//                     child: profileImage(),
+//                     top: top,
+//                   ),
+//                   Positioned(
+//                       top: topForName,
+//                       left: leftForName,
+//                       child: profileName(profileProvider)),
+//                 ],
+//               ),
+//               const SizedBox(
+//                 height: 5,
+//               ),
+//               profileEditButton(profileProvider),
+//               SizedBox(
+//                 height: profileImageHeight - 60,
+//               ),
+//               // editProfile(),
+//               const SizedBox(
+//                 height: 10,
+//               ),
+//               SizedBox(
+//                 height: MediaQuery.of(context).size.height * 2,
+//                 width: double.maxFinite,
+//                 child: DefaultTabController(
+//                   length: 4,
+//                   child: Column(
+//                     children: [
+//                       Container(
+//                         child: TabBar(controller: _tabController, tabs: [
+//                           Tab(
+//                             child: Column(
+//                               children: [
+//                                 Text(
+//                                   "Pengikut",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 ),
+//                                 const SizedBox(
+//                                   height: 10,
+//                                 ),
+//                                 Text(
+//                                   // count.listDataUser!.totalUserFollowers!.toString(),
+//                                   "2",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 )
+//                               ],
+//                             ),
+//                           ),
+//                           Tab(
+//                             child: Column(
+//                               children: [
+//                                 Text(
+//                                   "Mengikuti",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 ),
+//                                 const SizedBox(
+//                                   height: 10,
+//                                 ),
+//                                 Text(
+//                                   // count.listDataUser!.totalUserFollowing!.toString(),
+//                                   "1",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 )
+//                               ],
+//                             ),
+//                           ),
+//                           Tab(
+//                             child: Column(
+//                               children: [
+//                                 Text(
+//                                   "Post",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 ),
+//                                 const SizedBox(
+//                                   height: 10,
+//                                 ),
+//                                 Text(
+//                                   // count.listDataUser!.totalPostComments!.toString(),
+//                                   "3",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 )
+//                               ],
+//                             ),
+//                           ),
+//                           Tab(
+//                             child: Column(
+//                               children: [
+//                                 Text(
+//                                   "Thread",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 ),
+//                                 const SizedBox(
+//                                   height: 10,
+//                                 ),
+//                                 Text(
+//                                   // count.listDataUser!.totalThreads.toString(),
+//                                   "4",
+//                                   style: GoogleFonts.poppins(
+//                                       fontSize: 13,
+//                                       fontWeight: FontWeight.bold,
+//                                       color: Colors.black),
+//                                   textAlign: TextAlign.center,
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ]),
+//                       ),
+//                       Expanded(
+//                         child: SizedBox(
+//                           height: MediaQuery.of(context).size.height * 0.66,
+//                           width: double.infinity,
+//                           child: TabBarView(
+//                               controller: _tabController,
+//                               children: const [
+//                                 Text("Home Body"),
+//                                 Text("Articles Body"),
+//                                 Text("User Body"),
+//                                 Text("User Body"),
+//                               ]),
+//                         ),
+//                       )
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget backGroundImage() {
+//     return Stack(
+//       children: [
+//         SizedBox(
+//             width: double.infinity,
+//             height: backgroungImageHeight,
+//             child: Image(
+//               image: const NetworkImage(
+//                 "https://wallpaperaccess.com/full/17353.jpg",
+//               ),
+//               width: double.infinity,
+//               height: backgroungImageHeight,
+//               fit: BoxFit.cover,
+//             )),
+//         Container(
+//           alignment: Alignment.topLeft,
+//           width: 130,
+//           child: ElevatedButton.icon(
+//               style: ElevatedButton.styleFrom(
+//                   primary: Colors.white,
+//                   shape: const RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.all(Radius.circular(20)),
+//                       side: BorderSide(color: Color(0xff26B893)))),
+//               onPressed: () {},
+//               icon: const Icon(
+//                 Icons.camera_alt_sharp,
+//                 color: Color(0xff26B893),
+//               ),
+//               label: Text(
+//                 "Ganti Cover",
+//                 style: GoogleFonts.poppins(
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                     color: const Color(0xff26B893)),
+//               )),
+//         ),
+//       ],
+//     );
+//   }
+
+//   Widget profileImage() {
+//     return Container(
+//       margin: const EdgeInsets.only(left: 10),
+//       child: Stack(
+//         alignment: Alignment.center,
+//         children: [
+//           Center(
+//             child: Container(
+//               height: shadeProfileImage,
+//               width: shadeProfileImage,
+//               decoration: const BoxDecoration(
+//                   shape: BoxShape.circle, color: Color(0xff26B893)),
+//             ),
+//           ),
+//           Center(
+//             child: Container(
+//               height: profileImageHeight,
+//               width: profileImageHeight,
+//               decoration: const BoxDecoration(
+//                   shape: BoxShape.circle, color: Colors.white),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget profileName(UserViewModel name) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             const SizedBox(
+//               height: 10,
+//             ),
+//             Text(
+//                 // "Muhammad Yogi",
+//                 name.listDataUser!.username!,
+//                 style: GoogleFonts.poppins(
+//                     fontWeight: FontWeight.w600,
+//                     fontSize: 13,
+//                     color: Colors.black)),
+//             Text(
+//               // "Muhamadyogi413@gmail.com",
+//               name.listDataUser!.email!,
+//               style: GoogleFonts.poppins(
+//                   fontSize: 11, color: const Color(0xff26B893)),
+//             ),
+//             const SizedBox(height: 20),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+
+//   Widget profileEditButton(UserViewModel name) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Text(" ",
+//             style: GoogleFonts.poppins(
+//                 fontWeight: FontWeight.w600,
+//                 fontSize: 13,
+//                 color: Colors.black)),
+//         const SizedBox(
+//           width: 20,
+//         ),
+//         Container(
+//           margin: const EdgeInsets.only(right: 10),
+//           height: 35,
+//           width: 90,
+//           child: ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                   primary: Colors.white,
+//                   shape: const RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.all(Radius.circular(10)),
+//                       side: BorderSide(color: Color(0xff26B893)))),
+//               onPressed: () {
+//                 Navigator.of(context).push(PageRouteBuilder(
+//                     pageBuilder: (context, animation, secondaryAnimation) {
+//                   return const ProfileEdit();
+//                 }, transitionsBuilder:
+//                         (context, animation, secondaryAnimation, child) {
+//                   final tween = Tween(begin: 0.0, end: 2.0);
+//                   return FadeTransition(
+//                     opacity: animation.drive(tween),
+//                     child: child,
+//                   );
+//                 }));
+//               },
+//               child: Text(
+//                 "Edit Profile",
+//                 style: GoogleFonts.poppins(
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                     color: Colors.black),
+//                 textAlign: TextAlign.center,
+//               )),
+//         ),
+//       ],
+//     );
+//   }
+
+//   // Container(
+//   //   margin: const EdgeInsets.only(
+//   //     left: 16,
+//   //     right: 16,
+//   //   ),
+//   //   child: Row(
+//   //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//   //     children: [
+//   //       TextButton(
+//   //           onPressed: () {},
+//   //           child: Center(
+//   //             child: Column(
+//   //               children: [
+//   //                 Text(
+//   //                   "Pengikut",
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 ),
+//   //                 const SizedBox(
+//   //                   height: 10,
+//   //                 ),
+//   //                 Text(
+//   //                   count.listDataUser!.totalUserFollowers!.toString(),
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 )
+//   //               ],
+//   //             ),
+//   //           )),
+//   //       TextButton(
+//   //           onPressed: () {},
+//   //           child: Center(
+//   //             child: Column(
+//   //               children: [
+//   //                 Text(
+//   //                   "Mengikuti",
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 ),
+//   //                 const SizedBox(
+//   //                   height: 10,
+//   //                 ),
+//   //                 Text(
+//   //                   count.listDataUser!.totalUserFollowing!.toString(),
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 )
+//   //               ],
+//   //             ),
+//   //           )),
+//   //       TextButton(
+//   //           onPressed: () async {
+//   //             Navigator.of(context).pushReplacement(PageRouteBuilder(
+//   //                 pageBuilder: (context, animation, secondaryAnimation) {
+//   //               return const ProfilePost();
+//   //             }, transitionsBuilder:
+//   //                     (context, animation, secondaryAnimation, child) {
+//   //               final tween = Tween(begin: 0.0, end: 2.0);
+//   //               return FadeTransition(
+//   //                 opacity: animation.drive(tween),
+//   //                 child: child,
+//   //               );
+//   //             }));
+//   //           },
+//   //           child: Center(
+//   //             child: Column(
+//   //               children: [
+//   //                 Text(
+//   //                   "Post",
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 ),
+//   //                 const SizedBox(
+//   //                   height: 10,
+//   //                 ),
+//   //                 Text(
+//   //                   count.listDataUser!.totalPostComments!.toString(),
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 )
+//   //               ],
+//   //             ),
+//   //           )),
+//   //       TextButton(
+//   //           onPressed: () {},
+//   //           child: Center(
+//   //             child: Column(
+//   //               children: [
+//   //                 Text(
+//   //                   "Thread",
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 ),
+//   //                 const SizedBox(
+//   //                   height: 10,
+//   //                 ),
+//   //                 Text(
+//   //                   count.listDataUser!.totalThreads.toString(),
+//   //                   style: GoogleFonts.poppins(
+//   //                       fontSize: 13,
+//   //                       fontWeight: FontWeight.bold,
+//   //                       color: Colors.black),
+//   //                   textAlign: TextAlign.center,
+//   //                 ),
+//   //               ],
+//   //             ),
+//   //           ))
+//   //     ],
+//   //   ),
+//   // );
+
+//   Widget allMyTread(UserViewModel threads) {
+//     //if
+//     return SizedBox(
+//       height: MediaQuery.of(context).size.height * 0.46,
+//       width: MediaQuery.of(context).size.width * 2,
+//       child: ListView.separated(
+//         separatorBuilder: (BuildContext context, int index) => const Divider(),
+//         itemCount: threads.listDataUser!.threads!.length,
+//         itemBuilder: (context, index) {
+//           return SizedBox(
+//               child: Row(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               const CircleAvatar(
+//                 radius: 30.0,
+//                 backgroundImage: NetworkImage(
+//                     "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+//                 backgroundColor: Colors.transparent,
+//               ),
+//               const SizedBox(
+//                 width: 10,
+//               ),
+//               Expanded(
+//                 child: Padding(
+//                   padding: const EdgeInsets.all(10.0),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Column(
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Text(
+//                                 threads.listDataUser!.username!.toString(),
+//                                 // "Nama",
+//                                 style: GoogleFonts.poppins(fontSize: 14),
+//                               ),
+//                               Text(
+//                                 // "Albert Flores@gmail.com",
+//                                 threads.listDataUser!.email!.toString(),
+//                                 style: GoogleFonts.poppins(
+//                                     fontSize: 13,
+//                                     color: const Color(0xff26B893)),
+//                               ),
+//                             ],
+//                           ),
+//                         ],
+//                       ),
+//                       Text(
+//                         // "Albert Flores@gmail.com",
+//                         threads.listDataUser!.threads?[index].title ?? "",
+//                         style: GoogleFonts.poppins(
+//                             fontSize: 13, color: const Color(0xff455154)),
+//                       ),
+//                       Text(
+//                         // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+//                         threads.listDataUser!.threads?[index].description ?? "",
+//                         style: GoogleFonts.poppins(
+//                             fontSize: 13, fontWeight: FontWeight.w500),
+//                         textAlign: TextAlign.justify,
+//                       ),
+//                       const SizedBox(
+//                         height: 5,
+//                       ),
+//                       Row(
+//                         children: [
+//                           IconButton(
+//                             icon: const Icon(
+//                               Icons.favorite_border,
+//                               size: 18,
+//                               color: Color(0xff26B893),
+//                             ),
+//                             onPressed: () {},
+//                           ),
+//                           IconButton(
+//                             icon: const Icon(Icons.chat,
+//                                 size: 18, color: Color(0xff26B893)),
+//                             onPressed: () {},
+//                           ),
+//                           IconButton(
+//                             icon: const Icon(
+//                               Icons.remove_red_eye_outlined,
+//                               size: 18,
+//                               color: Color(0xff26B893),
+//                             ),
+//                             onPressed: () {},
+//                           ),
+//                           IconButton(
+//                             icon: const Icon(
+//                               Icons.arrow_back_outlined,
+//                               size: 18,
+//                               color: Color(0xff26B893),
+//                             ),
+//                             onPressed: () {},
+//                           ),
+//                           IconButton(
+//                             icon: const Icon(
+//                               Icons.share,
+//                               size: 18,
+//                               color: Color(0xff26B893),
+//                             ),
+//                             onPressed: () {},
+//                           ),
+//                         ],
+//                       )
+//                     ],
+//                   ),
+//                 ),
+//               )
+//             ],
+//           ));
+//         },
+//       ),
+//     );
+//   }
+// }

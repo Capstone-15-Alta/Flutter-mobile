@@ -1,5 +1,6 @@
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forum_diskusi/view/log/login_screen.dart';
 import 'package:forum_diskusi/view/profil/edit_profile.dart';
@@ -17,7 +18,8 @@ class ProfileTread extends StatefulWidget {
   State<ProfileTread> createState() => _ProfileTreadState();
 }
 
-class _ProfileTreadState extends State<ProfileTread> {
+class _ProfileTreadState extends State<ProfileTread>
+    with TickerProviderStateMixin {
   // bool isInit = true;
 
   // @override
@@ -29,6 +31,7 @@ class _ProfileTreadState extends State<ProfileTread> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<UserViewModel>(context, listen: false).getDataUser();
+      _tabController = TabController(length: 4, vsync: this);
     });
     super.initState();
   }
@@ -37,6 +40,8 @@ class _ProfileTreadState extends State<ProfileTread> {
   final double profileImageHeight = 80;
   final double shadeProfileImage = 100;
   final double positionedLeftImage = 10;
+
+  TabController? _tabController;
 
   TextEditingController namaAwalController = TextEditingController();
   TextEditingController namaAkhirController = TextEditingController();
@@ -244,7 +249,7 @@ class _ProfileTreadState extends State<ProfileTread> {
               height: shadeProfileImage,
               width: shadeProfileImage,
               decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.black),
+                  shape: BoxShape.circle, color: Color(0xff26B893)),
             ),
           ),
           Center(
@@ -302,7 +307,8 @@ class _ProfileTreadState extends State<ProfileTread> {
         const SizedBox(
           width: 20,
         ),
-        SizedBox(
+        Container(
+          margin: EdgeInsets.only(right: 10),
           height: 35,
           width: 90,
           child: ElevatedButton(
@@ -338,153 +344,128 @@ class _ProfileTreadState extends State<ProfileTread> {
   }
 
   Widget buttonPMPT(UserViewModel count) {
-    return Container(
-      margin: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-              onPressed: () {},
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Pengikut",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      count.listDataUser!.totalUserFollowers!.toString(),
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 2,
+      width: double.maxFinite,
+      child: DefaultTabController(
+        length: 4,
+        child: Column(
+          children: [
+            Container(
+              child: TabBar(controller: _tabController, tabs: [
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Pengikut",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        count.listDataUser!.totalUserFollowers!.toString(),
+                        // "2",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 ),
-              )),
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                  return const ProfileMengikuti();
-                }, transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                  final tween = Tween(begin: 0.0, end: 2.0);
-                  return FadeTransition(
-                    opacity: animation.drive(tween),
-                    child: child,
-                  );
-                }));
-              },
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Mengikuti",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      count.listDataUser!.totalUserFollowing!.toString(),
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Mengikuti",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        count.listDataUser!.totalUserFollowing!.toString(),
+                        // "1",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 ),
-              )),
-          TextButton(
-              onPressed: () async {
-                Navigator.of(context).pushReplacement(PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                  return const ProfilePost();
-                }, transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                  final tween = Tween(begin: 0.0, end: 2.0);
-                  return FadeTransition(
-                    opacity: animation.drive(tween),
-                    child: child,
-                  );
-                }));
-              },
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Post",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      count.listDataUser!.totalPostComments!.toString(),
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Post",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        count.listDataUser!.totalPostComments!.toString(),
+                        // "3",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 ),
-              )),
-          TextButton(
-              onPressed: () {},
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Thread",
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      count.listDataUser!.totalThreads.toString(),
-                      style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                Tab(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Thread",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        count.listDataUser!.totalThreads.toString(),
+                        // "4",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
-              ))
-        ],
+              ]),
+            ),
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.66,
+                width: double.infinity,
+                child: TabBarView(controller: _tabController, children: [
+                  allMyFollowers(count),
+                  allMyFollowed(count),
+                  allMyTread(count),
+                  allMyTread(count),
+                ]),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget allMyTread(UserViewModel threads) {
-    //if
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.46,
       width: MediaQuery.of(context).size.width * 2,
@@ -492,6 +473,48 @@ class _ProfileTreadState extends State<ProfileTread> {
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemCount: threads.listDataUser!.threads!.length,
         itemBuilder: (context, index) {
+          if (threads.listDataUser!.threads == null) {
+            return Column(
+              children: [
+                Center(
+                  child: Text(
+                    "Belum ada Thread, Buat Thread sekarang yuk",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xff26B893),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40.0, vertical: 13.0),
+                          shape: const StadiumBorder(),
+                          side: const BorderSide(color: Color(0xff26B893)),
+                          primary: Colors.white),
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.feather,
+                            color: Color(0xff26B893),
+                          ),
+                          Text("Buat Thread",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                color: const Color(0xff26B893),
+                              ))
+                        ],
+                      )),
+                ),
+              ],
+            );
+          }
           return SizedBox(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -532,31 +555,13 @@ class _ProfileTreadState extends State<ProfileTread> {
                               ),
                             ],
                           ),
-                          GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                height: 30,
-                                width: 75,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff26B893),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: const [
-                                    Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      "Ikuti",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              ))
                         ],
+                      ),
+                      Text(
+                        // "Albert Flores@gmail.com",
+                        threads.listDataUser!.threads?[index].title ?? "",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13, color: const Color(0xff455154)),
                       ),
                       Text(
                         // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
@@ -572,15 +577,7 @@ class _ProfileTreadState extends State<ProfileTread> {
                         children: [
                           IconButton(
                             icon: const Icon(
-                              Icons.thumb_up_alt_outlined,
-                              size: 18,
-                              color: Color(0xff26B893),
-                            ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.thumb_down_alt_outlined,
+                              Icons.favorite_border,
                               size: 18,
                               color: Color(0xff26B893),
                             ),
@@ -617,6 +614,258 @@ class _ProfileTreadState extends State<ProfileTread> {
                           ),
                         ],
                       )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ));
+        },
+      ),
+    );
+  }
+
+  Widget allMyFollowed(UserViewModel threads) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.46,
+      width: MediaQuery.of(context).size.width * 2,
+      child: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        itemCount: threads.listDataUser!.userFollowing!.length,
+        itemBuilder: (context, index) {
+          if (threads.listDataUser?.userFollowing == null) {
+            return Column(
+              children: [
+                Center(
+                  child: Text(
+                    "Belum ada mengikuti, Ayo mengikuti orang sekarang yuk",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xff26B893),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40.0, vertical: 13.0),
+                          shape: const StadiumBorder(),
+                          side: const BorderSide(color: Color(0xff26B893)),
+                          primary: Colors.white),
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.feather,
+                            color: Color(0xff26B893),
+                          ),
+                          Text("Buat Thread",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                color: const Color(0xff26B893),
+                              ))
+                        ],
+                      )),
+                ),
+              ],
+            );
+          }
+          return SizedBox(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CircleAvatar(
+                radius: 30.0,
+                backgroundImage: NetworkImage(
+                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                backgroundColor: Colors.transparent,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                threads.listDataUser!.username!.toString(),
+                                // "Nama",
+                                style: GoogleFonts.poppins(fontSize: 14),
+                              ),
+                              Text(
+                                // "Albert Flores@gmail.com",
+                                threads.listDataUser!.email!.toString(),
+                                style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    color: const Color(0xff26B893)),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Text(
+                        // "Albert Flores@gmail.com",
+                        threads.listDataUser!.threads?[index].title ?? "",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13, color: const Color(0xff455154)),
+                      ),
+                      Text(
+                        // "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ? ",
+                        threads.listDataUser!.threads?[index].description ?? "",
+                        style: GoogleFonts.poppins(
+                            fontSize: 13, fontWeight: FontWeight.w500),
+                        textAlign: TextAlign.justify,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.favorite_border,
+                              size: 18,
+                              color: Color(0xff26B893),
+                            ),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.chat,
+                                size: 18, color: Color(0xff26B893)),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.remove_red_eye_outlined,
+                              size: 18,
+                              color: Color(0xff26B893),
+                            ),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_outlined,
+                              size: 18,
+                              color: Color(0xff26B893),
+                            ),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.share,
+                              size: 18,
+                              color: Color(0xff26B893),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ));
+        },
+      ),
+    );
+  }
+
+  Widget allMyFollowers(UserViewModel threads) {
+    //if
+    return Container(
+      margin: const EdgeInsets.only(top: 20, left: 16, right: 16),
+      height: MediaQuery.of(context).size.height * 0.46,
+      width: MediaQuery.of(context).size.width * 2,
+      child: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        itemCount: threads.listDataUser!.userFollowers!.length,
+        itemBuilder: (context, index) {
+          if (threads.listDataUser!.userFollowers == null) {
+            return Center(
+              child: Text(
+                "Belum ada followers",
+                style: GoogleFonts.poppins(
+                    color: const Color(0xff26B893),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold),
+              ),
+            );
+          }
+          return SizedBox(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CircleAvatar(
+                radius: 30.0,
+                backgroundImage: NetworkImage(
+                    "https://www.kindpng.com/picc/m/24-248325_profile-picture-circle-png-transparent-png.png"),
+                backgroundColor: Colors.transparent,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            // threads.listDataUser!.userFollowing.toString(),
+                            threads.listDataUser!
+                                .userFollowers![0]['user_follower']['username']
+                                .toString(),
+                            // "Nama",
+                            style: GoogleFonts.poppins(fontSize: 14),
+                          ),
+                          GestureDetector(
+                              onTap: () {},
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                height: 30,
+                                width: 75,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border:
+                                        Border.all(color: Color(0xff26B893))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Icon(
+                                      Icons.add,
+                                      color: Color(0xff26B893),
+                                    ),
+                                    Text(
+                                      "Hapus",
+                                      style:
+                                          TextStyle(color: Color(0xff26B893)),
+                                    )
+                                  ],
+                                ),
+                              ))
+                        ],
+                      ),
                     ],
                   ),
                 ),
