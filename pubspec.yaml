@@ -49,6 +49,9 @@ dependencies:
   bubble_tab_indicator: "^0.1.5"
   draggable_fab: ^0.1.4
   intl: ^0.17.0
+  test:
+  mockito: ^5.2.0
+  build_runner: 
   
 dev_dependencies:
   flutter_test:
