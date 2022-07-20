@@ -52,6 +52,12 @@ class _CommentsScreenState extends State<CommentsScreen> {
       onSaved: (value) {
         commentController.text = value!;
       },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Comment tidak boleh kosong");
+        }
+        return null;
+      },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         fillColor: const Color(0xffF5F5F5),

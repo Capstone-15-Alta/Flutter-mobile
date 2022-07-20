@@ -34,12 +34,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final namaField = TextFormField(
       controller: usernameController,
       validator: (value) {
-        RegExp regex = RegExp(r'^.{4,}$');
+        RegExp regex = RegExp(r'^.{6,}$');
         if (value!.isEmpty) {
           return ("Please enter your username");
         }
         if (!regex.hasMatch(value)) {
-          return ("Please enter valid username (Min. 4 Character)");
+          return ("Please enter valid username (Min. 6 Character)");
         }
         return null;
       },
@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           fillColor: const Color.fromARGB(255, 236, 240, 243),
           filled: true,
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Masukan Nama",
+          hintText: "Masukan Username",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
     );
 
@@ -224,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 30,
                 ),
                 Text(
-                  "Nama",
+                  "Username",
                   style: GoogleFonts.poppins(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
